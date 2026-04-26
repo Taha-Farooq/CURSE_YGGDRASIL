@@ -55,6 +55,7 @@
     <button class="secondary" id="failFilterAllBtn">All</button>
     <button class="secondary" id="failFilterWarningsBtn">Warnings+</button>
     <button class="secondary" id="failFilterCriticalBtn">Critical</button>
+    <button class="secondary" id="copyIncidentSummaryBtn">Copy Incident Summary</button>
     <pre id="failingBox">Loading latest failing checks...</pre>
   </div>
 
@@ -159,6 +160,44 @@
         lines.push('');
       }
       box.textContent = lines.join('\n');
+    }
+
+    async function copyIncidentSummary() {
+      const out = document.getElementById('failingBox');
+      if (!latestFailingData || !latestFailingData.failingChecks) {
+        out.textContent = 'No failing-check data available to summarize.';
+        return;
+      }
+      const rows = latestFailingData.failingChecks.filter(r => allowsSeverity(failingSeverityFilter, r.severity));
+      if (rows.length === 0) {
+        out.textContent = 'No failing checks match current filter; nothing to copy.';
+        return;
+      }
+
+      const lines = [];
+      lines.push('Incident Summary');
+      lines.push(`Generated: ${new Date().toISOString()}`);
+      lines.push(`Applied filter: ${failingSeverityFilter}`);
+      lines.push(`Items: ${rows.length}`);
+      lines.push('');
+      for (const row of rows) {
+        const botLabel = row.bot || 'unknown-bot';
+        const testLabel = row.testId ? ` [${row.testId}]` : '';
+        lines.push(`- ${sevTag(row.severity)} ${botLabel}${testLabel}`);
+        lines.push(`  Check: ${row.check || '(unknown)'}`);
+        if (row.details) {
+          lines.push(`  Details: ${row.details}`);
+        }
+        lines.push(`  Report: ${row.reportFile}`);
+      }
+
+      const payload = lines.join('\n');
+      try {
+        await navigator.clipboard.writeText(payload);
+        out.textContent = `Copied incident summary (${rows.length} item(s)) to clipboard.`;
+      } catch (err) {
+        out.textContent = 'Clipboard copy failed. Summary below:\n\n' + payload;
+      }
     }
 
     async function getStatus() {
@@ -312,6 +351,7 @@
     document.getElementById('failFilterAllBtn').addEventListener('click', () => { failingSeverityFilter = 'all'; renderFailingChecks(); });
     document.getElementById('failFilterWarningsBtn').addEventListener('click', () => { failingSeverityFilter = 'warnings'; renderFailingChecks(); });
     document.getElementById('failFilterCriticalBtn').addEventListener('click', () => { failingSeverityFilter = 'critical'; renderFailingChecks(); });
+    document.getElementById('copyIncidentSummaryBtn').addEventListener('click', copyIncidentSummary);
     document.getElementById('runDailyBtn').addEventListener('click', runDaily);
     document.getElementById('importPhase1Btn').addEventListener('click', importPhase1);
     document.getElementById('importLegacyBtn').addEventListener('click', importLegacy);

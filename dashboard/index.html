@@ -26,6 +26,7 @@
     <button id="runDailyBtn">Run Daily Cycle</button>
     <button class="secondary" id="refreshStatusBtn">Refresh Status</button>
     <button class="secondary" id="importPhase1Btn">Import Phase 1 Tasks</button>
+    <button class="secondary" id="importLegacyBtn">Import Legacy Triage Tasks</button>
     <button class="secondary" id="testGameBtn">Test Game</button>
     <button class="secondary" id="testAssetAdderBtn">Test Asset Adder</button>
     <p class="muted">Runs: quality gate -> bots -> reports.</p>
@@ -80,6 +81,15 @@
       const out = document.getElementById('runResult');
       out.textContent = 'Importing Phase 1 tasks...';
       const res = await fetch('/api/import-phase1', { method: 'POST' });
+      const text = await res.text();
+      out.textContent = text;
+      await getStatus();
+    }
+
+    async function importLegacy() {
+      const out = document.getElementById('runResult');
+      out.textContent = 'Importing legacy triage tasks...';
+      const res = await fetch('/api/import-legacy-triage', { method: 'POST' });
       const text = await res.text();
       out.textContent = text;
       await getStatus();
@@ -175,6 +185,7 @@
     document.getElementById('refreshStatusBtn').addEventListener('click', getStatus);
     document.getElementById('runDailyBtn').addEventListener('click', runDaily);
     document.getElementById('importPhase1Btn').addEventListener('click', importPhase1);
+    document.getElementById('importLegacyBtn').addEventListener('click', importLegacy);
     document.getElementById('testGameBtn').addEventListener('click', testGame);
     document.getElementById('testAssetAdderBtn').addEventListener('click', testAssetAdder);
     document.getElementById('saveFeatureBtn').addEventListener('click', saveFeature);

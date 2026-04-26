@@ -264,6 +264,54 @@
         "status":  "todo"
     },
     {
+        "id":  "TASK-LEGACY-CAMPAIGN-ARC-STRUCTURE-ISEKAI-STYLE-TRANSITIONS-MAPPED-TO-CURREN",
+        "source":  "LEGACY_DOC_TRIAGE_2022_2025.md",
+        "type":  "legacy-triage",
+        "priority":  "high",
+        "title":  "Campaign arc structure (\"Isekai-style\" transitions) mapped to current progression gates",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-LEGACY-DUNGEON-TAXONOMY-AND-PROCEDURAL-CONSTRAINTS-FLOOR-TRAP-TOMB-ADVE",
+        "source":  "LEGACY_DOC_TRIAGE_2022_2025.md",
+        "type":  "legacy-triage",
+        "priority":  "high",
+        "title":  "Dungeon taxonomy and procedural constraints (floor/trap/tomb/adventure)",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-LEGACY-ENGINEERING-PROGRESSION-LADDER-MECHANICAL-DIGITAL-HYBRID-ARCANE",
+        "source":  "LEGACY_DOC_TRIAGE_2022_2025.md",
+        "type":  "legacy-triage",
+        "priority":  "high",
+        "title":  "Engineering progression ladder (mechanical -\u003e digital -\u003e hybrid arcane compute)",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-LEGACY-ENVIRONMENTAL-DESTRUCTION-BUDGET-MODEL-AUTHORITATIVE-SCALABLE",
+        "source":  "LEGACY_DOC_TRIAGE_2022_2025.md",
+        "type":  "legacy-triage",
+        "priority":  "high",
+        "title":  "Environmental destruction budget model (authoritative + scalable)",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-LEGACY-MAGIC-LANGUAGE-AND-SPELL-STRUCTURE-GRAMMAR-V1",
+        "source":  "LEGACY_DOC_TRIAGE_2022_2025.md",
+        "type":  "legacy-triage",
+        "priority":  "high",
+        "title":  "Magic-language and spell-structure grammar v1",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-LEGACY-PLAYER-NPC-DUAL-GROWTH-PARITY-RULES-SKILLS-CLASSES-CUSTOM-ABILIT",
+        "source":  "LEGACY_DOC_TRIAGE_2022_2025.md",
+        "type":  "legacy-triage",
+        "priority":  "high",
+        "title":  "Player/NPC dual growth parity rules (skills, classes, custom abilities)",
+        "status":  "todo"
+    },
+    {
         "id":  "TASK-LEGENDARY-AND-GOD-KILLER-ENTITY-FRAMEWORK",
         "source":  "goal-seed",
         "type":  "system",
@@ -325,6 +373,86 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Orchestration and Safety",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-PHASE1-01-CORE-TICK-AND-WORLD-STATE-LEDGER",
+        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
+        "type":  "phase1",
+        "priority":  "high",
+        "title":  "Core Tick and World State Ledger",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-PHASE1-02-AUTHORITY-VALIDATION-SERVICE-V1",
+        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
+        "type":  "phase1",
+        "priority":  "high",
+        "title":  "Authority Validation Service v1",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-PHASE1-03-REPLAY-EVIDENCE-PIPELINE-V1",
+        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
+        "type":  "phase1",
+        "priority":  "high",
+        "title":  "Replay Evidence Pipeline v1",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-PHASE1-04-TIERED-WORLD-SIMULATION-CONTINUITY",
+        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
+        "type":  "phase1",
+        "priority":  "high",
+        "title":  "Tiered World Simulation Continuity",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-PHASE1-05-CONSTRUCTION-MAGIC-AND-BUILD-PERMISSION-V1",
+        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
+        "type":  "phase1",
+        "priority":  "high",
+        "title":  "Construction Magic and Build Permission v1",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-PHASE1-06-DEMON-LORD-AUTHORITY-FRAMEWORK",
+        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
+        "type":  "phase1",
+        "priority":  "high",
+        "title":  "Demon Lord Authority Framework",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-PHASE1-07-APEX-ENTITY-FRAMEWORK-LEGENDARY-GOD-KILLER-INTERDIMENSIONAL",
+        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
+        "type":  "phase1",
+        "priority":  "high",
+        "title":  "Apex Entity Framework (Legendary, God-Killer, Interdimensional)",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-PHASE1-08-ADVANCED-NPC-CREATOR-V1-DATA-VALIDATION",
+        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
+        "type":  "phase1",
+        "priority":  "high",
+        "title":  "Advanced NPC Creator v1 (Data + Validation)",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-PHASE1-09-LIVE-CONTENT-PROMOTION-GATES-FOR-NEW-ENTITY-SYSTEMS",
+        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
+        "type":  "phase1",
+        "priority":  "high",
+        "title":  "Live Content Promotion Gates for New Entity Systems",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-PHASE1-10-DASHBOARD-V2-PRODUCT-CONTROL-SURFACE",
+        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
+        "type":  "phase1",
+        "priority":  "high",
+        "title":  "Dashboard v2: Product Control Surface",
         "status":  "todo"
     },
     {
@@ -493,86 +621,6 @@
         "type":  "system",
         "priority":  "high",
         "title":  "World Simulation Continuity",
-        "status":  "todo"
-    },
-    {
-        "id":  "TASK-PHASE1-10-DASHBOARD-V2-PRODUCT-CONTROL-SURFACE",
-        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
-        "type":  "phase1",
-        "priority":  "high",
-        "title":  "Dashboard v2: Product Control Surface",
-        "status":  "todo"
-    },
-    {
-        "id":  "TASK-PHASE1-05-CONSTRUCTION-MAGIC-AND-BUILD-PERMISSION-V1",
-        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
-        "type":  "phase1",
-        "priority":  "high",
-        "title":  "Construction Magic and Build Permission v1",
-        "status":  "todo"
-    },
-    {
-        "id":  "TASK-PHASE1-09-LIVE-CONTENT-PROMOTION-GATES-FOR-NEW-ENTITY-SYSTEMS",
-        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
-        "type":  "phase1",
-        "priority":  "high",
-        "title":  "Live Content Promotion Gates for New Entity Systems",
-        "status":  "todo"
-    },
-    {
-        "id":  "TASK-PHASE1-06-DEMON-LORD-AUTHORITY-FRAMEWORK",
-        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
-        "type":  "phase1",
-        "priority":  "high",
-        "title":  "Demon Lord Authority Framework",
-        "status":  "todo"
-    },
-    {
-        "id":  "TASK-PHASE1-03-REPLAY-EVIDENCE-PIPELINE-V1",
-        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
-        "type":  "phase1",
-        "priority":  "high",
-        "title":  "Replay Evidence Pipeline v1",
-        "status":  "todo"
-    },
-    {
-        "id":  "TASK-PHASE1-07-APEX-ENTITY-FRAMEWORK-LEGENDARY-GOD-KILLER-INTERDIMENSIONAL",
-        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
-        "type":  "phase1",
-        "priority":  "high",
-        "title":  "Apex Entity Framework (Legendary, God-Killer, Interdimensional)",
-        "status":  "todo"
-    },
-    {
-        "id":  "TASK-PHASE1-01-CORE-TICK-AND-WORLD-STATE-LEDGER",
-        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
-        "type":  "phase1",
-        "priority":  "high",
-        "title":  "Core Tick and World State Ledger",
-        "status":  "todo"
-    },
-    {
-        "id":  "TASK-PHASE1-08-ADVANCED-NPC-CREATOR-V1-DATA-VALIDATION",
-        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
-        "type":  "phase1",
-        "priority":  "high",
-        "title":  "Advanced NPC Creator v1 (Data + Validation)",
-        "status":  "todo"
-    },
-    {
-        "id":  "TASK-PHASE1-02-AUTHORITY-VALIDATION-SERVICE-V1",
-        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
-        "type":  "phase1",
-        "priority":  "high",
-        "title":  "Authority Validation Service v1",
-        "status":  "todo"
-    },
-    {
-        "id":  "TASK-PHASE1-04-TIERED-WORLD-SIMULATION-CONTINUITY",
-        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
-        "type":  "phase1",
-        "priority":  "high",
-        "title":  "Tiered World Simulation Continuity",
         "status":  "todo"
     }
 ]

@@ -174,6 +174,13 @@ while ($listener.IsListening) {
             continue
         }
 
+        if ($method -eq "POST" -and $path -eq "/api/import-legacy-triage") {
+            $importScript = Join-Path $repoRoot "scripts\import-legacy-triage-tasks.ps1"
+            $result = & $importScript 2>&1 | Out-String
+            Write-TextResponse $ctx $result
+            continue
+        }
+
         if ($method -eq "POST" -and $path -eq "/api/commit") {
             $reader = New-Object System.IO.StreamReader($req.InputStream, $req.ContentEncoding)
             $body = $reader.ReadToEnd()

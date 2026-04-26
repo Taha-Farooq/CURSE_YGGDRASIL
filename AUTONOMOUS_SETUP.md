@@ -53,6 +53,7 @@ This gives:
 - a text box to save feature/tweak requests into `automation/user-input/feature-requests.md`
 - a button to promote saved feature requests into `backlog/tasks.json`
 - a button to import `PHASE1_IMPLEMENTATION_PACK.md` tasks into backlog
+- a button to import legacy-triage immediate tasks into backlog
 - a button to create a local git commit (no push)
 - a button to commit and push (with browser confirmation prompt)
 

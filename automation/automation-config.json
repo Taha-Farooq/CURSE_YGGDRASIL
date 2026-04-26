@@ -88,6 +88,13 @@
     "goalAlignmentBot": {
       "enabled": true,
       "goalPath": "automation/goals/current-direction.json"
+    },
+    "autonomousDriftReportBot": {
+      "enabled": true,
+      "maxFindings": 40
+    },
+    "testFreshnessPolicy": {
+      "maxAgeHours": 24
     }
   }
 }

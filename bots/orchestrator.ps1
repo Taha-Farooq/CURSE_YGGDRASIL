@@ -144,6 +144,14 @@ if ($config.bots.goalAlignmentBot.enabled) {
     $run.steps += $step
 }
 
+if ($config.bots.autonomousDriftReportBot.enabled) {
+    $step = RunStep "autonomous-drift-report-bot" (Join-Path $RepoRoot "bots\autonomous-drift-report-bot.ps1") @{
+        RepoRoot = $RepoRoot
+        MaxFindings = $config.bots.autonomousDriftReportBot.maxFindings
+    }
+    $run.steps += $step
+}
+
 if ($config.bots.botMakerBot.enabled) {
     $step = RunStep "bot-maker-bot" (Join-Path $RepoRoot "bots\bot-maker-bot.ps1") @{
         RepoRoot = $RepoRoot

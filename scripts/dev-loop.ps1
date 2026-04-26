@@ -35,6 +35,12 @@ Step "Generate Daily Summary" {
     Write-Host "[dev-loop] Wrote $reportPath"
 }
 
+Step "Release Readiness Snapshot" {
+    $snapshotScript = Join-Path $PSScriptRoot "generate-release-readiness-snapshot.ps1"
+    $snapshotPath = & $snapshotScript
+    Write-Host "[dev-loop] Wrote $snapshotPath"
+}
+
 Write-Host "[dev-loop] COMPLETE"
 exit 0
 

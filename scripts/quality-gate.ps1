@@ -190,6 +190,31 @@ catch {
     Fail ("Failed to validate critical regression guard. Details: " + $_.Exception.Message)
 }
 
+# Test freshness policy: key bot reports must be recent after automated runs.
+try {
+    $configPath = Join-Path $repoRoot "automation\automation-config.json"
+    $config = Get-Content $configPath -Raw | ConvertFrom-Json
+    $maxAgeHours = 24
+    if ($null -ne $config.bots.testFreshnessPolicy -and $null -ne $config.bots.testFreshnessPolicy.maxAgeHours) {
+        $maxAgeHours = [int]$config.bots.testFreshnessPolicy.maxAgeHours
+    }
+
+    $freshnessScript = Join-Path $repoRoot "scripts\check-test-freshness.ps1"
+    $freshnessResult = & $freshnessScript -RepoRoot $repoRoot -MaxAgeHours $maxAgeHours -Strict:$Strict | ConvertFrom-Json
+    if (-not $freshnessResult.passed) {
+        $missingCount = @($freshnessResult.missing).Count
+        $staleCount = @($freshnessResult.stale).Count
+        if ($Strict) {
+            Fail ("Test freshness policy failed. Missing: $missingCount, stale: $staleCount, maxAgeHours: $maxAgeHours")
+        } else {
+            Write-Host ("[quality-gate] WARNING test freshness policy not satisfied. Missing: $missingCount, stale: $staleCount")
+        }
+    }
+}
+catch {
+    Fail ("Failed to validate test freshness policy. Details: " + $_.Exception.Message)
+}
+
 # Basic matrix checks
 $matrix = Get-Content (Join-Path $repoRoot "INTERACTION_MATRIX.md") -Raw
 if ($matrix -notmatch "INT-") {

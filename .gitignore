@@ -1,0 +1,66 @@
+# ---- Secrets / env ----
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets.*
+credentials.*
+
+# ---- Reports / generated ----
+reports/
+feedback/archive/
+
+# ---- OS / editor ----
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ---- Logs ----
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ---- Python ----
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# ---- Node ----
+node_modules/
+dist/
+build/
+
+# ---- .NET / C# ----
+bin/
+obj/
+
+# ---- C/C++/CMake ----
+*.o
+*.obj
+*.dll
+*.exe
+*.pdb
+CMakeFiles/
+CMakeCache.txt
+cmake-build-*/
+
+# ---- Unreal/Unity common ----
+DerivedDataCache/
+Intermediate/
+Saved/
+Library/
+Temp/
+Obj/
+Build/
+

@@ -1,0 +1,58 @@
+{
+  "version": "1.0",
+  "loopIntervalMinutes": 30,
+  "strictQualityGate": true,
+  "paths": {
+    "reportsDir": "reports",
+    "feedbackInboxDir": "feedback/inbox",
+    "feedbackArchiveDir": "feedback/archive",
+    "botReportsDir": "reports/bots"
+  },
+  "bots": {
+    "validationBot": {
+      "enabled": true,
+      "failOnQualityGateError": true
+    },
+    "worldExplorerBot": {
+      "enabled": true,
+      "requiredScenarios": [
+        "SCN-001",
+        "SCN-002",
+        "SCN-003",
+        "SCN-004"
+      ]
+    },
+    "routeClearabilityBot": {
+      "enabled": true,
+      "minClearabilityScore": 0.75
+    },
+    "engineTestBot": {
+      "enabled": true,
+      "testCommand": "",
+      "allowPlaceholderPassWhenNoEngine": true
+    },
+    "architectureExtendabilityBot": {
+      "enabled": true,
+      "requiredKeywords": [
+        "non-Euclidean",
+        "tiered simulation",
+        "authority",
+        "replay"
+      ]
+    },
+    "errorCheckerBot": {
+      "enabled": true,
+      "maxAllowedCriticalFindings": 0
+    },
+    "bugFixerBot": {
+      "enabled": true,
+      "mode": "suggest",
+      "maxSuggestionsPerRun": 10
+    },
+    "featureSuggesterBot": {
+      "enabled": true,
+      "maxSuggestionsPerRun": 8
+    }
+  }
+}
+

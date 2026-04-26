@@ -1,0 +1,237 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "curse.feedback.schema.v1",
+  "title": "CURSE Feedback Item",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "feedbackId",
+    "createdAtUtc",
+    "reporterType",
+    "category",
+    "title",
+    "playerIntent",
+    "expectedResult",
+    "observedResult",
+    "whyItMatters",
+    "severity",
+    "frequencyEstimate",
+    "buildInfo",
+    "status"
+  ],
+  "properties": {
+    "feedbackId": {
+      "type": "string",
+      "description": "Unique immutable identifier",
+      "pattern": "^[A-Z0-9_-]{8,64}$"
+    },
+    "createdAtUtc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAtUtc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "reporterType": {
+      "type": "string",
+      "enum": ["player", "internal_qa", "playtest_panel", "moderator", "bot"]
+    },
+    "reporterId": {
+      "type": "string",
+      "description": "Optional pseudonymous user/account id"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "not_fun",
+        "not_working",
+        "not_fitting_theme",
+        "accessibility",
+        "performance",
+        "balance",
+        "exploit_or_cheat"
+      ]
+    },
+    "subCategory": {
+      "type": "string",
+      "description": "Optional narrower label (e.g. unclear_objective, softlock)"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 180
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 4000
+    },
+    "playerIntent": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 1200
+    },
+    "expectedResult": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 1200
+    },
+    "observedResult": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 1200
+    },
+    "whyItMatters": {
+      "type": "string",
+      "description": "Player rationale in plain language",
+      "minLength": 3,
+      "maxLength": 1800
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"]
+    },
+    "frequencyEstimate": {
+      "type": "string",
+      "enum": ["one_off", "occasional", "frequent", "always"]
+    },
+    "themeFitScore": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5,
+      "description": "Optional reporter score for thematic fit"
+    },
+    "funScore": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "clarityScore": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "location": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "regionId": { "type": "string" },
+        "planetId": { "type": "string" },
+        "dimensionId": { "type": "string" },
+        "dungeonId": { "type": "string" },
+        "coordinates": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "x": { "type": "number" },
+            "y": { "type": "number" },
+            "z": { "type": "number" }
+          }
+        }
+      }
+    },
+    "buildInfo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gameVersion", "contentVersion", "environment"],
+      "properties": {
+        "gameVersion": { "type": "string" },
+        "contentVersion": { "type": "string" },
+        "environment": {
+          "type": "string",
+          "enum": ["local", "sandbox", "internal_test", "staging", "production"]
+        },
+        "platform": { "type": "string" }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "replayId": { "type": "string" },
+        "eventIds": {
+          "type": "array",
+          "items": { "type": "string" },
+          "maxItems": 200
+        },
+        "attachments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "uri"],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["image", "video", "log", "save_snapshot", "other"]
+              },
+              "uri": { "type": "string" },
+              "notes": { "type": "string", "maxLength": 800 }
+            }
+          },
+          "maxItems": 20
+        },
+        "seed": { "type": "string" }
+      }
+    },
+    "triage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ownerTeam": { "type": "string" },
+        "rootCause": {
+          "type": "string",
+          "enum": [
+            "design_issue",
+            "ux_issue",
+            "balance_issue",
+            "code_defect",
+            "content_issue",
+            "performance_issue",
+            "unknown"
+          ]
+        },
+        "priorityScore": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "targetMilestone": { "type": "string" },
+        "actionPlan": { "type": "string", "maxLength": 2000 }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "deduplicated",
+        "triaged",
+        "in_progress",
+        "in_playtest_validation",
+        "resolved",
+        "wont_fix",
+        "duplicate"
+      ]
+    },
+    "resolution": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "changeId": { "type": "string" },
+        "releaseVersion": { "type": "string" },
+        "verificationNotes": { "type": "string", "maxLength": 3000 },
+        "regressionCheckPassed": { "type": "boolean" },
+        "postChangeMetrics": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "recurrenceRateDeltaPct": { "type": "number" },
+            "funScoreDelta": { "type": "number" },
+            "clarityScoreDelta": { "type": "number" },
+            "themeFitScoreDelta": { "type": "number" }
+          }
+        }
+      }
+    }
+  }
+}

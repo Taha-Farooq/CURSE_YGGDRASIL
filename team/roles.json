@@ -1,0 +1,27 @@
+﻿[
+    {
+        "status":  "active",
+        "id":  "role-qa-automation",
+        "focus":  "bot coverage and test quality"
+    },
+    {
+        "status":  "active",
+        "id":  "role-runtime-engineer",
+        "focus":  "runtime and validators"
+    },
+    {
+        "status":  "active",
+        "id":  "role-systems-architect",
+        "focus":  "core simulation and contracts"
+    },
+    {
+        "status":  "active",
+        "id":  "role-tools-engineer",
+        "focus":  "live pipeline and content tooling"
+    },
+    {
+        "status":  "active",
+        "id":  "role-world-sim-engineer",
+        "focus":  "economy, AI society, logistics"
+    }
+]

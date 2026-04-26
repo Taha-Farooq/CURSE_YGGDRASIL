@@ -52,6 +52,40 @@
     "featureSuggesterBot": {
       "enabled": true,
       "maxSuggestionsPerRun": 8
+    },
+    "taskPlannerBot": {
+      "enabled": true,
+      "maxTasksPerRun": 120
+    },
+    "systemBuilderBot": {
+      "enabled": true,
+      "autoScaffold": true
+    },
+    "implementationBot": {
+      "enabled": true,
+      "mode": "scaffold_only",
+      "maxFileChangesPerRun": 20
+    },
+    "teamGrowthBot": {
+      "enabled": true,
+      "maxNewRolesPerRun": 3
+    },
+    "testResearchBot": {
+      "enabled": true,
+      "maxRecommendationsPerRun": 40
+    },
+    "botMakerBot": {
+      "enabled": true,
+      "maxBotsToCreatePerRun": 5,
+      "onlyCreateIfMissing": true
+    },
+    "generatedTestBots": {
+      "enabled": true,
+      "maxBotsPerRun": 25
+    },
+    "goalAlignmentBot": {
+      "enabled": true,
+      "goalPath": "automation/goals/current-direction.json"
     }
   }
 }

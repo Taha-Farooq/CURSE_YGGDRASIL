@@ -1,0 +1,25 @@
+{
+  "name": "yggdrasil-apex-entities-and-custom-npc-forge",
+  "version": 1,
+  "requiredKeywordsInRequirements": [
+    "Demon Lord",
+    "Legendary Creatures",
+    "God-Killer",
+    "Interdimensional Demons",
+    "Advanced NPC Creator",
+    "cross-class",
+    "Goal-Aligned Automation Progress"
+  ],
+  "requiredBacklogSignals": [
+    "Demon",
+    "Legendary",
+    "NPC Creator",
+    "Interdimensional",
+    "God-Killer"
+  ],
+  "requiredTestSignals": [
+    "IT-",
+    "SCN-"
+  ]
+}
+

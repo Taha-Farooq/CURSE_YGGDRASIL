@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Yggdrasil Control Panel</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; background:#0f1115; color:#e8ecf1; }
+    .card { background:#171b22; border:1px solid #2a3342; border-radius:12px; padding:16px; margin-bottom:16px; }
+    h1 { margin-top: 0; }
+    button { background:#2d7ef7; border:0; color:white; padding:10px 14px; border-radius:8px; cursor:pointer; margin-right:8px; }
+    button.secondary { background:#3a4250; }
+    textarea { width:100%; min-height:140px; background:#0f1115; color:#e8ecf1; border:1px solid #2a3342; border-radius:8px; padding:10px; }
+    pre { white-space:pre-wrap; background:#0f1115; border:1px solid #2a3342; border-radius:8px; padding:10px; }
+    .muted { color:#9fb0c8; font-size: 0.95rem; }
+    .ok { color:#45d483; }
+    .bad { color:#ff7a7a; }
+  </style>
+</head>
+<body>
+  <h1>Yggdrasil Control Panel</h1>
+  <p class="muted">One place to run daily automation and submit new feature/tweak requests.</p>
+
+  <div class="card">
+    <h2>Daily Automation</h2>
+    <button id="runDailyBtn">Run Daily Cycle</button>
+    <button class="secondary" id="refreshStatusBtn">Refresh Status</button>
+    <button class="secondary" id="importPhase1Btn">Import Phase 1 Tasks</button>
+    <button class="secondary" id="testGameBtn">Test Game</button>
+    <button class="secondary" id="testAssetAdderBtn">Test Asset Adder</button>
+    <p class="muted">Runs: quality gate -> bots -> reports.</p>
+    <div id="runResult" class="muted"></div>
+  </div>
+
+  <div class="card">
+    <h2>Current Status</h2>
+    <pre id="statusBox">Loading status...</pre>
+  </div>
+
+  <div class="card">
+    <h2>Feature / Tweak Input</h2>
+    <p class="muted">Type what you want next. This is saved into project files for automation to use.</p>
+    <textarea id="featureText" placeholder="Example: Add a new demon-lord succession mechanic with rival factions..."></textarea>
+    <div style="margin-top:10px;">
+      <button id="saveFeatureBtn">Save Feature Request</button>
+      <button class="secondary" id="loadFeatureBtn">Load Latest</button>
+      <button class="secondary" id="promoteFeatureBtn">Promote Saved Features To Backlog</button>
+    </div>
+    <div id="featureResult" class="muted" style="margin-top:10px;"></div>
+  </div>
+
+  <div class="card">
+    <h2>Source Control</h2>
+    <p class="muted">Local commit only (no push).</p>
+    <textarea id="commitMessage" style="min-height:90px;" placeholder="Commit message...">Update project automation and backlog tasks.</textarea>
+    <div style="margin-top:10px;">
+      <button id="commitBtn">Commit Changes</button>
+      <button class="secondary" id="commitPushBtn">Commit + Push</button>
+    </div>
+    <div id="commitResult" class="muted" style="margin-top:10px;"></div>
+  </div>
+
+  <script>
+    async function getStatus() {
+      const res = await fetch('/api/status');
+      const text = await res.text();
+      document.getElementById('statusBox').textContent = text;
+    }
+
+    async function runDaily() {
+      const out = document.getElementById('runResult');
+      out.textContent = 'Running... this can take a minute.';
+      const res = await fetch('/api/run-daily', { method: 'POST' });
+      const text = await res.text();
+      out.textContent = text;
+      await getStatus();
+    }
+
+    async function importPhase1() {
+      const out = document.getElementById('runResult');
+      out.textContent = 'Importing Phase 1 tasks...';
+      const res = await fetch('/api/import-phase1', { method: 'POST' });
+      const text = await res.text();
+      out.textContent = text;
+      await getStatus();
+    }
+
+    async function testGame() {
+      const out = document.getElementById('runResult');
+      out.textContent = 'Testing game launcher...';
+      const res = await fetch('/api/test-game', { method: 'POST' });
+      const text = await res.text();
+      out.textContent = text;
+    }
+
+    async function testAssetAdder() {
+      const out = document.getElementById('runResult');
+      out.textContent = 'Testing asset-adder launcher...';
+      const res = await fetch('/api/test-asset-adder', { method: 'POST' });
+      const text = await res.text();
+      out.textContent = text;
+    }
+
+    async function saveFeature() {
+      const txt = document.getElementById('featureText').value.trim();
+      const out = document.getElementById('featureResult');
+      if (!txt) {
+        out.textContent = 'Type something first.';
+        return;
+      }
+      const res = await fetch('/api/features', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: txt })
+      });
+      const text = await res.text();
+      out.textContent = text;
+    }
+
+    async function loadLatest() {
+      const res = await fetch('/api/features');
+      const text = await res.text();
+      document.getElementById('featureText').value = text;
+      document.getElementById('featureResult').textContent = 'Loaded latest notes file.';
+    }
+
+    async function promoteFeatures() {
+      const out = document.getElementById('featureResult');
+      out.textContent = 'Promoting...';
+      const res = await fetch('/api/promote-features', { method: 'POST' });
+      const text = await res.text();
+      out.textContent = text;
+      await getStatus();
+    }
+
+    async function commitChanges() {
+      const msg = document.getElementById('commitMessage').value.trim();
+      const out = document.getElementById('commitResult');
+      if (!msg) {
+        out.textContent = 'Please enter a commit message.';
+        return;
+      }
+      out.textContent = 'Committing...';
+      const res = await fetch('/api/commit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: msg })
+      });
+      const text = await res.text();
+      out.textContent = text;
+    }
+
+    async function commitAndPush() {
+      const msg = document.getElementById('commitMessage').value.trim();
+      const out = document.getElementById('commitResult');
+      if (!msg) {
+        out.textContent = 'Please enter a commit message.';
+        return;
+      }
+      const ok = confirm('This will create a local commit and push to remote. Continue?');
+      if (!ok) {
+        out.textContent = 'Commit + Push cancelled.';
+        return;
+      }
+      out.textContent = 'Committing and pushing...';
+      const res = await fetch('/api/commit-push', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: msg })
+      });
+      const text = await res.text();
+      out.textContent = text;
+    }
+
+    document.getElementById('refreshStatusBtn').addEventListener('click', getStatus);
+    document.getElementById('runDailyBtn').addEventListener('click', runDaily);
+    document.getElementById('importPhase1Btn').addEventListener('click', importPhase1);
+    document.getElementById('testGameBtn').addEventListener('click', testGame);
+    document.getElementById('testAssetAdderBtn').addEventListener('click', testAssetAdder);
+    document.getElementById('saveFeatureBtn').addEventListener('click', saveFeature);
+    document.getElementById('loadFeatureBtn').addEventListener('click', loadLatest);
+    document.getElementById('promoteFeatureBtn').addEventListener('click', promoteFeatures);
+    document.getElementById('commitBtn').addEventListener('click', commitChanges);
+    document.getElementById('commitPushBtn').addEventListener('click', commitAndPush);
+
+    getStatus();
+  </script>
+</body>
+</html>
+

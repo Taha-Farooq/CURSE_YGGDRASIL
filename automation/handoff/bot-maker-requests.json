@@ -1,0 +1,250 @@
+﻿[
+    {
+        "name":  "test-bot-it-prog-003",
+        "priority":  "high",
+        "targetTestId":  "IT-PROG-003",
+        "requestId":  "REQ-IT-PROG-003",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-sec-002",
+        "priority":  "high",
+        "targetTestId":  "IT-SEC-002",
+        "requestId":  "REQ-IT-SEC-002",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-dgn-006",
+        "priority":  "high",
+        "targetTestId":  "IT-DGN-006",
+        "requestId":  "REQ-IT-DGN-006",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-log-005",
+        "priority":  "high",
+        "targetTestId":  "IT-LOG-005",
+        "requestId":  "REQ-IT-LOG-005",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-val-001",
+        "priority":  "high",
+        "targetTestId":  "IT-VAL-001",
+        "requestId":  "REQ-IT-VAL-001",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-rpl-003",
+        "priority":  "high",
+        "targetTestId":  "IT-RPL-003",
+        "requestId":  "REQ-IT-RPL-003",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-pol-006",
+        "priority":  "high",
+        "targetTestId":  "IT-POL-006",
+        "requestId":  "REQ-IT-POL-006",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-eco-004",
+        "priority":  "high",
+        "targetTestId":  "IT-ECO-004",
+        "requestId":  "REQ-IT-ECO-004",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-eco-009",
+        "priority":  "high",
+        "targetTestId":  "IT-ECO-009",
+        "requestId":  "REQ-IT-ECO-009",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-pol-004",
+        "priority":  "high",
+        "targetTestId":  "IT-POL-004",
+        "requestId":  "REQ-IT-POL-004",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-pol-010",
+        "priority":  "high",
+        "targetTestId":  "IT-POL-010",
+        "requestId":  "REQ-IT-POL-010",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-prog-010",
+        "priority":  "high",
+        "targetTestId":  "IT-PROG-010",
+        "requestId":  "REQ-IT-PROG-010",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-bld-004",
+        "priority":  "high",
+        "targetTestId":  "IT-BLD-004",
+        "requestId":  "REQ-IT-BLD-004",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-ind-003",
+        "priority":  "high",
+        "targetTestId":  "IT-IND-003",
+        "requestId":  "REQ-IT-IND-003",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-mag-009",
+        "priority":  "high",
+        "targetTestId":  "IT-MAG-009",
+        "requestId":  "REQ-IT-MAG-009",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-ai-002",
+        "priority":  "high",
+        "targetTestId":  "IT-AI-002",
+        "requestId":  "REQ-IT-AI-002",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-live-008",
+        "priority":  "high",
+        "targetTestId":  "IT-LIVE-008",
+        "requestId":  "REQ-IT-LIVE-008",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-live-005",
+        "priority":  "high",
+        "targetTestId":  "IT-LIVE-005",
+        "requestId":  "REQ-IT-LIVE-005",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-bot-001",
+        "priority":  "high",
+        "targetTestId":  "IT-BOT-001",
+        "requestId":  "REQ-IT-BOT-001",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-core-001",
+        "priority":  "high",
+        "targetTestId":  "IT-CORE-001",
+        "requestId":  "REQ-IT-CORE-001",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-eco-007",
+        "priority":  "high",
+        "targetTestId":  "IT-ECO-007",
+        "requestId":  "REQ-IT-ECO-007",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-inv-002",
+        "priority":  "high",
+        "targetTestId":  "IT-INV-002",
+        "requestId":  "REQ-IT-INV-002",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-scn-002",
+        "priority":  "high",
+        "targetTestId":  "SCN-002",
+        "requestId":  "REQ-SCN-002",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Scenario mapping in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-scn-003",
+        "priority":  "high",
+        "targetTestId":  "SCN-003",
+        "requestId":  "REQ-SCN-003",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Scenario mapping in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-scn-001",
+        "priority":  "high",
+        "targetTestId":  "SCN-001",
+        "requestId":  "REQ-SCN-001",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Scenario mapping in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-scn-004",
+        "priority":  "high",
+        "targetTestId":  "SCN-004",
+        "requestId":  "REQ-SCN-004",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Scenario mapping in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-auth-base-001",
+        "priority":  "critical",
+        "targetTestId":  "IT-AUTH-BASE-001",
+        "requestId":  "REQ-IT-AUTH-BASE-001",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Mandatory requirement section present: ## 3) Networking and Authority"
+    },
+    {
+        "name":  "test-bot-it-rpl-base-001",
+        "priority":  "critical",
+        "targetTestId":  "IT-RPL-BASE-001",
+        "requestId":  "REQ-IT-RPL-BASE-001",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Mandatory requirement section present: ## 4) Replay and Dispute Record"
+    },
+    {
+        "name":  "test-bot-it-sim-base-001",
+        "priority":  "critical",
+        "targetTestId":  "IT-SIM-BASE-001",
+        "requestId":  "REQ-IT-SIM-BASE-001",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Mandatory requirement section present: ## 5) World Simulation Continuity"
+    },
+    {
+        "name":  "test-bot-it-live-base-001",
+        "priority":  "high",
+        "targetTestId":  "IT-LIVE-BASE-001",
+        "requestId":  "REQ-IT-LIVE-BASE-001",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Mandatory requirement section present: ## 24) Live Content Authoring and AI-Assisted Generation"
+    },
+    {
+        "name":  "test-bot-it-bot-base-001",
+        "priority":  "high",
+        "targetTestId":  "IT-BOT-BASE-001",
+        "requestId":  "REQ-IT-BOT-BASE-001",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Mandatory requirement section present: ## 25) Autonomous Bot Framework"
+    }
+]

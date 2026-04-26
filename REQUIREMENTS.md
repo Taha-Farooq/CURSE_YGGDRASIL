@@ -577,3 +577,49 @@ Each feedback item must capture:
 - High-severity feedback receives reproducible investigation artifacts.
 - Repeated "not fun" and "not fitting theme" clusters trigger design review, not only bug fixes.
 - Product changes demonstrably incorporate validated critique and improve targeted experience metrics.
+
+## 29) Apex Entity and Demon Lord Systems
+
+- Add a Demon Lord mechanic that can empower selected evil-aligned creatures.
+- Demon Lords must be able to command large minion domains with leadership bonuses, command behaviors, and territory effects.
+- Demon Lords and elite apex entities require:
+  - distinct power signatures
+  - distinct command AI
+  - faction/ecology/world impacts
+  - counterplay and vulnerability windows
+- Entity temperament is required:
+  - personalities can be friendly, hostile, pragmatic, prejudiced, lawful, chaotic, etc.
+  - behavior outcomes must be driven by personality + context + memory, not fixed biological determinism
+- Add special apex categories with custom rule sets:
+  - Legendary Creatures
+  - God-Killer class entities
+  - Interdimensional Demons
+  - Other world-tier entities and NPCs with their own dimensions, armies, and exclusive tech/magic grammars
+
+## 30) Advanced NPC Creator (High-Power Custom Forging)
+
+- Provide a user-facing NPC creation system that allows deep definition of:
+  - powers
+  - temperament/personality profile
+  - appearance archetype
+  - class and cross-class stack
+  - command affinities and loyalties
+  - signature magic/tech modules
+- Users should be able to define rare cross-class combinations unlikely through normal progression.
+- NPC Creator outputs must pass strict safety and balance validation:
+  - legality checks
+  - budget checks
+  - exploit checks
+  - replay and audit tagging
+- High-power custom NPCs must be traceable to creator, version, and content package for rollback/governance.
+
+## 31) Goal-Aligned Automation Progress
+
+- Automation must continuously verify that current implementation work aligns with active design direction.
+- Introduce goal profiles (keywords + required systems + acceptance tests).
+- Add a goal-alignment bot that:
+  - checks requirement coverage
+  - checks backlog/task coverage
+  - checks test coverage linkage
+  - reports drift and missing implementation areas
+- Goal drift findings must be surfaced in daily reports with suggested corrective tasks.

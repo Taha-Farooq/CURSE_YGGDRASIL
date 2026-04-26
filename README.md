@@ -29,6 +29,18 @@ Install Windows scheduled autonomous loop:
 ./scripts/install-autonomous-task.ps1
 ```
 
+Open the HTML control panel (button-based daily run + feature input):
+
+```powershell
+./scripts/open-dashboard.ps1
+```
+
+Ensure launcher executables are up to date:
+
+```powershell
+./scripts/ensure-program-exes.ps1
+```
+
 ## Key Project Docs
 
 - `REQUIREMENTS.md`
@@ -36,6 +48,12 @@ Install Windows scheduled autonomous loop:
 - `FEEDBACK_SCHEMA.json`
 - `AUTONOMOUS_SETUP.md`
 - `ONE_PERSON_TEAM_LOOP.md`
+
+## Folder Layout (Separation of Concerns)
+
+- `programs/game/` -> game runtime launcher and game-facing files
+- `programs/asset-adder/` -> asset/content adder launcher and tool files
+- `automation/`, `bots/`, `scripts/` -> autonomous development and validation system
 
 ## License
 

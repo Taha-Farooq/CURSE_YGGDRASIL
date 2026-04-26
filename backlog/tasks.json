@@ -1,0 +1,578 @@
+﻿[
+    {
+        "id":  "TASK-ACCEPTANCE-CRITERIA-FOR-FEEDBACK-LOOP",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Acceptance Criteria for Feedback Loop",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-ACCEPTANCE-CRITERIA-PROJECT-LEVEL",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Acceptance Criteria (Project-Level)",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-ACCEPTANCE-FOR-BOT-SYSTEM",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Acceptance for Bot System",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-ADVANCED-NPC-CREATOR-AND-CROSS-CLASS-FORGE",
+        "source":  "goal-seed",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Advanced NPC Creator and Cross-Class Forge",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-ADVANCED-NPC-CREATOR-HIGH-POWER-CUSTOM-FORGING",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Advanced NPC Creator (High-Power Custom Forging)",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-APEX-ENTITY-AND-DEMON-LORD-SYSTEMS",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Apex Entity and Demon Lord Systems",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-ASSISTED-FEATURE-IMPLEMENTATION-BOT-GUARDED",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Assisted Feature Implementation Bot (Guarded)",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-AUTONOMOUS-BOT-FRAMEWORK-TESTING-VALIDATION-AND-ASSISTED-IMPLEMENTATION",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Autonomous Bot Framework (Testing, Validation, and Assisted Implementation)",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-BASE-AUTONOMY-AND-UNITS",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Base Autonomy and Units",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-CIVILIZATION-AND-WORLD-STRUCTURE",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Civilization and World Structure",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-CLASS-SYSTEMS",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Class Systems",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-COHESION-ACCEPTANCE-CRITERIA",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Cohesion Acceptance Criteria",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-COHESION-REQUIREMENT-ONE-UNIFIED-STRUCTURE",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Cohesion Requirement: One Unified Structure",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-COMPANION-CREATURES",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Companion Creatures",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-CONSEQUENCES-AND-PERMANENCE",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Consequences and Permanence",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-CONSTRUCTION-AND-BUILDING",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Construction and Building",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-CONTENT-PIPELINE-STAGES",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Content Pipeline Stages",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-CRITIQUE-TO-CHANGE-WORKFLOW",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Critique-to-Change Workflow",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-CROSS-SYSTEM-COUPLING-RULES",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Cross-System Coupling Rules",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-DEMON-LORD-AUTHORITY-SYSTEM",
+        "source":  "goal-seed",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Demon Lord Authority System",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-DYNAMIC-ENEMY-EVOLUTION",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Dynamic Enemy Evolution",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-ECONOMY-CRAFTING-AND-LOGISTICS",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Economy, Crafting, and Logistics",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-ENGINE-AND-PLATFORM",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Engine and Platform",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-EVOLUTION-SYSTEM",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Evolution System",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-FEEDBACK-COLLECTION-CHANNELS",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Feedback Collection Channels",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-GOAL-ALIGNED-AUTOMATION-PROGRESS",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Goal-Aligned Automation Progress",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-GOVERNANCE-AND-TRANSPARENCY",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Governance and Transparency",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-HUMAN-FEEDBACK-AND-PRODUCT-ADAPTATION-LOOP",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Human Feedback and Product Adaptation Loop",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-INITIAL-ENGINEERING-MILESTONES",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Initial Engineering Milestones",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-INTEGRATION-SCENARIOS-MUST-EXIST-IN-TEST-SUITE",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Integration Scenarios (Must Exist in Test Suite)",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-INTERDIMENSIONAL-DEMON-DOMAIN-RUNTIME",
+        "source":  "goal-seed",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Interdimensional Demon Domain Runtime",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-ITEMS-AND-ARTIFACTS",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Items and Artifacts",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-KINGDOM-AND-EMPIRE-MANAGEMENT",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Kingdom and Empire Management",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-LEGENDARY-AND-GOD-KILLER-ENTITY-FRAMEWORK",
+        "source":  "goal-seed",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Legendary and God-Killer Entity Framework",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-LIVE-CONTENT-AUTHORING-AND-AI-ASSISTED-GENERATION",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Live Content Authoring and AI-Assisted Generation",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-MAGIC-SYSTEM",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Magic System",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-MATRIX-REQUIREMENTS",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Matrix Requirements",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-MINIMUM-SUBSYSTEMS-TO-TRACK",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Minimum Subsystems to Track",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-NETWORKING-AND-AUTHORITY",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Networking and Authority",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-NPC-MOB-INTELLIGENCE-AND-MEMORY",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "NPC/Mob Intelligence and Memory",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-ORCHESTRATION-AND-SAFETY",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Orchestration and Safety",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-POLITICS-LAW-AND-INSTITUTIONS",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Politics, Law, and Institutions",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-PRODUCT-VISION",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Product Vision",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-PROGRESSION-AND-LEVELING",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Progression and Leveling",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-REFERENCE-INSPIRATIONS-DESIGN-TARGETS-NOT-COPY-TARGETS",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Reference Inspirations (Design Targets, Not Copy Targets)",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-REPLAY-AND-DISPUTE-RECORD",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Replay and Dispute Record",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-REQUIRED-FEEDBACK-SCHEMA",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Required Feedback Schema",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-ROUTE-CLEARABILITY-AND-FUN-HEURISTIC-BOT",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Route/Clearability and Fun-Heuristic Bot",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-RUNTIME-CONSTRAINTS-FOR-LIVE-ADDITIONS",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Runtime Constraints for Live Additions",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-SAFETY-AND-GOVERNANCE-REQUIREMENTS",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Safety and Governance Requirements",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-SAFETY-FAIRNESS-AND-GUARDRAILS",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Safety, Fairness, and Guardrails",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-SYSTEM-INTERACTION-MATRIX-ENGINEERING-CONTRACT",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "System Interaction Matrix (Engineering Contract)",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-TEMPORARY-ART-AND-REPLACEMENT-PIPELINE-MANDATORY",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Temporary Art and Replacement Pipeline (Mandatory)",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-TRIAGE-AND-PRIORITIZATION",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Triage and Prioritization",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-UNIFIED-DATA-AND-RUNTIME-CONTRACTS",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Unified Data and Runtime Contracts",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-USER-ADD-A-COMPLEX-QUESTING-SYSTEM-THAT-INTEGRATES-WITH-THE-M",
+        "source":  "automation/user-input/feature-requests.md",
+        "type":  "user-feature",
+        "priority":  "high",
+        "title":  "add a complex questing system that integrates with the magical guilds, adventuring guilds, and differing militaries, and add a unified prowess distiction such as bronze class and diamond class, civilizations without knowledge of levels beyond their own should not have a level for it and instead refer to everything above that level as legendary, unless and until that level of power becomes mundane /achive-able for the common man.",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-USER-ADD-A-SERIES-OF-VEHICLES-AND-A-VEHICLE-CREATION-SYSTEM-F",
+        "source":  "automation/user-input/feature-requests.md",
+        "type":  "user-feature",
+        "priority":  "high",
+        "title":  "add a series of vehicles and a vehicle creation system, from bikes and rafts to flying hoverboards, to planes to submarines to spaceships and space stations and warp drives and mechanical stars and space super weapons ect",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-USER-ADD-DEMON-RACES-TO-EVERY-PLANET-AND-DIMENTION-WITH-LIFE",
+        "source":  "automation/user-input/feature-requests.md",
+        "type":  "user-feature",
+        "priority":  "high",
+        "title":  "add demon races to every planet and dimention with life except for the holy ones the angels come from or the mechanical ones the robots come from",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-USER-DEMON-LORDS-SHOULD-CONTROL-THEIR-OWN-SWATH-OF-LAND-AND-S",
+        "source":  "automation/user-input/feature-requests.md",
+        "type":  "user-feature",
+        "priority":  "high",
+        "title":  "demon lords should control their own swath of land and should want to expand their empire, they battle with other empire and demon lords for power and authority as well as access to valuable recourses and alliances with mythical and legendary creatures",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-VALIDATION-COMPLIANCE-BOT",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "Validation/Compliance Bot",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-WORLD-EXPLORATION-QA-BOT",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "World Exploration QA Bot",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-WORLD-SIMULATION-CONTINUITY",
+        "source":  "REQUIREMENTS.md",
+        "type":  "system",
+        "priority":  "high",
+        "title":  "World Simulation Continuity",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-PHASE1-10-DASHBOARD-V2-PRODUCT-CONTROL-SURFACE",
+        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
+        "type":  "phase1",
+        "priority":  "high",
+        "title":  "Dashboard v2: Product Control Surface",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-PHASE1-05-CONSTRUCTION-MAGIC-AND-BUILD-PERMISSION-V1",
+        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
+        "type":  "phase1",
+        "priority":  "high",
+        "title":  "Construction Magic and Build Permission v1",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-PHASE1-09-LIVE-CONTENT-PROMOTION-GATES-FOR-NEW-ENTITY-SYSTEMS",
+        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
+        "type":  "phase1",
+        "priority":  "high",
+        "title":  "Live Content Promotion Gates for New Entity Systems",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-PHASE1-06-DEMON-LORD-AUTHORITY-FRAMEWORK",
+        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
+        "type":  "phase1",
+        "priority":  "high",
+        "title":  "Demon Lord Authority Framework",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-PHASE1-03-REPLAY-EVIDENCE-PIPELINE-V1",
+        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
+        "type":  "phase1",
+        "priority":  "high",
+        "title":  "Replay Evidence Pipeline v1",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-PHASE1-07-APEX-ENTITY-FRAMEWORK-LEGENDARY-GOD-KILLER-INTERDIMENSIONAL",
+        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
+        "type":  "phase1",
+        "priority":  "high",
+        "title":  "Apex Entity Framework (Legendary, God-Killer, Interdimensional)",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-PHASE1-01-CORE-TICK-AND-WORLD-STATE-LEDGER",
+        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
+        "type":  "phase1",
+        "priority":  "high",
+        "title":  "Core Tick and World State Ledger",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-PHASE1-08-ADVANCED-NPC-CREATOR-V1-DATA-VALIDATION",
+        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
+        "type":  "phase1",
+        "priority":  "high",
+        "title":  "Advanced NPC Creator v1 (Data + Validation)",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-PHASE1-02-AUTHORITY-VALIDATION-SERVICE-V1",
+        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
+        "type":  "phase1",
+        "priority":  "high",
+        "title":  "Authority Validation Service v1",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-PHASE1-04-TIERED-WORLD-SIMULATION-CONTINUITY",
+        "source":  "PHASE1_IMPLEMENTATION_PACK.md",
+        "type":  "phase1",
+        "priority":  "high",
+        "title":  "Tiered World Simulation Continuity",
+        "status":  "todo"
+    }
+]

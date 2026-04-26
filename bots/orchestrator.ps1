@@ -26,10 +26,10 @@ $run = @{
     steps = @()
 }
 
-function RunStep($name, $scriptPath, $args) {
+function RunStep($name, $scriptPath, $splat) {
     Write-Host "[bot-orchestrator] Running $name ..."
     try {
-        & $scriptPath @args
+        & $scriptPath @splat
         if ($LASTEXITCODE -ne 0) { throw "$name failed with code $LASTEXITCODE" }
         return @{ name = $name; status = "pass" }
     }
@@ -93,6 +93,79 @@ if ($config.bots.featureSuggesterBot.enabled) {
         MaxSuggestionsPerRun = $config.bots.featureSuggesterBot.maxSuggestionsPerRun
     }
     $run.steps += $step
+}
+
+if ($config.bots.taskPlannerBot.enabled) {
+    $step = RunStep "task-planner-bot" (Join-Path $RepoRoot "bots\task-planner-bot.ps1") @{
+        RepoRoot = $RepoRoot
+        MaxTasksPerRun = $config.bots.taskPlannerBot.maxTasksPerRun
+    }
+    $run.steps += $step
+}
+
+if ($config.bots.systemBuilderBot.enabled) {
+    $step = RunStep "system-builder-bot" (Join-Path $RepoRoot "bots\system-builder-bot.ps1") @{
+        RepoRoot = $RepoRoot
+        AutoScaffold = $config.bots.systemBuilderBot.autoScaffold
+    }
+    $run.steps += $step
+}
+
+if ($config.bots.implementationBot.enabled) {
+    $step = RunStep "implementation-bot" (Join-Path $RepoRoot "bots\implementation-bot.ps1") @{
+        RepoRoot = $RepoRoot
+        Mode = $config.bots.implementationBot.mode
+        MaxFileChangesPerRun = $config.bots.implementationBot.maxFileChangesPerRun
+    }
+    $run.steps += $step
+}
+
+if ($config.bots.teamGrowthBot.enabled) {
+    $step = RunStep "team-growth-bot" (Join-Path $RepoRoot "bots\team-growth-bot.ps1") @{
+        RepoRoot = $RepoRoot
+        MaxNewRolesPerRun = $config.bots.teamGrowthBot.maxNewRolesPerRun
+    }
+    $run.steps += $step
+}
+
+if ($config.bots.testResearchBot.enabled) {
+    $step = RunStep "test-research-bot" (Join-Path $RepoRoot "bots\test-research-bot.ps1") @{
+        RepoRoot = $RepoRoot
+        MaxRecommendationsPerRun = $config.bots.testResearchBot.maxRecommendationsPerRun
+    }
+    $run.steps += $step
+}
+
+if ($config.bots.goalAlignmentBot.enabled) {
+    $step = RunStep "goal-alignment-bot" (Join-Path $RepoRoot "bots\goal-alignment-bot.ps1") @{
+        RepoRoot = $RepoRoot
+        GoalPath = (Join-Path $RepoRoot $config.bots.goalAlignmentBot.goalPath)
+    }
+    $run.steps += $step
+}
+
+if ($config.bots.botMakerBot.enabled) {
+    $step = RunStep "bot-maker-bot" (Join-Path $RepoRoot "bots\bot-maker-bot.ps1") @{
+        RepoRoot = $RepoRoot
+        MaxBotsToCreatePerRun = $config.bots.botMakerBot.maxBotsToCreatePerRun
+        OnlyCreateIfMissing = $config.bots.botMakerBot.onlyCreateIfMissing
+    }
+    $run.steps += $step
+}
+
+if ($config.bots.generatedTestBots.enabled) {
+    $generatedDir = Join-Path $RepoRoot "bots\generated"
+    if (Test-Path $generatedDir) {
+        $generatedBots = Get-ChildItem -Path $generatedDir -Filter "*.ps1" | Sort-Object Name | Select-Object -First $config.bots.generatedTestBots.maxBotsPerRun
+        foreach ($botFile in $generatedBots) {
+            $step = RunStep ("generated-" + $botFile.BaseName) $botFile.FullName @{
+                RepoRoot = $RepoRoot
+            }
+            $run.steps += $step
+        }
+    } else {
+        $run.steps += @{ name = "generated-test-bots"; status = "pass"; details = "No generated bots directory yet" }
+    }
 }
 
 foreach ($s in $run.steps) {

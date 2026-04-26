@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using System.IO;
 
+namespace AssetAdderLauncher;
+
 public static class Program
 {
     public static int Main(string[] args)

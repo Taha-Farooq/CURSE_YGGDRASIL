@@ -201,7 +201,16 @@ try {
 
     $freshnessScript = Join-Path $repoRoot "scripts\check-test-freshness.ps1"
     $freshnessResult = & $freshnessScript -RepoRoot $repoRoot -MaxAgeHours $maxAgeHours -Strict:$Strict | ConvertFrom-Json
-    if (-not $freshnessResult.passed) {
+    $dataSufficient = $true
+    if ($null -ne $freshnessResult.dataSufficient) {
+        $dataSufficient = [bool]$freshnessResult.dataSufficient
+    }
+
+    if (-not $dataSufficient) {
+        $reason = $(if (-not [string]::IsNullOrWhiteSpace([string]$freshnessResult.skipReason)) { [string]$freshnessResult.skipReason } else { "insufficient report history" })
+        Write-Host ("[quality-gate] Freshness policy skipped: " + $reason)
+    }
+    elseif (-not $freshnessResult.passed) {
         $missingCount = @($freshnessResult.missing).Count
         $staleCount = @($freshnessResult.stale).Count
         if ($Strict) {

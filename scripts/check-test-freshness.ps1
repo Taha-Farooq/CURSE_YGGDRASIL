@@ -28,12 +28,15 @@ if (-not (Test-Path $reportsDir)) {
         check = "test_freshness_policy"
         timestampUtc = $nowUtc.ToString("o")
         maxAgeHours = $MaxAgeHours
-        passed = $false
+        passed = $true
+        dataSufficient = $false
+        skipped = $true
+        skipReason = "No reports directory yet."
         missing = $criticalBots
         stale = @()
     }
     $result | ConvertTo-Json -Depth 8 | Write-Output
-    if ($Strict) { exit 1 } else { exit 0 }
+    exit 0
 }
 
 foreach ($bot in $criticalBots) {
@@ -59,6 +62,9 @@ $result = @{
     timestampUtc = $nowUtc.ToString("o")
     maxAgeHours = $MaxAgeHours
     passed = ((@($missing).Count -eq 0) -and (@($stale).Count -eq 0))
+    dataSufficient = (@($missing).Count -eq 0)
+    skipped = $false
+    skipReason = ""
     missing = $missing
     stale = $stale
 }

@@ -58,6 +58,10 @@ if (-not (Test-Path (Join-Path $repoRoot "systems\networking\AUTHORITY_REASON_CO
     Fail "Missing systems/networking/AUTHORITY_REASON_CODES.json"
 }
 
+if (-not (Test-Path (Join-Path $repoRoot "systems\integration\INTERACTION_MATRIX_CONTRACT.json"))) {
+    Fail "Missing systems/integration/INTERACTION_MATRIX_CONTRACT.json"
+}
+
 # Basic JSON parse check
 try {
     Get-Content (Join-Path $repoRoot "FEEDBACK_SCHEMA.json") -Raw | ConvertFrom-Json | Out-Null
@@ -103,6 +107,32 @@ catch {
     Fail "Invalid systems/networking/AUTHORITY_REASON_CODES.json contract."
 }
 
+# Interaction matrix contract parse and minimum validation
+try {
+    $matrixContract = Get-Content (Join-Path $repoRoot "systems\integration\INTERACTION_MATRIX_CONTRACT.json") -Raw | ConvertFrom-Json
+    if (@($matrixContract.interactions).Count -lt 1) {
+        Fail "INTERACTION_MATRIX_CONTRACT.json has no interactions."
+    }
+    if (@($matrixContract.scenarios).Count -lt 1) {
+        Fail "INTERACTION_MATRIX_CONTRACT.json has no scenarios."
+    }
+    $interactionIds = @($matrixContract.interactions | ForEach-Object { $_.interactionId })
+    $scenarioIds = @($matrixContract.scenarios | ForEach-Object { $_.scenarioId })
+    foreach ($requiredInteractionId in @($matrixContract.requiredInteractionIds)) {
+        if ($interactionIds -notcontains $requiredInteractionId) {
+            Fail "Missing required interaction ID in INTERACTION_MATRIX_CONTRACT.json: $requiredInteractionId"
+        }
+    }
+    foreach ($requiredScenarioId in @($matrixContract.requiredScenarioIds)) {
+        if ($scenarioIds -notcontains $requiredScenarioId) {
+            Fail "Missing required scenario ID in INTERACTION_MATRIX_CONTRACT.json: $requiredScenarioId"
+        }
+    }
+}
+catch {
+    Fail "Invalid systems/integration/INTERACTION_MATRIX_CONTRACT.json contract."
+}
+
 $syncScript = Join-Path $repoRoot "scripts\sync-authority-reason-codes-doc.ps1"
 Invoke-ResilientCheck `
     -PrimaryCheck {
@@ -118,6 +148,22 @@ Invoke-ResilientCheck `
     } `
     -FailureMessage "Failed to validate authority reason code doc sync." `
     -RecoveryMessage "[quality-gate] AUTHORITY_REASON_CODES.md required regeneration during validation."
+
+$matrixSyncScript = Join-Path $repoRoot "scripts\sync-interaction-matrix-contract-doc.ps1"
+Invoke-ResilientCheck `
+    -PrimaryCheck {
+        & $matrixSyncScript -RepoRoot $repoRoot -Check
+        if ($LASTEXITCODE -ne 0) { throw "matrix sync check exit code: $LASTEXITCODE" }
+    } `
+    -Remediation {
+        & $matrixSyncScript -RepoRoot $repoRoot
+    } `
+    -SecondaryCheck {
+        & $matrixSyncScript -RepoRoot $repoRoot -Check
+        if ($LASTEXITCODE -ne 0) { throw "matrix sync re-check exit code: $LASTEXITCODE" }
+    } `
+    -FailureMessage "Failed to validate interaction matrix contract doc sync." `
+    -RecoveryMessage "[quality-gate] INTERACTION_MATRIX_CONTRACT_SUMMARY.md required regeneration during validation."
 
 # Basic matrix checks
 $matrix = Get-Content (Join-Path $repoRoot "INTERACTION_MATRIX.md") -Raw

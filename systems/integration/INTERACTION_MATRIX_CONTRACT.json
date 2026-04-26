@@ -1,0 +1,131 @@
+{
+  "version": "1.0",
+  "updatedUtc": "2026-04-26T00:00:00Z",
+  "interactions": [
+    {
+      "interactionId": "INT-0001",
+      "sourceSubsystem": "combat_runtime",
+      "targetSubsystem": "progression_and_evolution",
+      "integrationTestIds": ["IT-CORE-001", "IT-PROG-003"],
+      "owner": "gameplay_eng"
+    },
+    {
+      "interactionId": "INT-0002",
+      "sourceSubsystem": "dungeons_and_encounters",
+      "targetSubsystem": "economy_and_markets",
+      "integrationTestIds": ["IT-ECO-004"],
+      "owner": "world_sim_eng"
+    },
+    {
+      "interactionId": "INT-0003",
+      "sourceSubsystem": "factions_civilizations_diplomacy",
+      "targetSubsystem": "arcane_tech_runtime",
+      "integrationTestIds": ["IT-POL-006", "IT-MAG-009"],
+      "owner": "systems_design"
+    },
+    {
+      "interactionId": "INT-0004",
+      "sourceSubsystem": "inventory_storage_logistics",
+      "targetSubsystem": "combat_runtime",
+      "integrationTestIds": ["IT-INV-002"],
+      "owner": "netcode_eng"
+    },
+    {
+      "interactionId": "INT-0005",
+      "sourceSubsystem": "building_and_construction_magic",
+      "targetSubsystem": "factions_civilizations_diplomacy",
+      "integrationTestIds": ["IT-BLD-004", "IT-POL-010"],
+      "owner": "world_sim_eng"
+    },
+    {
+      "interactionId": "INT-0006",
+      "sourceSubsystem": "crafting_and_factory",
+      "targetSubsystem": "economy_and_markets",
+      "integrationTestIds": ["IT-IND-003", "IT-ECO-007"],
+      "owner": "economy_eng"
+    },
+    {
+      "interactionId": "INT-0007",
+      "sourceSubsystem": "inventory_storage_logistics",
+      "targetSubsystem": "factions_civilizations_diplomacy",
+      "integrationTestIds": ["IT-LOG-005", "IT-POL-004"],
+      "owner": "logistics_eng"
+    },
+    {
+      "interactionId": "INT-0008",
+      "sourceSubsystem": "npc_mob_ai_learning",
+      "targetSubsystem": "economy_and_markets",
+      "integrationTestIds": ["IT-AI-002", "IT-ECO-009"],
+      "owner": "ai_systems"
+    },
+    {
+      "interactionId": "INT-0009",
+      "sourceSubsystem": "live_content_pipeline",
+      "targetSubsystem": "arcane_tech_runtime",
+      "integrationTestIds": ["IT-LIVE-005", "IT-VAL-001"],
+      "owner": "tools_eng"
+    },
+    {
+      "interactionId": "INT-0010",
+      "sourceSubsystem": "bot_orchestrator",
+      "targetSubsystem": "live_content_pipeline",
+      "integrationTestIds": ["IT-BOT-001", "IT-LIVE-008"],
+      "owner": "qa_automation"
+    },
+    {
+      "interactionId": "INT-0011",
+      "sourceSubsystem": "replay_telemetry_moderation",
+      "targetSubsystem": "validation_and_anticheat",
+      "integrationTestIds": ["IT-RPL-003", "IT-SEC-002"],
+      "owner": "trust_safety"
+    },
+    {
+      "interactionId": "INT-0012",
+      "sourceSubsystem": "progression_and_evolution",
+      "targetSubsystem": "dungeons_and_encounters",
+      "integrationTestIds": ["IT-DGN-006", "IT-PROG-010"],
+      "owner": "gameplay_eng"
+    },
+    {
+      "interactionId": "INT-0013",
+      "sourceSubsystem": "arcane_runtime",
+      "targetSubsystem": "tech_runtime",
+      "integrationTestIds": ["IT-MGI-001", "IT-MGI-002", "IT-MGI-003", "IT-MGI-004"],
+      "owner": "systems_design"
+    }
+  ],
+  "scenarios": [
+    {
+      "scenarioId": "SCN-001",
+      "interactionIds": ["INT-0007", "INT-0005"],
+      "testIds": ["IT-LOG-005", "IT-POL-010"],
+      "status": "planned"
+    },
+    {
+      "scenarioId": "SCN-002",
+      "interactionIds": ["INT-0002", "INT-0012"],
+      "testIds": ["IT-ECO-004", "IT-DGN-006"],
+      "status": "planned"
+    },
+    {
+      "scenarioId": "SCN-003",
+      "interactionIds": ["INT-0003", "INT-0008"],
+      "testIds": ["IT-POL-006", "IT-AI-002"],
+      "status": "planned"
+    },
+    {
+      "scenarioId": "SCN-004",
+      "interactionIds": ["INT-0009", "INT-0010"],
+      "testIds": ["IT-LIVE-005", "IT-VAL-001"],
+      "status": "planned"
+    },
+    {
+      "scenarioId": "SCN-005",
+      "interactionIds": ["INT-0013", "INT-0011"],
+      "testIds": ["IT-MGI-002", "IT-MGI-004", "IT-RPL-003"],
+      "status": "planned"
+    }
+  ],
+  "requiredInteractionIds": ["INT-0013"],
+  "requiredScenarioIds": ["SCN-005"]
+}

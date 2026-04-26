@@ -138,6 +138,12 @@ $byDomain = @(
     }
 )
 
+$topWeakDomains = @(
+    $byDomain |
+    Sort-Object -Property @{ Expression = { $_.functionalPct }; Ascending = $true }, @{ Expression = { $_.requiredCount }; Descending = $true } |
+    Select-Object -First 3
+)
+
 $result = @{
     check = "test_contract_coverage"
     timestampUtc = (Get-Date).ToUniversalTime().ToString("o")
@@ -152,6 +158,7 @@ $result = @{
     stub = $stub
     functional = $functional
     byDomain = $byDomain
+    topWeakDomains = $topWeakDomains
     passed = (@($missing).Count -eq 0)
 }
 

@@ -300,8 +300,8 @@
         lines.push(`- Contract coverage: ${coverage.coveredCount}/${coverage.requiredCount} (${coverage.coveragePct}%)`);
         lines.push(`- Functional coverage: ${coverage.functionalCount}/${coverage.requiredCount} (${coverage.functionalPct}%)`);
         const byDomain = coverage.byDomain || [];
+        const weakest = coverage.topWeakDomains || weakestDomains(byDomain, 3);
         if (byDomain.length > 0) {
-          const weakest = weakestDomains(byDomain, 3);
           lines.push(`- Top weak domains: ${weakest.map(d => `${d.domain} (${d.functionalPct}%)`).join(', ')}`);
           lines.push('- Functional by domain:');
           for (const row of byDomain) {
@@ -397,8 +397,8 @@
           lines.push(`- stubs: ${coverage.stubCount}`);
           lines.push(`- missing: ${coverage.missingCount}`);
           const byDomain = coverage.byDomain || [];
+          const weakest = coverage.topWeakDomains || weakestDomains(byDomain, 3);
           if (byDomain.length > 0) {
-            const weakest = weakestDomains(byDomain, 3);
             lines.push(`- top weak domains: ${weakest.map(d => `${d.domain} (${d.functionalPct}%)`).join(', ')}`);
             lines.push('- by domain (functional/required):');
             for (const row of byDomain) {
@@ -457,8 +457,8 @@
           lines.push(`Contract coverage: ${coverage.coveredCount}/${coverage.requiredCount} (${coverage.coveragePct}%)`);
           lines.push(`Functional coverage: ${coverage.functionalCount}/${coverage.requiredCount} (${coverage.functionalPct}%)`);
           const byDomain = coverage.byDomain || [];
+          const weakest = coverage.topWeakDomains || weakestDomains(byDomain, 3);
           if (byDomain.length > 0) {
-            const weakest = weakestDomains(byDomain, 3);
             lines.push(`Top weak domains: ${weakest.map(d => `${d.domain} (${d.functionalPct}%)`).join(', ')}`);
             lines.push('Functional by domain:');
             for (const row of byDomain) {

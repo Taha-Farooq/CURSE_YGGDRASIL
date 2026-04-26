@@ -10,6 +10,7 @@ $featureDir = Join-Path $repoRoot "automation\user-input"
 $featureFile = Join-Path $featureDir "feature-requests.md"
 $backlogDir = Join-Path $repoRoot "backlog"
 $tasksFile = Join-Path $backlogDir "tasks.json"
+$botReportsDir = Join-Path $repoRoot "reports\bots"
 
 if (-not (Test-Path $dashboardPath)) { throw "Missing dashboard/index.html" }
 if (-not (Test-Path $featureDir)) { New-Item -ItemType Directory -Path $featureDir -Force | Out-Null }
@@ -39,6 +40,62 @@ function Write-TextResponse($ctx, [string]$text, [int]$status = 200, [string]$co
     $ctx.Response.OutputStream.Close()
 }
 
+function Write-JsonResponse($ctx, $obj, [int]$status = 200) {
+    $json = $obj | ConvertTo-Json -Depth 8
+    Write-TextResponse $ctx $json $status "application/json; charset=utf-8"
+}
+
+function Get-TopAuthorityRejections([int]$MaxFiles = 80) {
+    $result = [ordered]@{
+        generatedAtUtc = (Get-Date).ToUniversalTime().ToString("o")
+        filesScanned = 0
+        eventsWithCodes = 0
+        topReasonCodes = @()
+    }
+
+    if (-not (Test-Path $botReportsDir)) {
+        return $result
+    }
+
+    $counts = @{}
+    $files = Get-ChildItem -Path $botReportsDir -Filter "*.json" | Sort-Object LastWriteTimeUtc -Descending | Select-Object -First $MaxFiles
+    $result.filesScanned = @($files).Count
+
+    foreach ($file in $files) {
+        try {
+            $report = Get-Content $file.FullName -Raw | ConvertFrom-Json
+        } catch {
+            continue
+        }
+
+        if ($null -eq $report.checks) { continue }
+        foreach ($check in @($report.checks)) {
+            if ($null -eq $check.details) { continue }
+            $details = [string]$check.details
+            if ($details -notmatch "reasonCodes=") { continue }
+
+            $raw = ($details -split "reasonCodes=", 2)[1]
+            $codes = @($raw -split "," | ForEach-Object { $_.Trim() } | Where-Object { $_ -like "AUTH-*" })
+            if (@($codes).Count -eq 0) { continue }
+
+            $result.eventsWithCodes++
+            foreach ($code in $codes) {
+                if (-not $counts.ContainsKey($code)) { $counts[$code] = 0 }
+                $counts[$code]++
+            }
+        }
+    }
+
+    $top = @(
+        $counts.GetEnumerator() |
+        Sort-Object -Property Value -Descending |
+        Select-Object -First 10 |
+        ForEach-Object { [ordered]@{ code = $_.Key; count = $_.Value } }
+    )
+    $result.topReasonCodes = $top
+    return $result
+}
+
 while ($listener.IsListening) {
     try {
         $ctx = $listener.GetContext()
@@ -56,6 +113,12 @@ while ($listener.IsListening) {
             $progressScript = Join-Path $repoRoot "scripts\progress-check.ps1"
             $statusText = & $progressScript 2>&1 | Out-String
             Write-TextResponse $ctx $statusText 200 "text/plain; charset=utf-8"
+            continue
+        }
+
+        if ($method -eq "GET" -and $path -eq "/api/auth-rejections") {
+            $payload = Get-TopAuthorityRejections
+            Write-JsonResponse $ctx $payload 200
             continue
         }
 

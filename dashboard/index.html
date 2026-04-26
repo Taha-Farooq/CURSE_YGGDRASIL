@@ -39,6 +39,13 @@
   </div>
 
   <div class="card">
+    <h2>Authority Rejection Hotspots</h2>
+    <p class="muted">Top `AUTH-*` rejection codes from recent bot reports.</p>
+    <button class="secondary" id="refreshAuthBtn">Refresh Authority Stats</button>
+    <pre id="authBox">Loading authority rejection stats...</pre>
+  </div>
+
+  <div class="card">
     <h2>Feature / Tweak Input</h2>
     <p class="muted">Type what you want next. This is saved into project files for automation to use.</p>
     <textarea id="featureText" placeholder="Example: Add a new demon-lord succession mechanic with rival factions..."></textarea>
@@ -75,6 +82,30 @@
       const text = await res.text();
       out.textContent = text;
       await getStatus();
+      await getAuthRejections();
+    }
+
+    async function getAuthRejections() {
+      const box = document.getElementById('authBox');
+      try {
+        const res = await fetch('/api/auth-rejections');
+        const data = await res.json();
+        if (!data.topReasonCodes || data.topReasonCodes.length === 0) {
+          box.textContent = 'No AUTH-* rejection codes found in recent reports.';
+          return;
+        }
+        const lines = [];
+        lines.push(`Generated: ${data.generatedAtUtc}`);
+        lines.push(`Files scanned: ${data.filesScanned}`);
+        lines.push(`Events with reason codes: ${data.eventsWithCodes}`);
+        lines.push('');
+        for (const row of data.topReasonCodes) {
+          lines.push(`${row.code}: ${row.count}`);
+        }
+        box.textContent = lines.join('\n');
+      } catch (err) {
+        box.textContent = 'Failed to load authority stats: ' + err;
+      }
     }
 
     async function importPhase1() {
@@ -183,6 +214,7 @@
     }
 
     document.getElementById('refreshStatusBtn').addEventListener('click', getStatus);
+    document.getElementById('refreshAuthBtn').addEventListener('click', getAuthRejections);
     document.getElementById('runDailyBtn').addEventListener('click', runDaily);
     document.getElementById('importPhase1Btn').addEventListener('click', importPhase1);
     document.getElementById('importLegacyBtn').addEventListener('click', importLegacy);
@@ -195,6 +227,7 @@
     document.getElementById('commitPushBtn').addEventListener('click', commitAndPush);
 
     getStatus();
+    getAuthRejections();
   </script>
 </body>
 </html>

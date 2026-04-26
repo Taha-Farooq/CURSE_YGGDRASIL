@@ -45,6 +45,23 @@ function Write-JsonResponse($ctx, $obj, [int]$status = 200) {
     Write-TextResponse $ctx $json $status "application/json; charset=utf-8"
 }
 
+function Get-AuthCodeSeverity([string]$code) {
+    if ([string]::IsNullOrWhiteSpace($code)) { return "info" }
+    if ($code -like "AUTH-SEC-*") { return "critical" }
+    if ($code -like "AUTH-BUDGET-*") { return "warning" }
+    if ($code -like "AUTH-INTEROP-*") { return "warning" }
+    return "info"
+}
+
+function Get-SeverityRank([string]$severity) {
+    switch ($severity) {
+        "critical" { return 3 }
+        "warning" { return 2 }
+        "info" { return 1 }
+        default { return 0 }
+    }
+}
+
 function Get-TopAuthorityRejections([int]$MaxFiles = 80) {
     $result = [ordered]@{
         generatedAtUtc = (Get-Date).ToUniversalTime().ToString("o")
@@ -90,7 +107,15 @@ function Get-TopAuthorityRejections([int]$MaxFiles = 80) {
         $counts.GetEnumerator() |
         Sort-Object -Property Value -Descending |
         Select-Object -First 10 |
-        ForEach-Object { [ordered]@{ code = $_.Key; count = $_.Value } }
+        ForEach-Object {
+            $severity = Get-AuthCodeSeverity $_.Key
+            [ordered]@{
+                code = $_.Key
+                count = $_.Value
+                severity = $severity
+                severityRank = (Get-SeverityRank $severity)
+            }
+        }
     )
     $result.topReasonCodes = $top
     return $result
@@ -133,7 +158,32 @@ function Get-LatestFailingChecks([int]$MaxFiles = 80, [int]$MaxItems = 20) {
                 testId = $(if ($null -ne $report.testId) { [string]$report.testId } else { "" })
                 check = $(if ($null -ne $check.check) { [string]$check.check } else { "" })
                 details = $(if ($null -ne $check.details) { [string]$check.details } else { "" })
+                severity = "info"
+                severityRank = 1
             }
+        }
+    }
+
+    foreach ($item in $items) {
+        $details = [string]$item.details
+        $codes = @()
+        if ($details -match "reasonCodes=") {
+            $raw = ($details -split "reasonCodes=", 2)[1]
+            $codes = @($raw -split "," | ForEach-Object { $_.Trim() } | Where-Object { $_ -like "AUTH-*" })
+        }
+        if (@($codes).Count -gt 0) {
+            $maxRank = 1
+            $maxSeverity = "info"
+            foreach ($code in $codes) {
+                $sev = Get-AuthCodeSeverity $code
+                $rank = Get-SeverityRank $sev
+                if ($rank -gt $maxRank) {
+                    $maxRank = $rank
+                    $maxSeverity = $sev
+                }
+            }
+            $item.severity = $maxSeverity
+            $item.severityRank = $maxRank
         }
     }
 

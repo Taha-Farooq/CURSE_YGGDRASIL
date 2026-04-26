@@ -95,6 +95,11 @@
 
     async function getAuthRejections() {
       const box = document.getElementById('authBox');
+      const sevTag = (severity) => {
+        if (severity === 'critical') return '[CRITICAL]';
+        if (severity === 'warning') return '[WARNING]';
+        return '[INFO]';
+      };
       try {
         const res = await fetch('/api/auth-rejections');
         const data = await res.json();
@@ -108,7 +113,7 @@
         lines.push(`Events with reason codes: ${data.eventsWithCodes}`);
         lines.push('');
         for (const row of data.topReasonCodes) {
-          lines.push(`${row.code}: ${row.count}`);
+          lines.push(`${sevTag(row.severity)} ${row.code}: ${row.count}`);
         }
         box.textContent = lines.join('\n');
       } catch (err) {
@@ -118,6 +123,11 @@
 
     async function getFailingChecks() {
       const box = document.getElementById('failingBox');
+      const sevTag = (severity) => {
+        if (severity === 'critical') return '[CRITICAL]';
+        if (severity === 'warning') return '[WARNING]';
+        return '[INFO]';
+      };
       try {
         const res = await fetch('/api/failing-checks');
         const data = await res.json();
@@ -132,7 +142,7 @@
         for (const row of data.failingChecks) {
           const botLabel = row.bot || 'unknown-bot';
           const testLabel = row.testId ? ` [${row.testId}]` : '';
-          lines.push(`${row.timestampUtc} :: ${botLabel}${testLabel}`);
+          lines.push(`${sevTag(row.severity)} ${row.timestampUtc} :: ${botLabel}${testLabel}`);
           lines.push(`- check: ${row.check || '(unknown)'}`);
           if (row.details) {
             lines.push(`- details: ${row.details}`);

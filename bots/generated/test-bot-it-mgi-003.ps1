@@ -13,7 +13,7 @@ $reportDir = Join-Path $RepoRoot "reports\bots"
 if (-not (Test-Path $reportDir)) { New-Item -ItemType Directory -Path $reportDir -Force | Out-Null }
 $output = Join-Path $reportDir "test-bot-it-mgi-003-$timestamp.json"
 
-$validator = Join-Path $RepoRoot "scripts\interop-legality-validator.ps1"
+$validator = Join-Path $RepoRoot "scripts\authority-validate-action.ps1"
 $invalidFixture = Join-Path $RepoRoot "tests\fixtures\it-mgi-001-action-invalid.json"
 
 $invalidResult = (& $validator -RepoRoot $RepoRoot -ActionJsonPath $invalidFixture) | ConvertFrom-Json
@@ -21,12 +21,12 @@ $invalidResult = (& $validator -RepoRoot $RepoRoot -ActionJsonPath $invalidFixtu
 $checks = @()
 $checks += @{
     check = "budget_overflow_rejected"
-    passed = ($invalidResult.passed -eq $false)
-    details = "validatorPassed=$($invalidResult.passed)"
+    passed = ($invalidResult.allowed -eq $false)
+    details = "validatorAllowed=$($invalidResult.allowed)"
 }
 $checks += @{
     check = "budget_reason_code_present"
-    passed = (@($invalidResult.reasonCodes) -contains "INT-LEG-010-SIM_BUDGET_EXCEEDED")
+    passed = (@($invalidResult.reasonCodes) -contains "AUTH-BUDGET-001")
     details = "reasonCodes=" + (@($invalidResult.reasonCodes) -join ",")
 }
 
@@ -40,7 +40,7 @@ $result = @{
     timestampUtc = (Get-Date).ToUniversalTime().ToString("o")
     passed = $passed
     testId = "IT-MGI-003"
-    validator = "interop_legality_validator_v1"
+    validator = "authority_validation_service_v1"
     checks = $checks
 }
 

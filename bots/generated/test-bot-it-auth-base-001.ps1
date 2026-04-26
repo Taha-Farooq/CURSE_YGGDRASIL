@@ -13,7 +13,7 @@ $reportDir = Join-Path $RepoRoot "reports\bots"
 if (-not (Test-Path $reportDir)) { New-Item -ItemType Directory -Path $reportDir -Force | Out-Null }
 $output = Join-Path $reportDir "test-bot-it-auth-base-001-$timestamp.json"
 
-$authorityService = Join-Path $RepoRoot "engine\net\authority-validation\authority-validation-service.ps1"
+$authorityService = Join-Path $RepoRoot "scripts\authority-validate-action.ps1"
 $validFixture = Join-Path $RepoRoot "tests\fixtures\it-mgi-001-action-valid.json"
 $invalidFixture = Join-Path $RepoRoot "tests\fixtures\it-mgi-001-action-invalid.json"
 

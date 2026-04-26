@@ -13,7 +13,7 @@ $reportDir = Join-Path $RepoRoot "reports\bots"
 if (-not (Test-Path $reportDir)) { New-Item -ItemType Directory -Path $reportDir -Force | Out-Null }
 $output = Join-Path $reportDir "test-bot-scn-005-$timestamp.json"
 
-$validator = Join-Path $RepoRoot "scripts\interop-legality-validator.ps1"
+$validator = Join-Path $RepoRoot "scripts\authority-validate-action.ps1"
 $resolver = Join-Path $RepoRoot "scripts\interop-effect-resolver.ps1"
 $action = Join-Path $RepoRoot "tests\fixtures\scn-005-action.json"
 $envA = Join-Path $RepoRoot "tests\fixtures\env-mgi-004-low-arcane.json"
@@ -26,7 +26,7 @@ $resolutionB = (& $resolver -ActionJsonPath $action -EnvironmentJsonPath $envB) 
 $checks = @()
 $checks += @{
     check = "hybrid_action_legality_pass"
-    passed = ($legality.passed -eq $true)
+    passed = ($legality.allowed -eq $true)
     details = "reasonCodes=" + (@($legality.reasonCodes) -join ",")
 }
 $checks += @{
@@ -55,7 +55,7 @@ $result = @{
     timestampUtc = (Get-Date).ToUniversalTime().ToString("o")
     passed = $passed
     testId = "SCN-005"
-    validator = "interop_legality_validator_v1"
+    validator = "authority_validation_service_v1"
     resolver = "interop_effect_resolver_v1"
     checks = $checks
 }

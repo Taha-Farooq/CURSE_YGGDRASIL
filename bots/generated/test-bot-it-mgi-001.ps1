@@ -13,7 +13,7 @@ $reportDir = Join-Path $RepoRoot "reports\bots"
 if (-not (Test-Path $reportDir)) { New-Item -ItemType Directory -Path $reportDir -Force | Out-Null }
 $output = Join-Path $reportDir "test-bot-it-mgi-001-$timestamp.json"
 
-$validator = Join-Path $RepoRoot "scripts\interop-legality-validator.ps1"
+$validator = Join-Path $RepoRoot "scripts\authority-validate-action.ps1"
 $validFixture = Join-Path $RepoRoot "tests\fixtures\it-mgi-001-action-valid.json"
 $invalidFixture = Join-Path $RepoRoot "tests\fixtures\it-mgi-001-action-invalid.json"
 
@@ -27,13 +27,13 @@ $invalidResult = (& $validator -RepoRoot $RepoRoot -ActionJsonPath $invalidFixtu
 $checks = @()
 $checks += @{
     check = "valid_fixture_passes"
-    passed = ($validResult.passed -eq $true)
-    details = $(if ($validResult.passed) { "valid fixture accepted" } else { "valid fixture rejected: " + (($validResult.reasonCodes -join ", ")) })
+    passed = ($validResult.allowed -eq $true)
+    details = $(if ($validResult.allowed) { "valid fixture accepted" } else { "valid fixture rejected: " + (($validResult.reasonCodes -join ", ")) })
 }
 $checks += @{
     check = "invalid_fixture_rejected"
-    passed = ($invalidResult.passed -eq $false)
-    details = $(if (-not $invalidResult.passed) { "invalid fixture rejected as expected" } else { "invalid fixture unexpectedly accepted" })
+    passed = ($invalidResult.allowed -eq $false)
+    details = $(if (-not $invalidResult.allowed) { "invalid fixture rejected as expected" } else { "invalid fixture unexpectedly accepted" })
 }
 $checks += @{
     check = "invalid_fixture_reason_codes"
@@ -53,7 +53,7 @@ $result = @{
     timestampUtc = (Get-Date).ToUniversalTime().ToString("o")
     passed = $passed
     testId = "IT-MGI-001"
-    validator = "interop_legality_validator_v1"
+    validator = "authority_validation_service_v1"
     checks = $checks
 }
 

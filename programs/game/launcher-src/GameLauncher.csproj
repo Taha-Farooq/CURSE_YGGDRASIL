@@ -4,7 +4,12 @@
     <TargetFrameworks>net7.0-windows;net8.0-windows</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <StartupObject>GameLauncher.Program</StartupObject>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+  </ItemGroup>
 </Project>
 

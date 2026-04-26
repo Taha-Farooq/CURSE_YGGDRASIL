@@ -35,6 +35,18 @@ function Is-StubBot([string]$path) {
     return ($content -match "Generated stub by bot-maker-bot\. Replace with real test logic\.")
 }
 
+function Get-DomainForId([string]$id) {
+    $u = $id.ToUpperInvariant()
+    if ($u -like "IT-*-*") {
+        $parts = $u.Split("-")
+        if ($parts.Length -ge 3) {
+            return $parts[1].ToLowerInvariant()
+        }
+    }
+    if ($u -like "SCN-*") { return "scenario" }
+    return "other"
+}
+
 $requiredIds = @()
 foreach ($i in @($contract.interactions)) {
     foreach ($tid in @($i.integrationTestIds)) { $requiredIds += [string]$tid }
@@ -77,6 +89,55 @@ $requiredCount = @($requiredIds).Count
 $functionalPct = if ($requiredCount -gt 0) { [math]::Round((@($functional).Count / $requiredCount) * 100, 2) } else { 0 }
 $coveragePct = if ($requiredCount -gt 0) { [math]::Round(($coveredCount / $requiredCount) * 100, 2) } else { 0 }
 
+$byDomainIndex = @{}
+foreach ($id in $requiredIds) {
+    $domain = Get-DomainForId $id
+    if (-not $byDomainIndex.ContainsKey($domain)) {
+        $byDomainIndex[$domain] = @{
+            required = 0
+            covered = 0
+            functional = 0
+            stub = 0
+            missing = 0
+        }
+    }
+    $byDomainIndex[$domain].required++
+}
+foreach ($entry in $functional) {
+    $domain = Get-DomainForId ([string]$entry.id)
+    $byDomainIndex[$domain].covered++
+    $byDomainIndex[$domain].functional++
+}
+foreach ($entry in $stub) {
+    $domain = Get-DomainForId ([string]$entry.id)
+    $byDomainIndex[$domain].covered++
+    $byDomainIndex[$domain].stub++
+}
+foreach ($entry in $missing) {
+    $domain = Get-DomainForId ([string]$entry.id)
+    $byDomainIndex[$domain].missing++
+}
+
+$byDomain = @(
+    $byDomainIndex.GetEnumerator() |
+    Sort-Object Name |
+    ForEach-Object {
+        $required = [int]$_.Value.required
+        $covered = [int]$_.Value.covered
+        $functionalDomain = [int]$_.Value.functional
+        [ordered]@{
+            domain = $_.Name
+            requiredCount = $required
+            coveredCount = $covered
+            coveragePct = if ($required -gt 0) { [math]::Round(($covered / $required) * 100, 2) } else { 0 }
+            functionalCount = $functionalDomain
+            functionalPct = if ($required -gt 0) { [math]::Round(($functionalDomain / $required) * 100, 2) } else { 0 }
+            stubCount = [int]$_.Value.stub
+            missingCount = [int]$_.Value.missing
+        }
+    }
+)
+
 $result = @{
     check = "test_contract_coverage"
     timestampUtc = (Get-Date).ToUniversalTime().ToString("o")
@@ -90,6 +151,7 @@ $result = @{
     missing = $missing
     stub = $stub
     functional = $functional
+    byDomain = $byDomain
     passed = (@($missing).Count -eq 0)
 }
 

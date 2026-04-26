@@ -288,6 +288,13 @@
       if (coverage.requiredCount !== undefined) {
         lines.push(`- Contract coverage: ${coverage.coveredCount}/${coverage.requiredCount} (${coverage.coveragePct}%)`);
         lines.push(`- Functional coverage: ${coverage.functionalCount}/${coverage.requiredCount} (${coverage.functionalPct}%)`);
+        const byDomain = coverage.byDomain || [];
+        if (byDomain.length > 0) {
+          lines.push('- Functional by domain:');
+          for (const row of byDomain) {
+            lines.push(`  - ${row.domain}: ${row.functionalCount}/${row.requiredCount} (${row.functionalPct}%)`);
+          }
+        }
       }
 
       const guard = snapshot.criticalRegressionGuard || {};
@@ -376,6 +383,13 @@
           lines.push(`- functional: ${coverage.functionalCount} (${coverage.functionalPct}%)`);
           lines.push(`- stubs: ${coverage.stubCount}`);
           lines.push(`- missing: ${coverage.missingCount}`);
+          const byDomain = coverage.byDomain || [];
+          if (byDomain.length > 0) {
+            lines.push('- by domain (functional/required):');
+            for (const row of byDomain) {
+              lines.push(`  - ${row.domain}: ${row.functionalCount}/${row.requiredCount} (${row.functionalPct}%) [stubs=${row.stubCount}, missing=${row.missingCount}]`);
+            }
+          }
         }
         lines.push('');
 
@@ -427,6 +441,13 @@
         if (coverage.requiredCount !== undefined) {
           lines.push(`Contract coverage: ${coverage.coveredCount}/${coverage.requiredCount} (${coverage.coveragePct}%)`);
           lines.push(`Functional coverage: ${coverage.functionalCount}/${coverage.requiredCount} (${coverage.functionalPct}%)`);
+          const byDomain = coverage.byDomain || [];
+          if (byDomain.length > 0) {
+            lines.push('Functional by domain:');
+            for (const row of byDomain) {
+              lines.push(`- ${row.domain}: ${row.functionalCount}/${row.requiredCount} (${row.functionalPct}%), stubs=${row.stubCount}, missing=${row.missingCount}`);
+            }
+          }
         }
 
         const guard = snapshot.criticalRegressionGuard || {};

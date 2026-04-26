@@ -67,6 +67,10 @@ function Get-TopAuthorityRejections([int]$MaxFiles = 80) {
         generatedAtUtc = (Get-Date).ToUniversalTime().ToString("o")
         filesScanned = 0
         eventsWithCodes = 0
+        trendWindow = @{
+            currentFiles = 0
+            previousFiles = 0
+        }
         topReasonCodes = @()
     }
 
@@ -75,10 +79,15 @@ function Get-TopAuthorityRejections([int]$MaxFiles = 80) {
     }
 
     $counts = @{}
+    $previousCounts = @{}
     $files = Get-ChildItem -Path $botReportsDir -Filter "*.json" | Sort-Object LastWriteTimeUtc -Descending | Select-Object -First $MaxFiles
     $result.filesScanned = @($files).Count
+    $split = [math]::Floor(@($files).Count / 2)
+    $result.trendWindow.currentFiles = $split
+    $result.trendWindow.previousFiles = (@($files).Count - $split)
 
-    foreach ($file in $files) {
+    for ($idx = 0; $idx -lt @($files).Count; $idx++) {
+        $file = $files[$idx]
         try {
             $report = Get-Content $file.FullName -Raw | ConvertFrom-Json
         } catch {
@@ -99,6 +108,10 @@ function Get-TopAuthorityRejections([int]$MaxFiles = 80) {
             foreach ($code in $codes) {
                 if (-not $counts.ContainsKey($code)) { $counts[$code] = 0 }
                 $counts[$code]++
+                if ($idx -ge $split) {
+                    if (-not $previousCounts.ContainsKey($code)) { $previousCounts[$code] = 0 }
+                    $previousCounts[$code]++
+                }
             }
         }
     }
@@ -109,9 +122,14 @@ function Get-TopAuthorityRejections([int]$MaxFiles = 80) {
         Select-Object -First 10 |
         ForEach-Object {
             $severity = Get-AuthCodeSeverity $_.Key
+            $currentCount = $_.Value
+            $previousCount = $(if ($previousCounts.ContainsKey($_.Key)) { $previousCounts[$_.Key] } else { 0 })
+            $delta = ($currentCount - $previousCount)
             [ordered]@{
                 code = $_.Key
-                count = $_.Value
+                count = $currentCount
+                previousCount = $previousCount
+                delta = $delta
                 severity = $severity
                 severityRank = (Get-SeverityRank $severity)
             }

@@ -108,6 +108,12 @@
       return '[INFO]';
     }
 
+    function deltaTag(delta) {
+      if (delta > 0) return `↑ +${delta}`;
+      if (delta < 0) return `↓ ${delta}`;
+      return '→ 0';
+    }
+
     function renderAuthRejections() {
       const box = document.getElementById('authBox');
       const data = latestAuthData;
@@ -124,10 +130,13 @@
       lines.push(`Generated: ${data.generatedAtUtc}`);
       lines.push(`Files scanned: ${data.filesScanned}`);
       lines.push(`Events with reason codes: ${data.eventsWithCodes}`);
+      if (data.trendWindow) {
+        lines.push(`Trend window: current=${data.trendWindow.currentFiles}, previous=${data.trendWindow.previousFiles}`);
+      }
       lines.push(`Filter: ${authSeverityFilter}`);
       lines.push('');
       for (const row of rows) {
-        lines.push(`${sevTag(row.severity)} ${row.code}: ${row.count}`);
+        lines.push(`${sevTag(row.severity)} ${row.code}: ${row.count} (${deltaTag(row.delta || 0)} vs prev=${row.previousCount || 0})`);
       }
       box.textContent = lines.join('\n');
     }
@@ -181,9 +190,12 @@
       lines.push(`Applied filter: ${authSeverityFilter}`);
       lines.push(`Files scanned: ${latestAuthData.filesScanned}`);
       lines.push(`Events with reason codes: ${latestAuthData.eventsWithCodes}`);
+      if (latestAuthData.trendWindow) {
+        lines.push(`Trend window: current=${latestAuthData.trendWindow.currentFiles}, previous=${latestAuthData.trendWindow.previousFiles}`);
+      }
       lines.push('');
       for (const row of rows) {
-        lines.push(`- ${sevTag(row.severity)} ${row.code}: ${row.count}`);
+        lines.push(`- ${sevTag(row.severity)} ${row.code}: ${row.count} (${deltaTag(row.delta || 0)} vs prev=${row.previousCount || 0})`);
       }
 
       const payload = lines.join('\n');

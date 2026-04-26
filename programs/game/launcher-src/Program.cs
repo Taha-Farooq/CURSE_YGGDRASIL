@@ -1,37 +1,38 @@
 using System.Diagnostics;
 using System.IO;
 
-namespace GameLauncher;
-
-public static class Program
+namespace GameLauncher
 {
-    public static int Main(string[] args)
+    public static class Program
     {
-        var repoRoot = Directory.GetParent(AppContext.BaseDirectory)!.Parent!.Parent!.Parent!.FullName;
-        var scriptPath = Path.Combine(repoRoot, "programs", "game", "launch-game.ps1");
-
-        if (!File.Exists(scriptPath))
+        public static int Main(string[] args)
         {
-            Console.Error.WriteLine($"Missing script: {scriptPath}");
-            return 1;
+            var repoRoot = Directory.GetParent(AppContext.BaseDirectory)!.Parent!.Parent!.Parent!.FullName;
+            var scriptPath = Path.Combine(repoRoot, "programs", "game", "launch-game.ps1");
+
+            if (!File.Exists(scriptPath))
+            {
+                Console.Error.WriteLine($"Missing script: {scriptPath}");
+                return 1;
+            }
+
+            var psi = new ProcessStartInfo
+            {
+                FileName = "powershell.exe",
+                Arguments = $"-NoProfile -ExecutionPolicy Bypass -File \"{scriptPath}\"",
+                UseShellExecute = false
+            };
+
+            using var process = Process.Start(psi);
+            if (process is null)
+            {
+                Console.Error.WriteLine("Failed to start PowerShell process.");
+                return 1;
+            }
+
+            process.WaitForExit();
+            return process.ExitCode;
         }
-
-        var psi = new ProcessStartInfo
-        {
-            FileName = "powershell.exe",
-            Arguments = $"-NoProfile -ExecutionPolicy Bypass -File \"{scriptPath}\"",
-            UseShellExecute = false
-        };
-
-        using var process = Process.Start(psi);
-        if (process is null)
-        {
-            Console.Error.WriteLine("Failed to start PowerShell process.");
-            return 1;
-        }
-
-        process.WaitForExit();
-        return process.ExitCode;
     }
 }
 

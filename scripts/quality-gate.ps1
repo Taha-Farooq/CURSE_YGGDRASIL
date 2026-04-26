@@ -165,6 +165,31 @@ Invoke-ResilientCheck `
     -FailureMessage "Failed to validate interaction matrix contract doc sync." `
     -RecoveryMessage "[quality-gate] INTERACTION_MATRIX_CONTRACT_SUMMARY.md required regeneration during validation."
 
+# Contract coverage check: all contract test/scenario IDs should have bot files.
+try {
+    $coverageScript = Join-Path $repoRoot "scripts\check-test-contract-coverage.ps1"
+    $coverageResult = & $coverageScript -RepoRoot $repoRoot -Strict -WriteReport | ConvertFrom-Json
+    if ($coverageResult.missingCount -gt 0) {
+        Fail "Contract coverage check failed. Missing bot files: $($coverageResult.missingCount)"
+    }
+    Write-Host ("[quality-gate] Contract coverage: " + $coverageResult.coveragePct + "%, functional: " + $coverageResult.functionalPct + "%")
+}
+catch {
+    Fail ("Failed to validate test contract coverage. Details: " + $_.Exception.Message)
+}
+
+# Critical regression guard: two consecutive failures in key tests should fail gate.
+try {
+    $criticalGuardScript = Join-Path $repoRoot "scripts\check-critical-regressions.ps1"
+    $criticalResult = & $criticalGuardScript -RepoRoot $repoRoot -Strict | ConvertFrom-Json
+    if (-not $criticalResult.passed) {
+        Fail ("Critical regression guard failed with " + @($criticalResult.criticalFindings).Count + " finding(s).")
+    }
+}
+catch {
+    Fail ("Failed to validate critical regression guard. Details: " + $_.Exception.Message)
+}
+
 # Basic matrix checks
 $matrix = Get-Content (Join-Path $repoRoot "INTERACTION_MATRIX.md") -Raw
 if ($matrix -notmatch "INT-") {

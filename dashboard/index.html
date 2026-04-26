@@ -61,6 +61,13 @@
   </div>
 
   <div class="card">
+    <h2>Automation Test Health</h2>
+    <p class="muted">Contract coverage and critical-regression guard status.</p>
+    <button class="secondary" id="refreshTestHealthBtn">Refresh Test Health</button>
+    <pre id="testHealthBox">Loading test health...</pre>
+  </div>
+
+  <div class="card">
     <h2>Feature / Tweak Input</h2>
     <p class="muted">Type what you want next. This is saved into project files for automation to use.</p>
     <textarea id="featureText" placeholder="Example: Add a new demon-lord succession mechanic with rival factions..."></textarea>
@@ -260,6 +267,7 @@
       await getStatus();
       await getAuthRejections();
       await getFailingChecks();
+      await getTestHealth();
     }
 
     async function getAuthRejections() {
@@ -279,6 +287,45 @@
         renderFailingChecks();
       } catch (err) {
         document.getElementById('failingBox').textContent = 'Failed to load failing checks: ' + err;
+      }
+    }
+
+    async function getTestHealth() {
+      const box = document.getElementById('testHealthBox');
+      try {
+        const res = await fetch('/api/test-health');
+        const data = await res.json();
+        const lines = [];
+        lines.push(`Generated: ${data.generatedAtUtc}`);
+        lines.push('');
+
+        const coverage = data.contractCoverage || {};
+        if (coverage.error) {
+          lines.push(`[CRITICAL] Contract coverage error: ${coverage.error}`);
+        } else {
+          lines.push(`Contract coverage passed: ${coverage.passed}`);
+          lines.push(`- required: ${coverage.requiredCount}`);
+          lines.push(`- covered: ${coverage.coveredCount} (${coverage.coveragePct}%)`);
+          lines.push(`- functional: ${coverage.functionalCount} (${coverage.functionalPct}%)`);
+          lines.push(`- stubs: ${coverage.stubCount}`);
+          lines.push(`- missing: ${coverage.missingCount}`);
+        }
+        lines.push('');
+
+        const guard = data.criticalRegressionGuard || {};
+        if (guard.error) {
+          lines.push(`[CRITICAL] Critical regression guard error: ${guard.error}`);
+        } else {
+          lines.push(`Critical regression guard passed: ${guard.passed}`);
+          const findings = guard.criticalFindings || [];
+          lines.push(`- critical findings: ${findings.length}`);
+          for (const finding of findings) {
+            lines.push(`  - ${finding.bot}: ${finding.consecutiveFailures} consecutive failures`);
+          }
+        }
+        box.textContent = lines.join('\n');
+      } catch (err) {
+        box.textContent = 'Failed to load test health: ' + err;
       }
     }
 
@@ -390,6 +437,7 @@
     document.getElementById('refreshStatusBtn').addEventListener('click', getStatus);
     document.getElementById('refreshAuthBtn').addEventListener('click', getAuthRejections);
     document.getElementById('refreshFailingBtn').addEventListener('click', getFailingChecks);
+    document.getElementById('refreshTestHealthBtn').addEventListener('click', getTestHealth);
     document.getElementById('authFilterAllBtn').addEventListener('click', () => { authSeverityFilter = 'all'; renderAuthRejections(); });
     document.getElementById('authFilterWarningsBtn').addEventListener('click', () => { authSeverityFilter = 'warnings'; renderAuthRejections(); });
     document.getElementById('authFilterCriticalBtn').addEventListener('click', () => { authSeverityFilter = 'critical'; renderAuthRejections(); });
@@ -412,6 +460,7 @@
     getStatus();
     getAuthRejections();
     getFailingChecks();
+    getTestHealth();
   </script>
 </body>
 </html>

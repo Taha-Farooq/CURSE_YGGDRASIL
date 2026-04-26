@@ -209,6 +209,39 @@ function Get-LatestFailingChecks([int]$MaxFiles = 80, [int]$MaxItems = 20) {
     return $result
 }
 
+function Get-TestAutomationHealth {
+    $result = [ordered]@{
+        generatedAtUtc = (Get-Date).ToUniversalTime().ToString("o")
+        contractCoverage = $null
+        criticalRegressionGuard = $null
+    }
+
+    $coverageScript = Join-Path $repoRoot "scripts\check-test-contract-coverage.ps1"
+    $criticalGuardScript = Join-Path $repoRoot "scripts\check-critical-regressions.ps1"
+
+    try {
+        $coverage = & $coverageScript -RepoRoot $repoRoot | ConvertFrom-Json
+        $result.contractCoverage = $coverage
+    } catch {
+        $result.contractCoverage = @{
+            passed = $false
+            error = $_.Exception.Message
+        }
+    }
+
+    try {
+        $critical = & $criticalGuardScript -RepoRoot $repoRoot | ConvertFrom-Json
+        $result.criticalRegressionGuard = $critical
+    } catch {
+        $result.criticalRegressionGuard = @{
+            passed = $false
+            error = $_.Exception.Message
+        }
+    }
+
+    return $result
+}
+
 while ($listener.IsListening) {
     try {
         $ctx = $listener.GetContext()
@@ -237,6 +270,12 @@ while ($listener.IsListening) {
 
         if ($method -eq "GET" -and $path -eq "/api/failing-checks") {
             $payload = Get-LatestFailingChecks
+            Write-JsonResponse $ctx $payload 200
+            continue
+        }
+
+        if ($method -eq "GET" -and $path -eq "/api/test-health") {
+            $payload = Get-TestAutomationHealth
             Write-JsonResponse $ctx $payload 200
             continue
         }

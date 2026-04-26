@@ -76,6 +76,16 @@ catch {
     Fail "Invalid systems/networking/AUTHORITY_REASON_CODES.json contract."
 }
 
+try {
+    & (Join-Path $repoRoot "scripts\sync-authority-reason-codes-doc.ps1") -RepoRoot $repoRoot -Check
+    if ($LASTEXITCODE -ne 0) {
+        Fail "AUTHORITY_REASON_CODES.md is out of sync with AUTHORITY_REASON_CODES.json."
+    }
+}
+catch {
+    Fail "Failed to validate authority reason code doc sync."
+}
+
 # Basic matrix checks
 $matrix = Get-Content (Join-Path $repoRoot "INTERACTION_MATRIX.md") -Raw
 if ($matrix -notmatch "INT-") {

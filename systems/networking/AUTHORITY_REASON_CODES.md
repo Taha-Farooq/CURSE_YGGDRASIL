@@ -1,4 +1,6 @@
-# Authority Reason Codes v1
+﻿# Authority Reason Codes v1.0
+
+<!-- AUTO-GENERATED: Run scripts/sync-authority-reason-codes-doc.ps1 -->
 
 This document defines canonical reason codes returned by `engine/net/authority-validation`.
 Machine-readable source of truth: `systems/networking/AUTHORITY_REASON_CODES.json`.
@@ -14,16 +16,7 @@ Machine-readable source of truth: `systems/networking/AUTHORITY_REASON_CODES.jso
 - Structure: `AUTH-<domain>-<number>`
 - Example: `AUTH-SCOPE-001`
 
-## Core Domains
-
-- `SCOPE`: authority, ownership, jurisdiction, and actor permissions.
-- `INPUT`: malformed or missing action payload data.
-- `BUDGET`: simulation, resource, or runtime budget overflow.
-- `STATE`: invalid world preconditions.
-- `SEC`: anti-exploit and abuse controls.
-- `INTEROP`: magic/tech shared-path validation failures.
-
-## Seed Codes
+## Codes
 
 | code | domain | meaning |
 |---|---|---|
@@ -40,15 +33,22 @@ Machine-readable source of truth: `systems/networking/AUTHORITY_REASON_CODES.jso
 | `AUTH-INTEROP-003` | INTEROP | missing required interop telemetry tags |
 | `AUTH-INTEROP-004` | INTEROP | hybrid action missing dual-channel cost declaration |
 
-## Mapping to Current Interop Validator
+## Mapping to Interop Validator
 
-The first interop scripts emit `INT-LEG-*` codes. Authority service MUST map them into `AUTH-INTEROP-*` for network contracts:
+The authority service maps `INT-LEG-*` legality failures to canonical `AUTH-*` codes via the JSON contract:
 
+- `INT-LEG-001-MISSING_IDENTITY` -> `AUTH-INPUT-001`
+- `INT-LEG-002-INVALID_ACTION_TYPE` -> `AUTH-INPUT-002`
+- `INT-LEG-003-INVALID_SCOPE` -> `AUTH-SCOPE-001`
 - `INT-LEG-004-FACT_ACCESS_EMPTY` -> `AUTH-INTEROP-001`
 - `INT-LEG-005-REPLAY_REQUIRED` -> `AUTH-INTEROP-002`
 - `INT-LEG-006-MISSING_INTEROP_TAGS` -> `AUTH-INTEROP-003`
 - `INT-LEG-007-HYBRID_COST_CHANNELS_MISSING` -> `AUTH-INTEROP-004`
+- `INT-LEG-008-NO_COST_CHANNEL` -> `AUTH-BUDGET-002`
+- `INT-LEG-009-MISSING_SIM_BUDGET` -> `AUTH-BUDGET-001`
 - `INT-LEG-010-SIM_BUDGET_EXCEEDED` -> `AUTH-BUDGET-001`
+
+Fallback code for unmapped reasons: `AUTH-STATE-001`
 
 ## Contract Rules
 
@@ -60,4 +60,6 @@ The first interop scripts emit `INT-LEG-*` codes. Authority service MUST map the
   - actor ID
   - reason codes[]
   - validator version
+
+Last generated from JSON contract version `1.0` at `2026-04-26T00:00:00Z`.
 

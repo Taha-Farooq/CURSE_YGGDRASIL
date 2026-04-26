@@ -130,6 +130,17 @@
       return '→ 0';
     }
 
+    function weakestDomains(byDomain, count = 3) {
+      return (byDomain || [])
+        .slice()
+        .sort((a, b) => {
+          const pctDelta = (a.functionalPct ?? 0) - (b.functionalPct ?? 0);
+          if (pctDelta !== 0) return pctDelta;
+          return (b.requiredCount ?? 0) - (a.requiredCount ?? 0);
+        })
+        .slice(0, count);
+    }
+
     function renderAuthRejections() {
       const box = document.getElementById('authBox');
       const data = latestAuthData;
@@ -290,6 +301,8 @@
         lines.push(`- Functional coverage: ${coverage.functionalCount}/${coverage.requiredCount} (${coverage.functionalPct}%)`);
         const byDomain = coverage.byDomain || [];
         if (byDomain.length > 0) {
+          const weakest = weakestDomains(byDomain, 3);
+          lines.push(`- Top weak domains: ${weakest.map(d => `${d.domain} (${d.functionalPct}%)`).join(', ')}`);
           lines.push('- Functional by domain:');
           for (const row of byDomain) {
             lines.push(`  - ${row.domain}: ${row.functionalCount}/${row.requiredCount} (${row.functionalPct}%)`);
@@ -385,6 +398,8 @@
           lines.push(`- missing: ${coverage.missingCount}`);
           const byDomain = coverage.byDomain || [];
           if (byDomain.length > 0) {
+            const weakest = weakestDomains(byDomain, 3);
+            lines.push(`- top weak domains: ${weakest.map(d => `${d.domain} (${d.functionalPct}%)`).join(', ')}`);
             lines.push('- by domain (functional/required):');
             for (const row of byDomain) {
               lines.push(`  - ${row.domain}: ${row.functionalCount}/${row.requiredCount} (${row.functionalPct}%) [stubs=${row.stubCount}, missing=${row.missingCount}]`);
@@ -443,6 +458,8 @@
           lines.push(`Functional coverage: ${coverage.functionalCount}/${coverage.requiredCount} (${coverage.functionalPct}%)`);
           const byDomain = coverage.byDomain || [];
           if (byDomain.length > 0) {
+            const weakest = weakestDomains(byDomain, 3);
+            lines.push(`Top weak domains: ${weakest.map(d => `${d.domain} (${d.functionalPct}%)`).join(', ')}`);
             lines.push('Functional by domain:');
             for (const row of byDomain) {
               lines.push(`- ${row.domain}: ${row.functionalCount}/${row.requiredCount} (${row.functionalPct}%), stubs=${row.stubCount}, missing=${row.missingCount}`);

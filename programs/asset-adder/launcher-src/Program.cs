@@ -1,11 +1,9 @@
 using System.Diagnostics;
 using System.IO;
 
-namespace AssetAdderLauncher;
-
-internal static class Program
+public static class Program
 {
-    private static int Main()
+    public static int Main(string[] args)
     {
         var repoRoot = Directory.GetParent(AppContext.BaseDirectory)!.Parent!.Parent!.Parent!.FullName;
         var scriptPath = Path.Combine(repoRoot, "programs", "asset-adder", "launch-asset-adder.ps1");

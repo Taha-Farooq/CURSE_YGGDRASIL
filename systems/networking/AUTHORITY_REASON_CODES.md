@@ -1,6 +1,7 @@
 # Authority Reason Codes v1
 
 This document defines canonical reason codes returned by `engine/net/authority-validation`.
+Machine-readable source of truth: `systems/networking/AUTHORITY_REASON_CODES.json`.
 
 ## Purpose
 

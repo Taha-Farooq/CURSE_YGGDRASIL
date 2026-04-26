@@ -23,31 +23,27 @@ if (-not (Test-Path $ActionJsonPath)) {
 $interop = (& $interopValidator -RepoRoot $RepoRoot -ActionJsonPath $ActionJsonPath) | ConvertFrom-Json
 $action = Get-Content $ActionJsonPath -Raw | ConvertFrom-Json
 
-$map = @{
-    "INT-LEG-001-MISSING_IDENTITY" = "AUTH-INPUT-001"
-    "INT-LEG-002-INVALID_ACTION_TYPE" = "AUTH-INPUT-002"
-    "INT-LEG-003-INVALID_SCOPE" = "AUTH-SCOPE-001"
-    "INT-LEG-004-FACT_ACCESS_EMPTY" = "AUTH-INTEROP-001"
-    "INT-LEG-005-REPLAY_REQUIRED" = "AUTH-INTEROP-002"
-    "INT-LEG-006-MISSING_INTEROP_TAGS" = "AUTH-INTEROP-003"
-    "INT-LEG-007-HYBRID_COST_CHANNELS_MISSING" = "AUTH-INTEROP-004"
-    "INT-LEG-008-NO_COST_CHANNEL" = "AUTH-BUDGET-002"
-    "INT-LEG-009-MISSING_SIM_BUDGET" = "AUTH-BUDGET-001"
-    "INT-LEG-010-SIM_BUDGET_EXCEEDED" = "AUTH-BUDGET-001"
+$reasonCodeContractPath = Join-Path $RepoRoot "systems\networking\AUTHORITY_REASON_CODES.json"
+if (-not (Test-Path $reasonCodeContractPath)) {
+    throw "Missing authority reason-code contract: $reasonCodeContractPath"
 }
+$reasonCodeContract = Get-Content $reasonCodeContractPath -Raw | ConvertFrom-Json
+$map = $reasonCodeContract.interopCodeMapping
+$fallbackCode = $reasonCodeContract.fallbackCode
 
 $authReasonCodes = @()
 foreach ($code in @($interop.reasonCodes)) {
-    if ($map.ContainsKey($code)) {
-        $authReasonCodes += $map[$code]
+    if ($null -ne $map.$code) {
+        $authReasonCodes += $map.$code
     } else {
-        $authReasonCodes += "AUTH-STATE-001"
+        $authReasonCodes += $fallbackCode
     }
 }
 
 $decision = @{
     service = "authority_validation_service_v1"
     validatorVersion = "v1"
+    reasonCodeContractVersion = $reasonCodeContract.version
     timestampUtc = (Get-Date).ToUniversalTime().ToString("o")
     actionId = $action.actionId
     actorId = $action.actorId

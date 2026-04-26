@@ -27,6 +27,10 @@ if (-not (Test-Path (Join-Path $repoRoot "MAGITECH_INTEROP_SPEC.md"))) {
     Fail "Missing MAGITECH_INTEROP_SPEC.md"
 }
 
+if (-not (Test-Path (Join-Path $repoRoot "systems\networking\AUTHORITY_REASON_CODES.json"))) {
+    Fail "Missing systems/networking/AUTHORITY_REASON_CODES.json"
+}
+
 # Basic JSON parse check
 try {
     Get-Content (Join-Path $repoRoot "FEEDBACK_SCHEMA.json") -Raw | ConvertFrom-Json | Out-Null
@@ -34,6 +38,42 @@ try {
 }
 catch {
     Fail "Invalid FEEDBACK_SCHEMA.json JSON."
+}
+
+# Authority reason-code contract parse and minimum validation
+try {
+    $reasonContract = Get-Content (Join-Path $repoRoot "systems\networking\AUTHORITY_REASON_CODES.json") -Raw | ConvertFrom-Json
+    $requiredAuthCodes = @(
+        "AUTH-INPUT-001",
+        "AUTH-INPUT-002",
+        "AUTH-SCOPE-001",
+        "AUTH-BUDGET-001",
+        "AUTH-INTEROP-001",
+        "AUTH-INTEROP-002",
+        "AUTH-INTEROP-003",
+        "AUTH-INTEROP-004"
+    )
+    $presentCodes = @($reasonContract.codes | ForEach-Object { $_.code })
+    foreach ($requiredCode in $requiredAuthCodes) {
+        if ($presentCodes -notcontains $requiredCode) {
+            Fail "Missing required authority reason code in AUTHORITY_REASON_CODES.json: $requiredCode"
+        }
+    }
+    $requiredInteropMappings = @(
+        "INT-LEG-004-FACT_ACCESS_EMPTY",
+        "INT-LEG-005-REPLAY_REQUIRED",
+        "INT-LEG-006-MISSING_INTEROP_TAGS",
+        "INT-LEG-007-HYBRID_COST_CHANNELS_MISSING",
+        "INT-LEG-010-SIM_BUDGET_EXCEEDED"
+    )
+    foreach ($interopCode in $requiredInteropMappings) {
+        if ($null -eq $reasonContract.interopCodeMapping.$interopCode) {
+            Fail "Missing INT->AUTH mapping in AUTHORITY_REASON_CODES.json: $interopCode"
+        }
+    }
+}
+catch {
+    Fail "Invalid systems/networking/AUTHORITY_REASON_CODES.json contract."
 }
 
 # Basic matrix checks

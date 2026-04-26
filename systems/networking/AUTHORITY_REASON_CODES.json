@@ -1,0 +1,79 @@
+{
+  "version": "1.0",
+  "updatedUtc": "2026-04-26T00:00:00Z",
+  "codes": [
+    {
+      "code": "AUTH-INPUT-001",
+      "domain": "INPUT",
+      "meaning": "action payload missing required IDs or type"
+    },
+    {
+      "code": "AUTH-INPUT-002",
+      "domain": "INPUT",
+      "meaning": "unsupported action type"
+    },
+    {
+      "code": "AUTH-SCOPE-001",
+      "domain": "SCOPE",
+      "meaning": "actor not authorized for requested scope"
+    },
+    {
+      "code": "AUTH-SCOPE-002",
+      "domain": "SCOPE",
+      "meaning": "ownership mismatch for target entity"
+    },
+    {
+      "code": "AUTH-STATE-001",
+      "domain": "STATE",
+      "meaning": "required world preconditions not met"
+    },
+    {
+      "code": "AUTH-BUDGET-001",
+      "domain": "BUDGET",
+      "meaning": "simulation budget exceeded"
+    },
+    {
+      "code": "AUTH-BUDGET-002",
+      "domain": "BUDGET",
+      "meaning": "gameplay resource budget exceeded"
+    },
+    {
+      "code": "AUTH-SEC-001",
+      "domain": "SEC",
+      "meaning": "action flagged by anti-exploit policy"
+    },
+    {
+      "code": "AUTH-INTEROP-001",
+      "domain": "INTEROP",
+      "meaning": "missing shared world-fact read/write declaration"
+    },
+    {
+      "code": "AUTH-INTEROP-002",
+      "domain": "INTEROP",
+      "meaning": "missing replay-required marker for interop action"
+    },
+    {
+      "code": "AUTH-INTEROP-003",
+      "domain": "INTEROP",
+      "meaning": "missing required interop telemetry tags"
+    },
+    {
+      "code": "AUTH-INTEROP-004",
+      "domain": "INTEROP",
+      "meaning": "hybrid action missing dual-channel cost declaration"
+    }
+  ],
+  "interopCodeMapping": {
+    "INT-LEG-001-MISSING_IDENTITY": "AUTH-INPUT-001",
+    "INT-LEG-002-INVALID_ACTION_TYPE": "AUTH-INPUT-002",
+    "INT-LEG-003-INVALID_SCOPE": "AUTH-SCOPE-001",
+    "INT-LEG-004-FACT_ACCESS_EMPTY": "AUTH-INTEROP-001",
+    "INT-LEG-005-REPLAY_REQUIRED": "AUTH-INTEROP-002",
+    "INT-LEG-006-MISSING_INTEROP_TAGS": "AUTH-INTEROP-003",
+    "INT-LEG-007-HYBRID_COST_CHANNELS_MISSING": "AUTH-INTEROP-004",
+    "INT-LEG-008-NO_COST_CHANNEL": "AUTH-BUDGET-002",
+    "INT-LEG-009-MISSING_SIM_BUDGET": "AUTH-BUDGET-001",
+    "INT-LEG-010-SIM_BUDGET_EXCEEDED": "AUTH-BUDGET-001"
+  },
+  "fallbackCode": "AUTH-STATE-001"
+}

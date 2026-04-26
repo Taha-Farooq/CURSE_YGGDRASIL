@@ -73,7 +73,11 @@ Run PowerShell as Administrator and execute:
 ./scripts/install-autonomous-task.ps1
 ```
 
-This creates task `CURSE-Autonomous-Loop` and runs one autonomous cycle every 30 minutes.
+This creates a scheduled task and runs one autonomous cycle every 30 minutes.
+By default the task name is project-scoped, for example:
+`Yggdrasil-CURSE-Autonomous-Loop`
+
+This naming prevents collisions so it can run alongside other Cursor projects.
 
 ## Stop auto-run task
 

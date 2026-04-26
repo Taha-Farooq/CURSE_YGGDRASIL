@@ -12,10 +12,10 @@ $interval = [int]$config.loopIntervalMinutes
 function RunCycle {
     Write-Host "[run-autonomous] Cycle started at $(Get-Date -Format s)"
     & (Join-Path $repoRoot "scripts\ensure-program-exes.ps1")
-    if ($LASTEXITCODE -ne 0) { throw "ensure-program-exes failed with code $LASTEXITCODE" }
+    if (-not $?) { throw "ensure-program-exes failed." }
 
     & (Join-Path $repoRoot "scripts\dev-loop.ps1") -Strict:$Strict
-    if ($LASTEXITCODE -ne 0) { throw "dev-loop failed with code $LASTEXITCODE" }
+    if (-not $?) { throw "dev-loop failed." }
 }
 
 if ($Once) {

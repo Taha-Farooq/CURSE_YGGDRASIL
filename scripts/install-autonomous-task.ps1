@@ -1,10 +1,15 @@
 param(
-    [string]$TaskName = "CURSE-Autonomous-Loop"
+    [string]$TaskName = ""
 )
 
 $ErrorActionPreference = "Stop"
 $repoRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
 $runScript = Join-Path $repoRoot "scripts\run-autonomous.ps1"
+$projectName = Split-Path $repoRoot -Leaf
+if ([string]::IsNullOrWhiteSpace($TaskName)) {
+    # Project-scoped default prevents collisions with other local projects.
+    $TaskName = "Yggdrasil-$projectName-Autonomous-Loop"
+}
 
 if (-not (Test-Path $runScript)) {
     throw "Missing script: $runScript"

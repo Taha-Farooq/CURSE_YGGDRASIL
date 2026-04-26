@@ -21,6 +21,10 @@ try {
     & (Join-Path $RepoRoot "scripts\quality-gate.ps1") -Strict:$Strict
     $checks += @{ check = "quality_gate"; status = "pass"; details = "quality-gate passed" }
 }
+catch {
+    $passed = $false
+    $checks += @{ check = "quality_gate"; status = "fail"; details = $_.Exception.Message }
+}
 
 try {
     $authValidation = & (Join-Path $RepoRoot "scripts\authority-validate-action.ps1") -RepoRoot $RepoRoot -ActionJsonPath (Join-Path $RepoRoot "tests\fixtures\it-mgi-001-action-valid.json") | ConvertFrom-Json
@@ -34,10 +38,6 @@ try {
 catch {
     $passed = $false
     $checks += @{ check = "authority_validation_smoke"; status = "fail"; details = $_.Exception.Message }
-}
-catch {
-    $passed = $false
-    $checks += @{ check = "quality_gate"; status = "fail"; details = $_.Exception.Message }
 }
 
 $requiredFiles = @(

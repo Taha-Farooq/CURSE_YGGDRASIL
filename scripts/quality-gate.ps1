@@ -11,6 +11,33 @@ function Fail($msg) {
     exit 1
 }
 
+function Invoke-ResilientCheck {
+    param(
+        [scriptblock]$PrimaryCheck,
+        [scriptblock]$Remediation,
+        [scriptblock]$SecondaryCheck,
+        [string]$FailureMessage,
+        [string]$RecoveryMessage
+    )
+
+    try {
+        & $PrimaryCheck
+        return
+    }
+    catch {
+        try {
+            & $Remediation
+            & $SecondaryCheck
+            if (-not [string]::IsNullOrWhiteSpace($RecoveryMessage)) {
+                Write-Host $RecoveryMessage
+            }
+        }
+        catch {
+            Fail ($FailureMessage + " Details: " + $_.Exception.Message)
+        }
+    }
+}
+
 if (-not (Test-Path (Join-Path $repoRoot "FEEDBACK_SCHEMA.json"))) {
     Fail "Missing FEEDBACK_SCHEMA.json"
 }
@@ -76,28 +103,21 @@ catch {
     Fail "Invalid systems/networking/AUTHORITY_REASON_CODES.json contract."
 }
 
-try {
-    $syncScript = Join-Path $repoRoot "scripts\sync-authority-reason-codes-doc.ps1"
-    & $syncScript -RepoRoot $repoRoot -Check
-    if ($LASTEXITCODE -ne 0) {
-        throw "sync check exit code: $LASTEXITCODE"
-    }
-}
-catch {
-    # Retry once by regenerating then re-checking to absorb platform formatting drift.
-    try {
-        $syncScript = Join-Path $repoRoot "scripts\sync-authority-reason-codes-doc.ps1"
-        & $syncScript -RepoRoot $repoRoot
+$syncScript = Join-Path $repoRoot "scripts\sync-authority-reason-codes-doc.ps1"
+Invoke-ResilientCheck `
+    -PrimaryCheck {
         & $syncScript -RepoRoot $repoRoot -Check
-        if ($LASTEXITCODE -ne 0) {
-            throw "sync re-check exit code: $LASTEXITCODE"
-        }
-        Write-Host "[quality-gate] AUTHORITY_REASON_CODES.md required regeneration during validation."
-    }
-    catch {
-        Fail ("Failed to validate authority reason code doc sync. Details: " + $_.Exception.Message)
-    }
-}
+        if ($LASTEXITCODE -ne 0) { throw "sync check exit code: $LASTEXITCODE" }
+    } `
+    -Remediation {
+        & $syncScript -RepoRoot $repoRoot
+    } `
+    -SecondaryCheck {
+        & $syncScript -RepoRoot $repoRoot -Check
+        if ($LASTEXITCODE -ne 0) { throw "sync re-check exit code: $LASTEXITCODE" }
+    } `
+    -FailureMessage "Failed to validate authority reason code doc sync." `
+    -RecoveryMessage "[quality-gate] AUTHORITY_REASON_CODES.md required regeneration during validation."
 
 # Basic matrix checks
 $matrix = Get-Content (Join-Path $repoRoot "INTERACTION_MATRIX.md") -Raw

@@ -71,6 +71,7 @@
     <h2>Release Readiness Snapshot</h2>
     <p class="muted">Latest release-readiness artifact from automated runs.</p>
     <button class="secondary" id="refreshReleaseReadinessBtn">Refresh Release Snapshot</button>
+    <button class="secondary" id="copyReleaseSummaryBtn">Copy Release Summary</button>
     <pre id="releaseReadinessBox">Loading release readiness snapshot...</pre>
   </div>
 
@@ -100,6 +101,7 @@
   <script>
     let latestAuthData = null;
     let latestFailingData = null;
+    let latestReleaseReadinessData = null;
     let authSeverityFilter = 'all';
     let failingSeverityFilter = 'all';
 
@@ -259,6 +261,63 @@
       }
     }
 
+    async function copyReleaseSummary() {
+      const out = document.getElementById('releaseReadinessBox');
+      if (!latestReleaseReadinessData || !latestReleaseReadinessData.hasSnapshot || !latestReleaseReadinessData.snapshot) {
+        out.textContent = 'No release readiness snapshot available to summarize.';
+        return;
+      }
+
+      const snapshot = latestReleaseReadinessData.snapshot;
+      if (snapshot.error) {
+        out.textContent = 'Snapshot has parse error; refresh before copying summary.';
+        return;
+      }
+
+      const lines = [];
+      lines.push('Release Readiness Summary');
+      lines.push(`Generated: ${new Date().toISOString()}`);
+      lines.push(`Snapshot file: ${latestReleaseReadinessData.snapshotFile || '(unknown)'}`);
+      lines.push(`Snapshot time: ${snapshot.generatedAtUtc || '(unknown)'}`);
+      lines.push('');
+
+      const qg = snapshot.qualityGateStatus || {};
+      lines.push(`- Quality gate passed: ${qg.passed}`);
+
+      const coverage = snapshot.contractCoverage || {};
+      if (coverage.requiredCount !== undefined) {
+        lines.push(`- Contract coverage: ${coverage.coveredCount}/${coverage.requiredCount} (${coverage.coveragePct}%)`);
+        lines.push(`- Functional coverage: ${coverage.functionalCount}/${coverage.requiredCount} (${coverage.functionalPct}%)`);
+      }
+
+      const guard = snapshot.criticalRegressionGuard || {};
+      if (guard.passed !== undefined) {
+        lines.push(`- Critical regression guard passed: ${guard.passed}`);
+        lines.push(`- Critical findings: ${(guard.criticalFindings || []).length}`);
+      }
+
+      const freshness = snapshot.freshnessPolicy || {};
+      if (freshness.maxAgeHours !== undefined) {
+        lines.push(`- Freshness policy passed: ${freshness.passed} (maxAgeHours=${freshness.maxAgeHours})`);
+        lines.push(`- Missing critical reports: ${(freshness.missing || []).length}`);
+        lines.push(`- Stale critical reports: ${(freshness.stale || []).length}`);
+      }
+
+      const drift = snapshot.latestAutonomousDriftReport || {};
+      if (drift.timestampUtc) {
+        lines.push(`- Latest drift report: ${drift.timestampUtc} (passed=${drift.passed})`);
+        lines.push(`- Drift findings: ${(drift.findings || []).length}`);
+      }
+
+      const payload = lines.join('\n');
+      try {
+        await navigator.clipboard.writeText(payload);
+        out.textContent = 'Copied release readiness summary to clipboard.';
+      } catch (err) {
+        out.textContent = 'Clipboard copy failed. Summary below:\n\n' + payload;
+      }
+    }
+
     async function getStatus() {
       const res = await fetch('/api/status');
       const text = await res.text();
@@ -342,6 +401,7 @@
       try {
         const res = await fetch('/api/release-readiness');
         const data = await res.json();
+        latestReleaseReadinessData = data;
         const lines = [];
         lines.push(`Requested: ${data.generatedAtUtc}`);
         if (!data.hasSnapshot) {
@@ -504,6 +564,7 @@
     document.getElementById('refreshFailingBtn').addEventListener('click', getFailingChecks);
     document.getElementById('refreshTestHealthBtn').addEventListener('click', getTestHealth);
     document.getElementById('refreshReleaseReadinessBtn').addEventListener('click', getReleaseReadiness);
+    document.getElementById('copyReleaseSummaryBtn').addEventListener('click', copyReleaseSummary);
     document.getElementById('authFilterAllBtn').addEventListener('click', () => { authSeverityFilter = 'all'; renderAuthRejections(); });
     document.getElementById('authFilterWarningsBtn').addEventListener('click', () => { authSeverityFilter = 'warnings'; renderAuthRejections(); });
     document.getElementById('authFilterCriticalBtn').addEventListener('click', () => { authSeverityFilter = 'critical'; renderAuthRejections(); });

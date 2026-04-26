@@ -1,0 +1,40 @@
+{
+  "actionId": "act-scn-005-hybrid",
+  "actorId": "player-0005",
+  "actionType": "hybrid",
+  "scope": {
+    "authorityScope": "party"
+  },
+  "worldFactsRead": [
+    "Heat(cell:77,12)",
+    "Charge(node:delta)"
+  ],
+  "worldFactsWrite": [
+    "Signal(turret:north,enemy:approach,lock)",
+    "Stability(ward:grid-north,68)"
+  ],
+  "replay": {
+    "required": true
+  },
+  "telemetry": {
+    "tags": [
+      "magic",
+      "tech",
+      "hybrid",
+      "scn-005"
+    ]
+  },
+  "resourceCosts": {
+    "mana": 20,
+    "hpRisk": 2,
+    "materials": 7,
+    "energy": 10
+  },
+  "simBudget": {
+    "estimatedCost": 42,
+    "maxAllowedCost": 60
+  },
+  "effectProfile": {
+    "basePower": 36
+  }
+}

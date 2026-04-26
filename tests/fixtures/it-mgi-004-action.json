@@ -1,0 +1,11 @@
+{
+  "actionId": "act-it-mgi-004",
+  "actorId": "player-0003",
+  "actionType": "hybrid",
+  "effectProfile": {
+    "basePower": 30
+  },
+  "replay": {
+    "required": true
+  }
+}

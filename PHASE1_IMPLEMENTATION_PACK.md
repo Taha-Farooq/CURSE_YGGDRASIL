@@ -41,11 +41,13 @@ Ship a playable technical vertical slice with:
 ### Deliverables
 - `engine/net/authority-validation` service
 - reason-code contract doc
+- interop legality hooks aligned to `MAGITECH_INTEROP_SPEC.md`
 
 ### Acceptance Criteria
 - Invalid client outcomes never become canonical state.
 - Replay includes legality decision metadata.
 - Validation test suite passes.
+- `IT-MGI-001` legality path passes for hybrid magic/tech action.
 
 ---
 
@@ -90,10 +92,12 @@ Ship a playable technical vertical slice with:
 ### Deliverables
 - build permission evaluator
 - deconstruction evaluator
+- first shared magic/tech build interaction rules referenced from `MAGITECH_INTEROP_SPEC.md`
 
 ### Acceptance Criteria
 - CM level correctly affects allowed blueprint complexity and manifest speed.
 - Deconstruction is blocked outside allowed level-gap policy.
+- At least one build flow supports both arcane and device-side modifiers via shared validator path.
 
 ---
 
@@ -119,6 +123,7 @@ Ship a playable technical vertical slice with:
 ### Scope
 - Add apex entity archetype system with custom dimensions/armies/signature powers.
 - Implement rule hooks for exclusive magic/tech grammars.
+- Ensure exclusive grammars still execute through shared interop runtime contracts.
 
 ### Deliverables
 - apex archetype registry
@@ -128,6 +133,7 @@ Ship a playable technical vertical slice with:
 ### Acceptance Criteria
 - At least one entity from each category can be instantiated and simulated.
 - Each category supports distinct balance/counterplay envelope.
+- Exclusive grammar actions preserve interop legality, budget, and replay requirements.
 
 ---
 
@@ -169,14 +175,17 @@ Ship a playable technical vertical slice with:
 ### Scope
 - Add one-click "Run Daily + Promote Features" button.
 - Add widget showing top 10 backlog tasks and latest goal-alignment failures.
+- Add interop status indicator (magic/tech/hybrid validator pass rates from latest run).
 
 ### Deliverables
 - dashboard endpoint updates
 - dashboard UI updates
+- interop health summary endpoint
 
 ### Acceptance Criteria
 - Single click runs daily cycle then promotes features.
 - Dashboard clearly shows PASS/FAIL and missing alignment signals.
+- Dashboard exposes latest `IT-MGI-*` results and interop validator failures.
 
 ---
 
@@ -193,4 +202,5 @@ Ship a playable technical vertical slice with:
 - `progress-check.ps1` reports Orchestrator PASS and Goal Alignment PASS.
 - Interaction matrix updated for every new cross-system behavior.
 - Replay + authority checks cover newly added systems.
+- `MAGITECH_INTEROP_SPEC.md` validators and Phase 1 seed tests (`IT-MGI-001`..`IT-MGI-004`) are wired and passing.
 

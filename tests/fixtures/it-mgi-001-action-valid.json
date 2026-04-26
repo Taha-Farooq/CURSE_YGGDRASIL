@@ -1,0 +1,37 @@
+{
+  "actionId": "act-it-mgi-001-valid",
+  "actorId": "player-0001",
+  "actionType": "hybrid",
+  "scope": {
+    "authorityScope": "party"
+  },
+  "worldFactsRead": [
+    "Heat(cell:12,44)",
+    "Charge(generator:alpha)"
+  ],
+  "worldFactsWrite": [
+    "Signal(turret:west,enemy:frontline,lock)",
+    "Stability(ward:grid-west,72)"
+  ],
+  "replay": {
+    "required": true
+  },
+  "telemetry": {
+    "tags": [
+      "magic",
+      "tech",
+      "hybrid",
+      "it-mgi-001"
+    ]
+  },
+  "resourceCosts": {
+    "mana": 18,
+    "hpRisk": 2,
+    "materials": 5,
+    "energy": 12
+  },
+  "simBudget": {
+    "estimatedCost": 34,
+    "maxAllowedCost": 55
+  }
+}

@@ -16,6 +16,7 @@ This is the first concrete matrix based on current requirements. Expand this fil
 | INT-0010 | bot_orchestrator | live_content_pipeline | bot_findings, severity_scores, reproduction_artifacts | promotion_block_flags, required_fix_tasks | bot_sweep_completed | event_driven | toolchain | bot_policy_guard_v1 | block_and_page | bot.report.created, release.blocked | no | IT-BOT-001, IT-LIVE-008 | qa_automation | bots can halt release |
 | INT-0011 | replay_telemetry_moderation | validation_and_anticheat | action_events, contact_frames, timing_data | cheat_flags, dispute_resolution_state | post_match_processing | batched | server | replay_integrity_validator_v1 | alert_and_quarantine | replay.processed, anticheat.flagged | yes:full_chain | IT-RPL-003, IT-SEC-002 | trust_safety | replay supports anti-cheat |
 | INT-0012 | progression_and_evolution | dungeons_and_encounters | player_level_band, milestone_state | dungeon_rule_variant, boss_profile_variant | dungeon_entry_event | event_driven | server | progression_gate_validator_v1 | reject | dungeon.entry.validated, progression.gate.checked | yes:event_ids_required | IT-DGN-006, IT-PROG-010 | gameplay_eng | adaptive mind-dungeon rules |
+| INT-0013 | arcane_runtime | tech_runtime | world_fact_registry, axiom_set, authority_scope, budget_state | hybrid_effect_deltas, device_modulation_flags, spell_modulation_flags | spell_or_device_activation | realtime | server | interop_legality_validator_v1, interop_budget_guard_v1, hybrid_conflict_validator_v1, axiom_propagation_validator_v1 | reject_and_alert | interop.action.validated, interop.delta.applied, interop.failed | yes:event_ids_required | IT-MGI-001, IT-MGI-002, IT-MGI-003, IT-MGI-004 | systems_design | shared magic/tech execution contract per MAGITECH_INTEROP_SPEC |
 
 ## End-To-End Scenario Mapping
 
@@ -25,4 +26,5 @@ This is the first concrete matrix based on current requirements. Expand this fil
 | SCN-002 | Dungeon control alters economy and guild demand | INT-0002, INT-0012 | IT-ECO-004, IT-DGN-006 | planned |
 | SCN-003 | Social policy alters migration/diplomacy/magic gates | INT-0003, INT-0008 | IT-POL-006, IT-AI-002 | planned |
 | SCN-004 | Live-authored spell/device respects authority and legality | INT-0009, INT-0010 | IT-LIVE-005, IT-VAL-001 | planned |
+| SCN-005 | Hybrid magitech action responds to environment and stays replay-valid | INT-0013, INT-0011 | IT-MGI-002, IT-MGI-004, IT-RPL-003 | planned |
 

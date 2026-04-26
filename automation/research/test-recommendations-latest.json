@@ -1,55 +1,7 @@
 ﻿[
     {
         "priority":  "high",
-        "testId":  "IT-PROG-003",
-        "reason":  "Referenced in INTERACTION_MATRIX.md",
-        "type":  "integration"
-    },
-    {
-        "priority":  "high",
-        "testId":  "IT-SEC-002",
-        "reason":  "Referenced in INTERACTION_MATRIX.md",
-        "type":  "integration"
-    },
-    {
-        "priority":  "high",
-        "testId":  "IT-DGN-006",
-        "reason":  "Referenced in INTERACTION_MATRIX.md",
-        "type":  "integration"
-    },
-    {
-        "priority":  "high",
-        "testId":  "IT-LOG-005",
-        "reason":  "Referenced in INTERACTION_MATRIX.md",
-        "type":  "integration"
-    },
-    {
-        "priority":  "high",
-        "testId":  "IT-VAL-001",
-        "reason":  "Referenced in INTERACTION_MATRIX.md",
-        "type":  "integration"
-    },
-    {
-        "priority":  "high",
         "testId":  "IT-RPL-003",
-        "reason":  "Referenced in INTERACTION_MATRIX.md",
-        "type":  "integration"
-    },
-    {
-        "priority":  "high",
-        "testId":  "IT-POL-006",
-        "reason":  "Referenced in INTERACTION_MATRIX.md",
-        "type":  "integration"
-    },
-    {
-        "priority":  "high",
-        "testId":  "IT-ECO-004",
-        "reason":  "Referenced in INTERACTION_MATRIX.md",
-        "type":  "integration"
-    },
-    {
-        "priority":  "high",
-        "testId":  "IT-ECO-009",
         "reason":  "Referenced in INTERACTION_MATRIX.md",
         "type":  "integration"
     },
@@ -61,19 +13,19 @@
     },
     {
         "priority":  "high",
-        "testId":  "IT-POL-010",
+        "testId":  "IT-SEC-002",
         "reason":  "Referenced in INTERACTION_MATRIX.md",
         "type":  "integration"
     },
     {
         "priority":  "high",
-        "testId":  "IT-PROG-010",
+        "testId":  "IT-BOT-001",
         "reason":  "Referenced in INTERACTION_MATRIX.md",
         "type":  "integration"
     },
     {
         "priority":  "high",
-        "testId":  "IT-BLD-004",
+        "testId":  "IT-PROG-003",
         "reason":  "Referenced in INTERACTION_MATRIX.md",
         "type":  "integration"
     },
@@ -85,13 +37,31 @@
     },
     {
         "priority":  "high",
-        "testId":  "IT-MAG-009",
+        "testId":  "IT-DGN-006",
         "reason":  "Referenced in INTERACTION_MATRIX.md",
         "type":  "integration"
     },
     {
         "priority":  "high",
-        "testId":  "IT-AI-002",
+        "testId":  "IT-MGI-003",
+        "reason":  "Referenced in INTERACTION_MATRIX.md",
+        "type":  "integration"
+    },
+    {
+        "priority":  "high",
+        "testId":  "IT-BLD-004",
+        "reason":  "Referenced in INTERACTION_MATRIX.md",
+        "type":  "integration"
+    },
+    {
+        "priority":  "high",
+        "testId":  "IT-POL-010",
+        "reason":  "Referenced in INTERACTION_MATRIX.md",
+        "type":  "integration"
+    },
+    {
+        "priority":  "high",
+        "testId":  "IT-INV-002",
         "reason":  "Referenced in INTERACTION_MATRIX.md",
         "type":  "integration"
     },
@@ -103,13 +73,67 @@
     },
     {
         "priority":  "high",
+        "testId":  "IT-POL-006",
+        "reason":  "Referenced in INTERACTION_MATRIX.md",
+        "type":  "integration"
+    },
+    {
+        "priority":  "high",
+        "testId":  "IT-MAG-009",
+        "reason":  "Referenced in INTERACTION_MATRIX.md",
+        "type":  "integration"
+    },
+    {
+        "priority":  "high",
+        "testId":  "IT-LOG-005",
+        "reason":  "Referenced in INTERACTION_MATRIX.md",
+        "type":  "integration"
+    },
+    {
+        "priority":  "high",
+        "testId":  "IT-MGI-004",
+        "reason":  "Referenced in INTERACTION_MATRIX.md",
+        "type":  "integration"
+    },
+    {
+        "priority":  "high",
+        "testId":  "IT-AI-002",
+        "reason":  "Referenced in INTERACTION_MATRIX.md",
+        "type":  "integration"
+    },
+    {
+        "priority":  "high",
+        "testId":  "IT-MGI-002",
+        "reason":  "Referenced in INTERACTION_MATRIX.md",
+        "type":  "integration"
+    },
+    {
+        "priority":  "high",
         "testId":  "IT-LIVE-005",
         "reason":  "Referenced in INTERACTION_MATRIX.md",
         "type":  "integration"
     },
     {
         "priority":  "high",
-        "testId":  "IT-BOT-001",
+        "testId":  "IT-MGI-001",
+        "reason":  "Referenced in INTERACTION_MATRIX.md",
+        "type":  "integration"
+    },
+    {
+        "priority":  "high",
+        "testId":  "IT-ECO-004",
+        "reason":  "Referenced in INTERACTION_MATRIX.md",
+        "type":  "integration"
+    },
+    {
+        "priority":  "high",
+        "testId":  "IT-PROG-010",
+        "reason":  "Referenced in INTERACTION_MATRIX.md",
+        "type":  "integration"
+    },
+    {
+        "priority":  "high",
+        "testId":  "IT-VAL-001",
         "reason":  "Referenced in INTERACTION_MATRIX.md",
         "type":  "integration"
     },
@@ -127,7 +151,7 @@
     },
     {
         "priority":  "high",
-        "testId":  "IT-INV-002",
+        "testId":  "IT-ECO-009",
         "reason":  "Referenced in INTERACTION_MATRIX.md",
         "type":  "integration"
     },
@@ -146,6 +170,12 @@
     {
         "priority":  "high",
         "testId":  "SCN-001",
+        "reason":  "Scenario mapping in INTERACTION_MATRIX.md",
+        "type":  "scenario"
+    },
+    {
+        "priority":  "high",
+        "testId":  "SCN-005",
         "reason":  "Scenario mapping in INTERACTION_MATRIX.md",
         "type":  "scenario"
     },

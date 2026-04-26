@@ -1,0 +1,6 @@
+{
+  "environmentId": "env-industrial-low-arcane",
+  "techSuppressionField": true,
+  "leylineIntensity": 0.8,
+  "stormChargeBonus": 0
+}

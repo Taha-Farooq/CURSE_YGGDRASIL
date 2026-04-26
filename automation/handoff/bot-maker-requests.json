@@ -1,73 +1,9 @@
 ﻿[
     {
-        "name":  "test-bot-it-prog-003",
-        "priority":  "high",
-        "targetTestId":  "IT-PROG-003",
-        "requestId":  "REQ-IT-PROG-003",
-        "kind":  "create_test_bot_stub",
-        "reason":  "Referenced in INTERACTION_MATRIX.md"
-    },
-    {
-        "name":  "test-bot-it-sec-002",
-        "priority":  "high",
-        "targetTestId":  "IT-SEC-002",
-        "requestId":  "REQ-IT-SEC-002",
-        "kind":  "create_test_bot_stub",
-        "reason":  "Referenced in INTERACTION_MATRIX.md"
-    },
-    {
-        "name":  "test-bot-it-dgn-006",
-        "priority":  "high",
-        "targetTestId":  "IT-DGN-006",
-        "requestId":  "REQ-IT-DGN-006",
-        "kind":  "create_test_bot_stub",
-        "reason":  "Referenced in INTERACTION_MATRIX.md"
-    },
-    {
-        "name":  "test-bot-it-log-005",
-        "priority":  "high",
-        "targetTestId":  "IT-LOG-005",
-        "requestId":  "REQ-IT-LOG-005",
-        "kind":  "create_test_bot_stub",
-        "reason":  "Referenced in INTERACTION_MATRIX.md"
-    },
-    {
-        "name":  "test-bot-it-val-001",
-        "priority":  "high",
-        "targetTestId":  "IT-VAL-001",
-        "requestId":  "REQ-IT-VAL-001",
-        "kind":  "create_test_bot_stub",
-        "reason":  "Referenced in INTERACTION_MATRIX.md"
-    },
-    {
         "name":  "test-bot-it-rpl-003",
         "priority":  "high",
         "targetTestId":  "IT-RPL-003",
         "requestId":  "REQ-IT-RPL-003",
-        "kind":  "create_test_bot_stub",
-        "reason":  "Referenced in INTERACTION_MATRIX.md"
-    },
-    {
-        "name":  "test-bot-it-pol-006",
-        "priority":  "high",
-        "targetTestId":  "IT-POL-006",
-        "requestId":  "REQ-IT-POL-006",
-        "kind":  "create_test_bot_stub",
-        "reason":  "Referenced in INTERACTION_MATRIX.md"
-    },
-    {
-        "name":  "test-bot-it-eco-004",
-        "priority":  "high",
-        "targetTestId":  "IT-ECO-004",
-        "requestId":  "REQ-IT-ECO-004",
-        "kind":  "create_test_bot_stub",
-        "reason":  "Referenced in INTERACTION_MATRIX.md"
-    },
-    {
-        "name":  "test-bot-it-eco-009",
-        "priority":  "high",
-        "targetTestId":  "IT-ECO-009",
-        "requestId":  "REQ-IT-ECO-009",
         "kind":  "create_test_bot_stub",
         "reason":  "Referenced in INTERACTION_MATRIX.md"
     },
@@ -80,26 +16,26 @@
         "reason":  "Referenced in INTERACTION_MATRIX.md"
     },
     {
-        "name":  "test-bot-it-pol-010",
+        "name":  "test-bot-it-sec-002",
         "priority":  "high",
-        "targetTestId":  "IT-POL-010",
-        "requestId":  "REQ-IT-POL-010",
+        "targetTestId":  "IT-SEC-002",
+        "requestId":  "REQ-IT-SEC-002",
         "kind":  "create_test_bot_stub",
         "reason":  "Referenced in INTERACTION_MATRIX.md"
     },
     {
-        "name":  "test-bot-it-prog-010",
+        "name":  "test-bot-it-bot-001",
         "priority":  "high",
-        "targetTestId":  "IT-PROG-010",
-        "requestId":  "REQ-IT-PROG-010",
+        "targetTestId":  "IT-BOT-001",
+        "requestId":  "REQ-IT-BOT-001",
         "kind":  "create_test_bot_stub",
         "reason":  "Referenced in INTERACTION_MATRIX.md"
     },
     {
-        "name":  "test-bot-it-bld-004",
+        "name":  "test-bot-it-prog-003",
         "priority":  "high",
-        "targetTestId":  "IT-BLD-004",
-        "requestId":  "REQ-IT-BLD-004",
+        "targetTestId":  "IT-PROG-003",
+        "requestId":  "REQ-IT-PROG-003",
         "kind":  "create_test_bot_stub",
         "reason":  "Referenced in INTERACTION_MATRIX.md"
     },
@@ -112,18 +48,42 @@
         "reason":  "Referenced in INTERACTION_MATRIX.md"
     },
     {
-        "name":  "test-bot-it-mag-009",
+        "name":  "test-bot-it-dgn-006",
         "priority":  "high",
-        "targetTestId":  "IT-MAG-009",
-        "requestId":  "REQ-IT-MAG-009",
+        "targetTestId":  "IT-DGN-006",
+        "requestId":  "REQ-IT-DGN-006",
         "kind":  "create_test_bot_stub",
         "reason":  "Referenced in INTERACTION_MATRIX.md"
     },
     {
-        "name":  "test-bot-it-ai-002",
+        "name":  "test-bot-it-mgi-003",
         "priority":  "high",
-        "targetTestId":  "IT-AI-002",
-        "requestId":  "REQ-IT-AI-002",
+        "targetTestId":  "IT-MGI-003",
+        "requestId":  "REQ-IT-MGI-003",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-bld-004",
+        "priority":  "high",
+        "targetTestId":  "IT-BLD-004",
+        "requestId":  "REQ-IT-BLD-004",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-pol-010",
+        "priority":  "high",
+        "targetTestId":  "IT-POL-010",
+        "requestId":  "REQ-IT-POL-010",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-inv-002",
+        "priority":  "high",
+        "targetTestId":  "IT-INV-002",
+        "requestId":  "REQ-IT-INV-002",
         "kind":  "create_test_bot_stub",
         "reason":  "Referenced in INTERACTION_MATRIX.md"
     },
@@ -136,6 +96,54 @@
         "reason":  "Referenced in INTERACTION_MATRIX.md"
     },
     {
+        "name":  "test-bot-it-pol-006",
+        "priority":  "high",
+        "targetTestId":  "IT-POL-006",
+        "requestId":  "REQ-IT-POL-006",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-mag-009",
+        "priority":  "high",
+        "targetTestId":  "IT-MAG-009",
+        "requestId":  "REQ-IT-MAG-009",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-log-005",
+        "priority":  "high",
+        "targetTestId":  "IT-LOG-005",
+        "requestId":  "REQ-IT-LOG-005",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-mgi-004",
+        "priority":  "high",
+        "targetTestId":  "IT-MGI-004",
+        "requestId":  "REQ-IT-MGI-004",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-ai-002",
+        "priority":  "high",
+        "targetTestId":  "IT-AI-002",
+        "requestId":  "REQ-IT-AI-002",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-mgi-002",
+        "priority":  "high",
+        "targetTestId":  "IT-MGI-002",
+        "requestId":  "REQ-IT-MGI-002",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
         "name":  "test-bot-it-live-005",
         "priority":  "high",
         "targetTestId":  "IT-LIVE-005",
@@ -144,10 +152,34 @@
         "reason":  "Referenced in INTERACTION_MATRIX.md"
     },
     {
-        "name":  "test-bot-it-bot-001",
+        "name":  "test-bot-it-mgi-001",
         "priority":  "high",
-        "targetTestId":  "IT-BOT-001",
-        "requestId":  "REQ-IT-BOT-001",
+        "targetTestId":  "IT-MGI-001",
+        "requestId":  "REQ-IT-MGI-001",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-eco-004",
+        "priority":  "high",
+        "targetTestId":  "IT-ECO-004",
+        "requestId":  "REQ-IT-ECO-004",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-prog-010",
+        "priority":  "high",
+        "targetTestId":  "IT-PROG-010",
+        "requestId":  "REQ-IT-PROG-010",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Referenced in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-it-val-001",
+        "priority":  "high",
+        "targetTestId":  "IT-VAL-001",
+        "requestId":  "REQ-IT-VAL-001",
         "kind":  "create_test_bot_stub",
         "reason":  "Referenced in INTERACTION_MATRIX.md"
     },
@@ -168,10 +200,10 @@
         "reason":  "Referenced in INTERACTION_MATRIX.md"
     },
     {
-        "name":  "test-bot-it-inv-002",
+        "name":  "test-bot-it-eco-009",
         "priority":  "high",
-        "targetTestId":  "IT-INV-002",
-        "requestId":  "REQ-IT-INV-002",
+        "targetTestId":  "IT-ECO-009",
+        "requestId":  "REQ-IT-ECO-009",
         "kind":  "create_test_bot_stub",
         "reason":  "Referenced in INTERACTION_MATRIX.md"
     },
@@ -196,6 +228,14 @@
         "priority":  "high",
         "targetTestId":  "SCN-001",
         "requestId":  "REQ-SCN-001",
+        "kind":  "create_test_bot_stub",
+        "reason":  "Scenario mapping in INTERACTION_MATRIX.md"
+    },
+    {
+        "name":  "test-bot-scn-005",
+        "priority":  "high",
+        "targetTestId":  "SCN-005",
+        "requestId":  "REQ-SCN-005",
         "kind":  "create_test_bot_stub",
         "reason":  "Scenario mapping in INTERACTION_MATRIX.md"
     },

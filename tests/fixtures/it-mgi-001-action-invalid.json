@@ -1,0 +1,30 @@
+{
+  "actionId": "act-it-mgi-001-invalid",
+  "actorId": "player-0001",
+  "actionType": "hybrid",
+  "scope": {
+    "authorityScope": "party"
+  },
+  "worldFactsRead": [
+    "Heat(cell:12,44)"
+  ],
+  "worldFactsWrite": [],
+  "replay": {
+    "required": false
+  },
+  "telemetry": {
+    "tags": [
+      "hybrid"
+    ]
+  },
+  "resourceCosts": {
+    "mana": 10,
+    "hpRisk": 1,
+    "materials": 0,
+    "energy": 0
+  },
+  "simBudget": {
+    "estimatedCost": 60,
+    "maxAllowedCost": 40
+  }
+}

@@ -19,7 +19,8 @@
         "SCN-001",
         "SCN-002",
         "SCN-003",
-        "SCN-004"
+        "SCN-004",
+        "SCN-005"
       ]
     },
     "routeClearabilityBot": {
@@ -37,7 +38,8 @@
         "non-Euclidean",
         "tiered simulation",
         "authority",
-        "replay"
+        "replay",
+        "magitech interop"
       ]
     },
     "errorCheckerBot": {

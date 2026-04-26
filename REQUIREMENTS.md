@@ -131,6 +131,10 @@ All borrowed inspiration must be transformed into original mechanics and integra
   - NPC/mob abilities.
   - Automation effects.
   - Devices and rituals.
+- Magic and technology interop must follow `MAGITECH_INTEROP_SPEC.md`:
+  - shared world-fact execution model
+  - shared legality/budget validators
+  - shared replay/telemetry evidence contracts
 - Must support:
   - Teleport/spatial spells.
   - Intercept/counter spells.

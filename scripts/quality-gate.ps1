@@ -23,6 +23,10 @@ if (-not (Test-Path (Join-Path $repoRoot "REQUIREMENTS.md"))) {
     Fail "Missing REQUIREMENTS.md"
 }
 
+if (-not (Test-Path (Join-Path $repoRoot "MAGITECH_INTEROP_SPEC.md"))) {
+    Fail "Missing MAGITECH_INTEROP_SPEC.md"
+}
+
 # Basic JSON parse check
 try {
     Get-Content (Join-Path $repoRoot "FEEDBACK_SCHEMA.json") -Raw | ConvertFrom-Json | Out-Null
@@ -40,6 +44,12 @@ if ($matrix -notmatch "INT-") {
 if ($matrix -notmatch "SCN-") {
     Fail "INTERACTION_MATRIX.md missing scenario mapping section."
 }
+if ($matrix -notmatch "INT-0013") {
+    Fail "INTERACTION_MATRIX.md missing INT-0013 magitech interop mapping."
+}
+if ($matrix -notmatch "SCN-005") {
+    Fail "INTERACTION_MATRIX.md missing SCN-005 magitech scenario mapping."
+}
 
 # Ensure requirements include key automation sections
 $req = Get-Content (Join-Path $repoRoot "REQUIREMENTS.md") -Raw
@@ -54,6 +64,9 @@ foreach ($marker in $requiredMarkers) {
     if ($req -notmatch [regex]::Escape($marker)) {
         Fail "Missing required section in REQUIREMENTS.md: $marker"
     }
+}
+if ($req -notmatch [regex]::Escape("MAGITECH_INTEROP_SPEC.md")) {
+    Fail "REQUIREMENTS.md must reference MAGITECH_INTEROP_SPEC.md."
 }
 
 if ($Strict) {

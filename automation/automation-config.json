@@ -93,6 +93,10 @@
       "enabled": true,
       "maxFindings": 40
     },
+    "phase1ExecutionBot": {
+      "enabled": true,
+      "maxRecommendations": 6
+    },
     "testFreshnessPolicy": {
       "maxAgeHours": 24
     }

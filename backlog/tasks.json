@@ -389,7 +389,7 @@
         "type":  "phase1",
         "priority":  "high",
         "title":  "Authority Validation Service v1",
-        "status":  "todo"
+        "status":  "in_progress"
     },
     {
         "id":  "TASK-PHASE1-03-REPLAY-EVIDENCE-PIPELINE-V1",
@@ -453,7 +453,7 @@
         "type":  "phase1",
         "priority":  "high",
         "title":  "Dashboard v2: Product Control Surface",
-        "status":  "todo"
+        "status":  "in_progress"
     },
     {
         "id":  "TASK-POLITICS-LAW-AND-INSTITUTIONS",

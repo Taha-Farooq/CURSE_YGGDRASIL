@@ -76,6 +76,13 @@
   </div>
 
   <div class="card">
+    <h2>Interop Health</h2>
+    <p class="muted">Latest IT-MGI and SCN-005 status from bot reports.</p>
+    <button class="secondary" id="refreshInteropBtn">Refresh Interop Health</button>
+    <pre id="interopBox">Loading interop health...</pre>
+  </div>
+
+  <div class="card">
     <h2>Feature / Tweak Input</h2>
     <p class="muted">Type what you want next. This is saved into project files for automation to use.</p>
     <textarea id="featureText" placeholder="Example: Add a new demon-lord succession mechanic with rival factions..."></textarea>
@@ -355,6 +362,7 @@
       await getFailingChecks();
       await getTestHealth();
       await getReleaseReadiness();
+      await getInteropHealth();
     }
 
     async function getAuthRejections() {
@@ -492,6 +500,26 @@
       }
     }
 
+    async function getInteropHealth() {
+      const box = document.getElementById('interopBox');
+      try {
+        const res = await fetch('/api/interop-health');
+        const data = await res.json();
+        const lines = [];
+        lines.push(`Generated: ${data.generatedAtUtc}`);
+        lines.push(`Files scanned: ${data.filesScanned}`);
+        lines.push(`Pass rate: ${data.passRatePct}%`);
+        lines.push('');
+        for (const row of (data.tests || [])) {
+          const tag = row.status === 'pass' ? '[PASS]' : row.status === 'fail' ? '[FAIL]' : row.status === 'missing' ? '[MISSING]' : '[ERROR]';
+          lines.push(`${tag} ${row.testId}${row.reportFile ? ` :: ${row.reportFile}` : ''}`);
+        }
+        box.textContent = lines.join('\n');
+      } catch (err) {
+        box.textContent = 'Failed to load interop health: ' + err;
+      }
+    }
+
     async function importPhase1() {
       const out = document.getElementById('runResult');
       out.textContent = 'Importing Phase 1 tasks...';
@@ -602,6 +630,7 @@
     document.getElementById('refreshFailingBtn').addEventListener('click', getFailingChecks);
     document.getElementById('refreshTestHealthBtn').addEventListener('click', getTestHealth);
     document.getElementById('refreshReleaseReadinessBtn').addEventListener('click', getReleaseReadiness);
+    document.getElementById('refreshInteropBtn').addEventListener('click', getInteropHealth);
     document.getElementById('copyReleaseSummaryBtn').addEventListener('click', copyReleaseSummary);
     document.getElementById('authFilterAllBtn').addEventListener('click', () => { authSeverityFilter = 'all'; renderAuthRejections(); });
     document.getElementById('authFilterWarningsBtn').addEventListener('click', () => { authSeverityFilter = 'warnings'; renderAuthRejections(); });
@@ -627,6 +656,7 @@
     getFailingChecks();
     getTestHealth();
     getReleaseReadiness();
+    getInteropHealth();
   </script>
 </body>
 </html>

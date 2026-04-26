@@ -152,6 +152,14 @@ if ($config.bots.autonomousDriftReportBot.enabled) {
     $run.steps += $step
 }
 
+if ($config.bots.phase1ExecutionBot.enabled) {
+    $step = RunStep "phase1-execution-bot" (Join-Path $RepoRoot "bots\phase1-execution-bot.ps1") @{
+        RepoRoot = $RepoRoot
+        MaxRecommendations = $config.bots.phase1ExecutionBot.maxRecommendations
+    }
+    $run.steps += $step
+}
+
 if ($config.bots.botMakerBot.enabled) {
     $step = RunStep "bot-maker-bot" (Join-Path $RepoRoot "bots\bot-maker-bot.ps1") @{
         RepoRoot = $RepoRoot

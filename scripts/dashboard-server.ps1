@@ -277,6 +277,64 @@ function Get-LatestReleaseReadinessSnapshot {
     return $result
 }
 
+function Get-InteropHealthSummary {
+    $result = [ordered]@{
+        generatedAtUtc = (Get-Date).ToUniversalTime().ToString("o")
+        filesScanned = 0
+        trackedTests = @("IT-MGI-001", "IT-MGI-002", "IT-MGI-003", "IT-MGI-004", "SCN-005")
+        tests = @()
+        passRatePct = 0
+    }
+
+    if (-not (Test-Path $botReportsDir)) {
+        return $result
+    }
+
+    $files = Get-ChildItem -Path $botReportsDir -Filter "test-bot-*.json" | Sort-Object LastWriteTimeUtc -Descending | Select-Object -First 120
+    $result.filesScanned = @($files).Count
+
+    $rows = @()
+    foreach ($testId in $result.trackedTests) {
+        $botSlug = ("test-bot-" + $testId.ToLowerInvariant())
+        $latest = $files | Where-Object { $_.BaseName -like ($botSlug + "-*") } | Select-Object -First 1
+        if ($null -eq $latest) {
+            $rows += @{
+                testId = $testId
+                status = "missing"
+                passed = $false
+                reportFile = ""
+            }
+            continue
+        }
+
+        try {
+            $report = Get-Content $latest.FullName -Raw | ConvertFrom-Json
+            $rows += @{
+                testId = $testId
+                status = $(if ([bool]$report.passed) { "pass" } else { "fail" })
+                passed = [bool]$report.passed
+                reportFile = $latest.Name
+            }
+        }
+        catch {
+            $rows += @{
+                testId = $testId
+                status = "error"
+                passed = $false
+                reportFile = $latest.Name
+            }
+        }
+    }
+
+    $result.tests = $rows
+    $passCount = @($rows | Where-Object { $_.status -eq "pass" }).Count
+    $total = @($rows).Count
+    if ($total -gt 0) {
+        $result.passRatePct = [math]::Round(($passCount / $total) * 100, 2)
+    }
+    return $result
+}
+
 while ($listener.IsListening) {
     try {
         $ctx = $listener.GetContext()
@@ -317,6 +375,12 @@ while ($listener.IsListening) {
 
         if ($method -eq "GET" -and $path -eq "/api/release-readiness") {
             $payload = Get-LatestReleaseReadinessSnapshot
+            Write-JsonResponse $ctx $payload 200
+            continue
+        }
+
+        if ($method -eq "GET" -and $path -eq "/api/interop-health") {
+            $payload = Get-InteropHealthSummary
             Write-JsonResponse $ctx $payload 200
             continue
         }

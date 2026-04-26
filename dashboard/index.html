@@ -45,6 +45,7 @@
     <button class="secondary" id="authFilterAllBtn">All</button>
     <button class="secondary" id="authFilterWarningsBtn">Warnings+</button>
     <button class="secondary" id="authFilterCriticalBtn">Critical</button>
+    <button class="secondary" id="copyAuthSummaryBtn">Copy Authority Summary</button>
     <pre id="authBox">Loading authority rejection stats...</pre>
   </div>
 
@@ -160,6 +161,38 @@
         lines.push('');
       }
       box.textContent = lines.join('\n');
+    }
+
+    async function copyAuthSummary() {
+      const out = document.getElementById('authBox');
+      if (!latestAuthData || !latestAuthData.topReasonCodes) {
+        out.textContent = 'No authority hotspot data available to summarize.';
+        return;
+      }
+      const rows = latestAuthData.topReasonCodes.filter(r => allowsSeverity(authSeverityFilter, r.severity));
+      if (rows.length === 0) {
+        out.textContent = 'No authority codes match current filter; nothing to copy.';
+        return;
+      }
+
+      const lines = [];
+      lines.push('Authority Hotspots Summary');
+      lines.push(`Generated: ${new Date().toISOString()}`);
+      lines.push(`Applied filter: ${authSeverityFilter}`);
+      lines.push(`Files scanned: ${latestAuthData.filesScanned}`);
+      lines.push(`Events with reason codes: ${latestAuthData.eventsWithCodes}`);
+      lines.push('');
+      for (const row of rows) {
+        lines.push(`- ${sevTag(row.severity)} ${row.code}: ${row.count}`);
+      }
+
+      const payload = lines.join('\n');
+      try {
+        await navigator.clipboard.writeText(payload);
+        out.textContent = `Copied authority summary (${rows.length} code(s)) to clipboard.`;
+      } catch (err) {
+        out.textContent = 'Clipboard copy failed. Summary below:\n\n' + payload;
+      }
     }
 
     async function copyIncidentSummary() {
@@ -348,6 +381,7 @@
     document.getElementById('authFilterAllBtn').addEventListener('click', () => { authSeverityFilter = 'all'; renderAuthRejections(); });
     document.getElementById('authFilterWarningsBtn').addEventListener('click', () => { authSeverityFilter = 'warnings'; renderAuthRejections(); });
     document.getElementById('authFilterCriticalBtn').addEventListener('click', () => { authSeverityFilter = 'critical'; renderAuthRejections(); });
+    document.getElementById('copyAuthSummaryBtn').addEventListener('click', copyAuthSummary);
     document.getElementById('failFilterAllBtn').addEventListener('click', () => { failingSeverityFilter = 'all'; renderFailingChecks(); });
     document.getElementById('failFilterWarningsBtn').addEventListener('click', () => { failingSeverityFilter = 'warnings'; renderFailingChecks(); });
     document.getElementById('failFilterCriticalBtn').addEventListener('click', () => { failingSeverityFilter = 'critical'; renderFailingChecks(); });

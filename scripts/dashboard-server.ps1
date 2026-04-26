@@ -96,6 +96,51 @@ function Get-TopAuthorityRejections([int]$MaxFiles = 80) {
     return $result
 }
 
+function Get-LatestFailingChecks([int]$MaxFiles = 80, [int]$MaxItems = 20) {
+    $result = [ordered]@{
+        generatedAtUtc = (Get-Date).ToUniversalTime().ToString("o")
+        filesScanned = 0
+        failingChecks = @()
+    }
+
+    if (-not (Test-Path $botReportsDir)) {
+        return $result
+    }
+
+    $items = @()
+    $files = Get-ChildItem -Path $botReportsDir -Filter "*.json" | Sort-Object LastWriteTimeUtc -Descending | Select-Object -First $MaxFiles
+    $result.filesScanned = @($files).Count
+
+    foreach ($file in $files) {
+        $report = $null
+        try {
+            $report = Get-Content $file.FullName -Raw | ConvertFrom-Json
+        } catch {
+            continue
+        }
+        if ($null -eq $report -or $null -eq $report.checks) { continue }
+
+        foreach ($check in @($report.checks)) {
+            $isFail = $false
+            if ($null -ne $check.passed -and ($check.passed -eq $false)) { $isFail = $true }
+            if ($null -ne $check.status -and ([string]$check.status).ToLowerInvariant() -eq "fail") { $isFail = $true }
+            if (-not $isFail) { continue }
+
+            $items += [ordered]@{
+                timestampUtc = $report.timestampUtc
+                reportFile = $file.Name
+                bot = $(if ($null -ne $report.bot) { [string]$report.bot } else { "" })
+                testId = $(if ($null -ne $report.testId) { [string]$report.testId } else { "" })
+                check = $(if ($null -ne $check.check) { [string]$check.check } else { "" })
+                details = $(if ($null -ne $check.details) { [string]$check.details } else { "" })
+            }
+        }
+    }
+
+    $result.failingChecks = @($items | Select-Object -First $MaxItems)
+    return $result
+}
+
 while ($listener.IsListening) {
     try {
         $ctx = $listener.GetContext()
@@ -118,6 +163,12 @@ while ($listener.IsListening) {
 
         if ($method -eq "GET" -and $path -eq "/api/auth-rejections") {
             $payload = Get-TopAuthorityRejections
+            Write-JsonResponse $ctx $payload 200
+            continue
+        }
+
+        if ($method -eq "GET" -and $path -eq "/api/failing-checks") {
+            $payload = Get-LatestFailingChecks
             Write-JsonResponse $ctx $payload 200
             continue
         }

@@ -46,6 +46,13 @@
   </div>
 
   <div class="card">
+    <h2>Latest Failing Checks</h2>
+    <p class="muted">Most recent failing bot/test checks with report context.</p>
+    <button class="secondary" id="refreshFailingBtn">Refresh Failing Checks</button>
+    <pre id="failingBox">Loading latest failing checks...</pre>
+  </div>
+
+  <div class="card">
     <h2>Feature / Tweak Input</h2>
     <p class="muted">Type what you want next. This is saved into project files for automation to use.</p>
     <textarea id="featureText" placeholder="Example: Add a new demon-lord succession mechanic with rival factions..."></textarea>
@@ -83,6 +90,7 @@
       out.textContent = text;
       await getStatus();
       await getAuthRejections();
+      await getFailingChecks();
     }
 
     async function getAuthRejections() {
@@ -105,6 +113,36 @@
         box.textContent = lines.join('\n');
       } catch (err) {
         box.textContent = 'Failed to load authority stats: ' + err;
+      }
+    }
+
+    async function getFailingChecks() {
+      const box = document.getElementById('failingBox');
+      try {
+        const res = await fetch('/api/failing-checks');
+        const data = await res.json();
+        if (!data.failingChecks || data.failingChecks.length === 0) {
+          box.textContent = 'No failing checks found in recent reports.';
+          return;
+        }
+        const lines = [];
+        lines.push(`Generated: ${data.generatedAtUtc}`);
+        lines.push(`Files scanned: ${data.filesScanned}`);
+        lines.push('');
+        for (const row of data.failingChecks) {
+          const botLabel = row.bot || 'unknown-bot';
+          const testLabel = row.testId ? ` [${row.testId}]` : '';
+          lines.push(`${row.timestampUtc} :: ${botLabel}${testLabel}`);
+          lines.push(`- check: ${row.check || '(unknown)'}`);
+          if (row.details) {
+            lines.push(`- details: ${row.details}`);
+          }
+          lines.push(`- report: ${row.reportFile}`);
+          lines.push('');
+        }
+        box.textContent = lines.join('\n');
+      } catch (err) {
+        box.textContent = 'Failed to load failing checks: ' + err;
       }
     }
 
@@ -215,6 +253,7 @@
 
     document.getElementById('refreshStatusBtn').addEventListener('click', getStatus);
     document.getElementById('refreshAuthBtn').addEventListener('click', getAuthRejections);
+    document.getElementById('refreshFailingBtn').addEventListener('click', getFailingChecks);
     document.getElementById('runDailyBtn').addEventListener('click', runDaily);
     document.getElementById('importPhase1Btn').addEventListener('click', importPhase1);
     document.getElementById('importLegacyBtn').addEventListener('click', importLegacy);
@@ -228,6 +267,7 @@
 
     getStatus();
     getAuthRejections();
+    getFailingChecks();
   </script>
 </body>
 </html>

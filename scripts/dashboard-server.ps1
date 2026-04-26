@@ -242,6 +242,41 @@ function Get-TestAutomationHealth {
     return $result
 }
 
+function Get-LatestReleaseReadinessSnapshot {
+    $result = [ordered]@{
+        generatedAtUtc = (Get-Date).ToUniversalTime().ToString("o")
+        hasSnapshot = $false
+        snapshotFile = $null
+        snapshot = $null
+    }
+
+    $reportsDir = Join-Path $repoRoot "reports"
+    if (-not (Test-Path $reportsDir)) {
+        return $result
+    }
+
+    $file = Get-ChildItem -Path $reportsDir -Filter "release-readiness-snapshot-*.json" | Sort-Object LastWriteTimeUtc -Descending | Select-Object -First 1
+    if ($null -eq $file) {
+        return $result
+    }
+
+    try {
+        $snapshot = Get-Content $file.FullName -Raw | ConvertFrom-Json
+        $result.hasSnapshot = $true
+        $result.snapshotFile = $file.Name
+        $result.snapshot = $snapshot
+    }
+    catch {
+        $result.hasSnapshot = $false
+        $result.snapshotFile = $file.Name
+        $result.snapshot = @{
+            error = $_.Exception.Message
+        }
+    }
+
+    return $result
+}
+
 while ($listener.IsListening) {
     try {
         $ctx = $listener.GetContext()
@@ -276,6 +311,12 @@ while ($listener.IsListening) {
 
         if ($method -eq "GET" -and $path -eq "/api/test-health") {
             $payload = Get-TestAutomationHealth
+            Write-JsonResponse $ctx $payload 200
+            continue
+        }
+
+        if ($method -eq "GET" -and $path -eq "/api/release-readiness") {
+            $payload = Get-LatestReleaseReadinessSnapshot
             Write-JsonResponse $ctx $payload 200
             continue
         }

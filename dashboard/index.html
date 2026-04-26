@@ -68,6 +68,13 @@
   </div>
 
   <div class="card">
+    <h2>Release Readiness Snapshot</h2>
+    <p class="muted">Latest release-readiness artifact from automated runs.</p>
+    <button class="secondary" id="refreshReleaseReadinessBtn">Refresh Release Snapshot</button>
+    <pre id="releaseReadinessBox">Loading release readiness snapshot...</pre>
+  </div>
+
+  <div class="card">
     <h2>Feature / Tweak Input</h2>
     <p class="muted">Type what you want next. This is saved into project files for automation to use.</p>
     <textarea id="featureText" placeholder="Example: Add a new demon-lord succession mechanic with rival factions..."></textarea>
@@ -268,6 +275,7 @@
       await getAuthRejections();
       await getFailingChecks();
       await getTestHealth();
+      await getReleaseReadiness();
     }
 
     async function getAuthRejections() {
@@ -326,6 +334,63 @@
         box.textContent = lines.join('\n');
       } catch (err) {
         box.textContent = 'Failed to load test health: ' + err;
+      }
+    }
+
+    async function getReleaseReadiness() {
+      const box = document.getElementById('releaseReadinessBox');
+      try {
+        const res = await fetch('/api/release-readiness');
+        const data = await res.json();
+        const lines = [];
+        lines.push(`Requested: ${data.generatedAtUtc}`);
+        if (!data.hasSnapshot) {
+          lines.push('No release-readiness snapshot artifact found yet.');
+          box.textContent = lines.join('\n');
+          return;
+        }
+
+        lines.push(`Snapshot file: ${data.snapshotFile}`);
+        lines.push('');
+        const snapshot = data.snapshot || {};
+        if (snapshot.error) {
+          lines.push(`[CRITICAL] Snapshot parse error: ${snapshot.error}`);
+          box.textContent = lines.join('\n');
+          return;
+        }
+
+        lines.push(`Generated: ${snapshot.generatedAtUtc}`);
+        const qg = snapshot.qualityGateStatus || {};
+        lines.push(`Quality gate passed: ${qg.passed}`);
+
+        const coverage = snapshot.contractCoverage || {};
+        if (coverage.requiredCount !== undefined) {
+          lines.push(`Contract coverage: ${coverage.coveredCount}/${coverage.requiredCount} (${coverage.coveragePct}%)`);
+          lines.push(`Functional coverage: ${coverage.functionalCount}/${coverage.requiredCount} (${coverage.functionalPct}%)`);
+        }
+
+        const guard = snapshot.criticalRegressionGuard || {};
+        if (guard.passed !== undefined) {
+          const findingCount = (guard.criticalFindings || []).length;
+          lines.push(`Critical regression guard passed: ${guard.passed} (findings: ${findingCount})`);
+        }
+
+        const freshness = snapshot.freshnessPolicy || {};
+        if (freshness.maxAgeHours !== undefined) {
+          lines.push(`Freshness policy: maxAgeHours=${freshness.maxAgeHours}, passed=${freshness.passed}`);
+          lines.push(`- missing critical reports: ${(freshness.missing || []).length}`);
+          lines.push(`- stale critical reports: ${(freshness.stale || []).length}`);
+        }
+
+        const drift = snapshot.latestAutonomousDriftReport || {};
+        if (drift.timestampUtc) {
+          lines.push(`Latest drift report: ${drift.timestampUtc} (passed=${drift.passed})`);
+          lines.push(`- drift findings: ${(drift.findings || []).length}`);
+        }
+
+        box.textContent = lines.join('\n');
+      } catch (err) {
+        box.textContent = 'Failed to load release readiness snapshot: ' + err;
       }
     }
 
@@ -438,6 +503,7 @@
     document.getElementById('refreshAuthBtn').addEventListener('click', getAuthRejections);
     document.getElementById('refreshFailingBtn').addEventListener('click', getFailingChecks);
     document.getElementById('refreshTestHealthBtn').addEventListener('click', getTestHealth);
+    document.getElementById('refreshReleaseReadinessBtn').addEventListener('click', getReleaseReadiness);
     document.getElementById('authFilterAllBtn').addEventListener('click', () => { authSeverityFilter = 'all'; renderAuthRejections(); });
     document.getElementById('authFilterWarningsBtn').addEventListener('click', () => { authSeverityFilter = 'warnings'; renderAuthRejections(); });
     document.getElementById('authFilterCriticalBtn').addEventListener('click', () => { authSeverityFilter = 'critical'; renderAuthRejections(); });
@@ -461,6 +527,7 @@
     getAuthRejections();
     getFailingChecks();
     getTestHealth();
+    getReleaseReadiness();
   </script>
 </body>
 </html>

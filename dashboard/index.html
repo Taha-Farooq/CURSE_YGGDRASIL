@@ -42,6 +42,9 @@
     <h2>Authority Rejection Hotspots</h2>
     <p class="muted">Top `AUTH-*` rejection codes from recent bot reports.</p>
     <button class="secondary" id="refreshAuthBtn">Refresh Authority Stats</button>
+    <button class="secondary" id="authFilterAllBtn">All</button>
+    <button class="secondary" id="authFilterWarningsBtn">Warnings+</button>
+    <button class="secondary" id="authFilterCriticalBtn">Critical</button>
     <pre id="authBox">Loading authority rejection stats...</pre>
   </div>
 
@@ -49,6 +52,9 @@
     <h2>Latest Failing Checks</h2>
     <p class="muted">Most recent failing bot/test checks with report context.</p>
     <button class="secondary" id="refreshFailingBtn">Refresh Failing Checks</button>
+    <button class="secondary" id="failFilterAllBtn">All</button>
+    <button class="secondary" id="failFilterWarningsBtn">Warnings+</button>
+    <button class="secondary" id="failFilterCriticalBtn">Critical</button>
     <pre id="failingBox">Loading latest failing checks...</pre>
   </div>
 
@@ -76,6 +82,85 @@
   </div>
 
   <script>
+    let latestAuthData = null;
+    let latestFailingData = null;
+    let authSeverityFilter = 'all';
+    let failingSeverityFilter = 'all';
+
+    function severityRank(sev) {
+      if (sev === 'critical') return 3;
+      if (sev === 'warning') return 2;
+      return 1;
+    }
+
+    function allowsSeverity(filter, severity) {
+      const rank = severityRank(severity);
+      if (filter === 'critical') return rank >= 3;
+      if (filter === 'warnings') return rank >= 2;
+      return true;
+    }
+
+    function sevTag(severity) {
+      if (severity === 'critical') return '[CRITICAL]';
+      if (severity === 'warning') return '[WARNING]';
+      return '[INFO]';
+    }
+
+    function renderAuthRejections() {
+      const box = document.getElementById('authBox');
+      const data = latestAuthData;
+      if (!data) {
+        box.textContent = 'No authority data loaded yet.';
+        return;
+      }
+      const rows = (data.topReasonCodes || []).filter(r => allowsSeverity(authSeverityFilter, r.severity));
+      if (rows.length === 0) {
+        box.textContent = 'No authority rejection codes match current filter.';
+        return;
+      }
+      const lines = [];
+      lines.push(`Generated: ${data.generatedAtUtc}`);
+      lines.push(`Files scanned: ${data.filesScanned}`);
+      lines.push(`Events with reason codes: ${data.eventsWithCodes}`);
+      lines.push(`Filter: ${authSeverityFilter}`);
+      lines.push('');
+      for (const row of rows) {
+        lines.push(`${sevTag(row.severity)} ${row.code}: ${row.count}`);
+      }
+      box.textContent = lines.join('\n');
+    }
+
+    function renderFailingChecks() {
+      const box = document.getElementById('failingBox');
+      const data = latestFailingData;
+      if (!data) {
+        box.textContent = 'No failing-check data loaded yet.';
+        return;
+      }
+      const rows = (data.failingChecks || []).filter(r => allowsSeverity(failingSeverityFilter, r.severity));
+      if (rows.length === 0) {
+        box.textContent = 'No failing checks match current filter.';
+        return;
+      }
+      const lines = [];
+      lines.push(`Generated: ${data.generatedAtUtc}`);
+      lines.push(`Files scanned: ${data.filesScanned}`);
+      lines.push(`Filter: ${failingSeverityFilter}`);
+      lines.push('');
+      for (const row of rows) {
+        const botLabel = row.bot || 'unknown-bot';
+        const testLabel = row.testId ? ` [${row.testId}]` : '';
+        lines.push(`${sevTag(row.severity)} ${row.timestampUtc} :: ${botLabel}${testLabel}`);
+        lines.push(`- check: ${row.check || '(unknown)'}`);
+        if (row.details) {
+          lines.push(`- details: ${row.details}`);
+        }
+        lines.push(`- report: ${row.reportFile}`);
+        lines.push('');
+      }
+      box.textContent = lines.join('\n');
+    }
+
     async function getStatus() {
       const res = await fetch('/api/status');
       const text = await res.text();
@@ -94,65 +179,22 @@
     }
 
     async function getAuthRejections() {
-      const box = document.getElementById('authBox');
-      const sevTag = (severity) => {
-        if (severity === 'critical') return '[CRITICAL]';
-        if (severity === 'warning') return '[WARNING]';
-        return '[INFO]';
-      };
       try {
         const res = await fetch('/api/auth-rejections');
-        const data = await res.json();
-        if (!data.topReasonCodes || data.topReasonCodes.length === 0) {
-          box.textContent = 'No AUTH-* rejection codes found in recent reports.';
-          return;
-        }
-        const lines = [];
-        lines.push(`Generated: ${data.generatedAtUtc}`);
-        lines.push(`Files scanned: ${data.filesScanned}`);
-        lines.push(`Events with reason codes: ${data.eventsWithCodes}`);
-        lines.push('');
-        for (const row of data.topReasonCodes) {
-          lines.push(`${sevTag(row.severity)} ${row.code}: ${row.count}`);
-        }
-        box.textContent = lines.join('\n');
+        latestAuthData = await res.json();
+        renderAuthRejections();
       } catch (err) {
-        box.textContent = 'Failed to load authority stats: ' + err;
+        document.getElementById('authBox').textContent = 'Failed to load authority stats: ' + err;
       }
     }
 
     async function getFailingChecks() {
-      const box = document.getElementById('failingBox');
-      const sevTag = (severity) => {
-        if (severity === 'critical') return '[CRITICAL]';
-        if (severity === 'warning') return '[WARNING]';
-        return '[INFO]';
-      };
       try {
         const res = await fetch('/api/failing-checks');
-        const data = await res.json();
-        if (!data.failingChecks || data.failingChecks.length === 0) {
-          box.textContent = 'No failing checks found in recent reports.';
-          return;
-        }
-        const lines = [];
-        lines.push(`Generated: ${data.generatedAtUtc}`);
-        lines.push(`Files scanned: ${data.filesScanned}`);
-        lines.push('');
-        for (const row of data.failingChecks) {
-          const botLabel = row.bot || 'unknown-bot';
-          const testLabel = row.testId ? ` [${row.testId}]` : '';
-          lines.push(`${sevTag(row.severity)} ${row.timestampUtc} :: ${botLabel}${testLabel}`);
-          lines.push(`- check: ${row.check || '(unknown)'}`);
-          if (row.details) {
-            lines.push(`- details: ${row.details}`);
-          }
-          lines.push(`- report: ${row.reportFile}`);
-          lines.push('');
-        }
-        box.textContent = lines.join('\n');
+        latestFailingData = await res.json();
+        renderFailingChecks();
       } catch (err) {
-        box.textContent = 'Failed to load failing checks: ' + err;
+        document.getElementById('failingBox').textContent = 'Failed to load failing checks: ' + err;
       }
     }
 
@@ -264,6 +306,12 @@
     document.getElementById('refreshStatusBtn').addEventListener('click', getStatus);
     document.getElementById('refreshAuthBtn').addEventListener('click', getAuthRejections);
     document.getElementById('refreshFailingBtn').addEventListener('click', getFailingChecks);
+    document.getElementById('authFilterAllBtn').addEventListener('click', () => { authSeverityFilter = 'all'; renderAuthRejections(); });
+    document.getElementById('authFilterWarningsBtn').addEventListener('click', () => { authSeverityFilter = 'warnings'; renderAuthRejections(); });
+    document.getElementById('authFilterCriticalBtn').addEventListener('click', () => { authSeverityFilter = 'critical'; renderAuthRejections(); });
+    document.getElementById('failFilterAllBtn').addEventListener('click', () => { failingSeverityFilter = 'all'; renderFailingChecks(); });
+    document.getElementById('failFilterWarningsBtn').addEventListener('click', () => { failingSeverityFilter = 'warnings'; renderFailingChecks(); });
+    document.getElementById('failFilterCriticalBtn').addEventListener('click', () => { failingSeverityFilter = 'critical'; renderFailingChecks(); });
     document.getElementById('runDailyBtn').addEventListener('click', runDaily);
     document.getElementById('importPhase1Btn').addEventListener('click', importPhase1);
     document.getElementById('importLegacyBtn').addEventListener('click', importLegacy);

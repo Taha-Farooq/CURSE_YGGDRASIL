@@ -1,0 +1,6 @@
+{
+  "demonLordId": "demon-lord-001",
+  "minionGroupId": "warband-alpha",
+  "commandType": "expand_domain",
+  "domainEffect": "fear_aura"
+}

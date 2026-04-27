@@ -1,0 +1,20 @@
+{
+  "routes": [
+    {
+      "routeId": "route-ash-rift-01",
+      "regionId": "region-ash-rift",
+      "baselineSupplyFlow": 420.0,
+      "convoyLossPct": 30.0,
+      "disruptionHours": 8.0,
+      "criticality": 1.3
+    },
+    {
+      "routeId": "route-ice-basin-02",
+      "regionId": "region-ice-basin",
+      "baselineSupplyFlow": 260.0,
+      "convoyLossPct": 12.0,
+      "disruptionHours": 4.0,
+      "criticality": 1.1
+    }
+  ]
+}

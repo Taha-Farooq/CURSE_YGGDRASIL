@@ -1,0 +1,6 @@
+[
+  { "jobId": "job-hot-001", "tier": "Hot", "progress": 40 },
+  { "jobId": "job-warm-001", "tier": "Warm", "progress": 25 },
+  { "jobId": "job-cold-001", "tier": "Cold", "progress": 70 },
+  { "jobId": "job-archive-001", "tier": "Archive", "progress": 10 }
+]

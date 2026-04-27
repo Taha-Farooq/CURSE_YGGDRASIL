@@ -95,6 +95,23 @@ if ($config.bots.featureSuggesterBot.enabled) {
     $run.steps += $step
 }
 
+if ($config.bots.niceToHaveInvestigatorBot.enabled) {
+    $step = RunStep "nice-to-have-investigator-bot" (Join-Path $RepoRoot "bots\nice-to-have-investigator-bot.ps1") @{
+        RepoRoot = $RepoRoot
+        MaxCandidates = $config.bots.niceToHaveInvestigatorBot.maxCandidates
+    }
+    $run.steps += $step
+}
+
+if ($config.bots.backlogAdmissionReviewBot.enabled) {
+    $step = RunStep "backlog-admission-review-bot" (Join-Path $RepoRoot "bots\backlog-admission-review-bot.ps1") @{
+        RepoRoot = $RepoRoot
+        MinScoreToRecommend = $config.bots.backlogAdmissionReviewBot.minScoreToRecommend
+        MaxRecommendations = $config.bots.backlogAdmissionReviewBot.maxRecommendations
+    }
+    $run.steps += $step
+}
+
 if ($config.bots.taskPlannerBot.enabled) {
     $step = RunStep "task-planner-bot" (Join-Path $RepoRoot "bots\task-planner-bot.ps1") @{
         RepoRoot = $RepoRoot
@@ -156,6 +173,16 @@ if ($config.bots.phase1ExecutionBot.enabled) {
     $step = RunStep "phase1-execution-bot" (Join-Path $RepoRoot "bots\phase1-execution-bot.ps1") @{
         RepoRoot = $RepoRoot
         MaxRecommendations = $config.bots.phase1ExecutionBot.maxRecommendations
+    }
+    $run.steps += $step
+}
+
+if ($config.bots.phase1ProductionReadinessBot.enabled) {
+    $step = RunStep "phase1-production-readiness-bot" (Join-Path $RepoRoot "bots\phase1-production-readiness-bot.ps1") @{
+        RepoRoot = $RepoRoot
+        MinFunctionalCoveragePct = $config.bots.phase1ProductionReadinessBot.minFunctionalCoveragePct
+        MinInteropPassRatePct = $config.bots.phase1ProductionReadinessBot.minInteropPassRatePct
+        MinPhase1InProgress = $config.bots.phase1ProductionReadinessBot.minPhase1InProgress
     }
     $run.steps += $step
 }

@@ -1,0 +1,25 @@
+﻿{
+    "timestampUtc":  "2026-04-26T18:51:55.4980765Z",
+    "dimensionId":  "abyssal-rift",
+    "reasonCodes":  {
+
+                    },
+    "regionId":  "region-obsidian-throne",
+    "selectedEntity":  {
+                           "entityId":  "apex-godkiller-void-02",
+                           "category":  "god-killer",
+                           "dimensionId":  "abyssal-rift",
+                           "threatBudget":  90
+                       },
+    "service":  "apex_encounter_injector_v1",
+    "ownershipPassed":  true,
+    "eligibleCount":  2,
+    "injected":  true,
+    "replayEvidence":  {
+                           "tags":  [
+                                        "phase2",
+                                        "apex_encounter_injection"
+                                    ],
+                           "required":  true
+                       }
+}

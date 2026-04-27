@@ -1,0 +1,13 @@
+{
+  "playerId": "player-phase2-eligible-01",
+  "level": 1260,
+  "milestonesCompleted": [
+    "mind_dungeon_attunement",
+    "shadow_echo_unlock",
+    "mind_trial_1000"
+  ],
+  "mindDungeonClears": 12,
+  "deathlessRuns": 4,
+  "stabilityScore": 0.81,
+  "shadowEchoWins": 2
+}

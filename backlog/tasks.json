@@ -5,7 +5,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Acceptance Criteria for Feedback Loop",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-ACCEPTANCE-CRITERIA-PROJECT-LEVEL",
@@ -13,7 +13,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Acceptance Criteria (Project-Level)",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-ACCEPTANCE-FOR-BOT-SYSTEM",
@@ -21,7 +21,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Acceptance for Bot System",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-ADVANCED-NPC-CREATOR-AND-CROSS-CLASS-FORGE",
@@ -37,7 +37,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Advanced NPC Creator (High-Power Custom Forging)",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-APEX-ENTITY-AND-DEMON-LORD-SYSTEMS",
@@ -45,7 +45,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Apex Entity and Demon Lord Systems",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-ASSISTED-FEATURE-IMPLEMENTATION-BOT-GUARDED",
@@ -53,7 +53,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Assisted Feature Implementation Bot (Guarded)",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-AUTONOMOUS-BOT-FRAMEWORK-TESTING-VALIDATION-AND-ASSISTED-IMPLEMENTATION",
@@ -61,7 +61,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Autonomous Bot Framework (Testing, Validation, and Assisted Implementation)",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-BASE-AUTONOMY-AND-UNITS",
@@ -69,7 +69,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Base Autonomy and Units",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-CIVILIZATION-AND-WORLD-STRUCTURE",
@@ -77,7 +77,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Civilization and World Structure",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-CLASS-SYSTEMS",
@@ -85,7 +85,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Class Systems",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-COHESION-ACCEPTANCE-CRITERIA",
@@ -93,7 +93,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Cohesion Acceptance Criteria",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-COHESION-REQUIREMENT-ONE-UNIFIED-STRUCTURE",
@@ -101,7 +101,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Cohesion Requirement: One Unified Structure",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-COMPANION-CREATURES",
@@ -109,7 +109,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Companion Creatures",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-CONSEQUENCES-AND-PERMANENCE",
@@ -117,7 +117,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Consequences and Permanence",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-CONSTRUCTION-AND-BUILDING",
@@ -125,7 +125,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Construction and Building",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-CONTENT-PIPELINE-STAGES",
@@ -133,7 +133,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Content Pipeline Stages",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-CRITIQUE-TO-CHANGE-WORKFLOW",
@@ -141,7 +141,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Critique-to-Change Workflow",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-CROSS-SYSTEM-COUPLING-RULES",
@@ -149,7 +149,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Cross-System Coupling Rules",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-DEMON-LORD-AUTHORITY-SYSTEM",
@@ -157,7 +157,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Demon Lord Authority System",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-DYNAMIC-ENEMY-EVOLUTION",
@@ -165,7 +165,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Dynamic Enemy Evolution",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-ECONOMY-CRAFTING-AND-LOGISTICS",
@@ -173,7 +173,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Economy, Crafting, and Logistics",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-ENGINE-AND-PLATFORM",
@@ -181,7 +181,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Engine and Platform",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-EVOLUTION-SYSTEM",
@@ -189,7 +189,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Evolution System",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-FEEDBACK-COLLECTION-CHANNELS",
@@ -197,7 +197,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Feedback Collection Channels",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-GOAL-ALIGNED-AUTOMATION-PROGRESS",
@@ -205,7 +205,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Goal-Aligned Automation Progress",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-GOVERNANCE-AND-TRANSPARENCY",
@@ -213,7 +213,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Governance and Transparency",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-HUMAN-FEEDBACK-AND-PRODUCT-ADAPTATION-LOOP",
@@ -221,7 +221,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Human Feedback and Product Adaptation Loop",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-INITIAL-ENGINEERING-MILESTONES",
@@ -229,7 +229,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Initial Engineering Milestones",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-INTEGRATION-SCENARIOS-MUST-EXIST-IN-TEST-SUITE",
@@ -237,7 +237,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Integration Scenarios (Must Exist in Test Suite)",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-INTERDIMENSIONAL-DEMON-DOMAIN-RUNTIME",
@@ -253,7 +253,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Items and Artifacts",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-KINGDOM-AND-EMPIRE-MANAGEMENT",
@@ -261,7 +261,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Kingdom and Empire Management",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-LEGACY-CAMPAIGN-ARC-STRUCTURE-ISEKAI-STYLE-TRANSITIONS-MAPPED-TO-CURREN",
@@ -365,6 +365,30 @@
         "type":  "system",
         "priority":  "high",
         "title":  "NPC/Mob Intelligence and Memory",
+        "status":  "done"
+    },
+    {
+        "id":  "TASK-NTH-NTH-001",
+        "source":  "nice-to-have-review",
+        "type":  "user-feature",
+        "priority":  "high",
+        "title":  "Regional Economy Stress Replay Pack",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-NTH-NTH-006",
+        "source":  "nice-to-have-review",
+        "type":  "user-feature",
+        "priority":  "high",
+        "title":  "Social Bias Scenario Fuzzer",
+        "status":  "todo"
+    },
+    {
+        "id":  "TASK-NTH-NTH-009",
+        "source":  "nice-to-have-review",
+        "type":  "user-feature",
+        "priority":  "high",
+        "title":  "Autonomous Regression Spotlight",
         "status":  "todo"
     },
     {
@@ -381,7 +405,7 @@
         "type":  "phase1",
         "priority":  "high",
         "title":  "Core Tick and World State Ledger",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-PHASE1-02-AUTHORITY-VALIDATION-SERVICE-V1",
@@ -389,7 +413,7 @@
         "type":  "phase1",
         "priority":  "high",
         "title":  "Authority Validation Service v1",
-        "status":  "in_progress"
+        "status":  "done"
     },
     {
         "id":  "TASK-PHASE1-03-REPLAY-EVIDENCE-PIPELINE-V1",
@@ -397,7 +421,7 @@
         "type":  "phase1",
         "priority":  "high",
         "title":  "Replay Evidence Pipeline v1",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-PHASE1-04-TIERED-WORLD-SIMULATION-CONTINUITY",
@@ -405,7 +429,7 @@
         "type":  "phase1",
         "priority":  "high",
         "title":  "Tiered World Simulation Continuity",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-PHASE1-05-CONSTRUCTION-MAGIC-AND-BUILD-PERMISSION-V1",
@@ -413,7 +437,7 @@
         "type":  "phase1",
         "priority":  "high",
         "title":  "Construction Magic and Build Permission v1",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-PHASE1-06-DEMON-LORD-AUTHORITY-FRAMEWORK",
@@ -421,7 +445,7 @@
         "type":  "phase1",
         "priority":  "high",
         "title":  "Demon Lord Authority Framework",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-PHASE1-07-APEX-ENTITY-FRAMEWORK-LEGENDARY-GOD-KILLER-INTERDIMENSIONAL",
@@ -429,7 +453,7 @@
         "type":  "phase1",
         "priority":  "high",
         "title":  "Apex Entity Framework (Legendary, God-Killer, Interdimensional)",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-PHASE1-08-ADVANCED-NPC-CREATOR-V1-DATA-VALIDATION",
@@ -437,7 +461,7 @@
         "type":  "phase1",
         "priority":  "high",
         "title":  "Advanced NPC Creator v1 (Data + Validation)",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-PHASE1-09-LIVE-CONTENT-PROMOTION-GATES-FOR-NEW-ENTITY-SYSTEMS",
@@ -445,7 +469,7 @@
         "type":  "phase1",
         "priority":  "high",
         "title":  "Live Content Promotion Gates for New Entity Systems",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-PHASE1-10-DASHBOARD-V2-PRODUCT-CONTROL-SURFACE",
@@ -453,7 +477,87 @@
         "type":  "phase1",
         "priority":  "high",
         "title":  "Dashboard v2: Product Control Surface",
-        "status":  "in_progress"
+        "status":  "done"
+    },
+    {
+        "id":  "TASK-PHASE2-01-MIND-DUNGEON-GATE-RUNTIME-V1",
+        "source":  "PHASE2_IMPLEMENTATION_PACK.md",
+        "type":  "phase2",
+        "priority":  "high",
+        "title":  "Mind Dungeon Gate Runtime v1",
+        "status":  "done"
+    },
+    {
+        "id":  "TASK-PHASE2-02-ECONOMY-LOGISTICS-SHOCK-PROPAGATION-V1",
+        "source":  "PHASE2_IMPLEMENTATION_PACK.md",
+        "type":  "phase2",
+        "priority":  "high",
+        "title":  "Economy/Logistics Shock Propagation v1",
+        "status":  "done"
+    },
+    {
+        "id":  "TASK-PHASE2-03-POLICY-TO-MAGIC-STABILITY-COUPLER-V1",
+        "source":  "PHASE2_IMPLEMENTATION_PACK.md",
+        "type":  "phase2",
+        "priority":  "high",
+        "title":  "Policy-to-Magic Stability Coupler v1",
+        "status":  "done"
+    },
+    {
+        "id":  "TASK-PHASE2-04-NPC-CREATOR-RUNTIME-SPAWN-PATH-V1",
+        "source":  "PHASE2_IMPLEMENTATION_PACK.md",
+        "type":  "phase2",
+        "priority":  "high",
+        "title":  "NPC Creator Runtime Spawn Path v1",
+        "status":  "done"
+    },
+    {
+        "id":  "TASK-PHASE2-05-DEMON-LORD-DOMAIN-EXPANSION-LOOP-V1",
+        "source":  "PHASE2_IMPLEMENTATION_PACK.md",
+        "type":  "phase2",
+        "priority":  "high",
+        "title":  "Demon Lord Domain Expansion Loop v1",
+        "status":  "done"
+    },
+    {
+        "id":  "TASK-PHASE2-06-APEX-ENCOUNTER-INJECTION-V1",
+        "source":  "PHASE2_IMPLEMENTATION_PACK.md",
+        "type":  "phase2",
+        "priority":  "high",
+        "title":  "Apex Encounter Injection v1",
+        "status":  "done"
+    },
+    {
+        "id":  "TASK-PHASE2-07-LIVE-ENTITY-PACKAGE-CANARY-CONTROLLER-V1",
+        "source":  "PHASE2_IMPLEMENTATION_PACK.md",
+        "type":  "phase2",
+        "priority":  "high",
+        "title":  "Live Entity Package Canary Controller v1",
+        "status":  "done"
+    },
+    {
+        "id":  "TASK-PHASE2-08-ROUTE-CLEARABILITY-SIGNAL-INTEGRATION-V1",
+        "source":  "PHASE2_IMPLEMENTATION_PACK.md",
+        "type":  "phase2",
+        "priority":  "high",
+        "title":  "Route Clearability Signal Integration v1",
+        "status":  "done"
+    },
+    {
+        "id":  "TASK-PHASE2-09-PHASE-2-DASHBOARD-CONTROLS-V1",
+        "source":  "PHASE2_IMPLEMENTATION_PACK.md",
+        "type":  "phase2",
+        "priority":  "high",
+        "title":  "Phase 2 Dashboard Controls v1",
+        "status":  "done"
+    },
+    {
+        "id":  "TASK-PHASE2-10-PHASE-2-ACCEPTANCE-EVIDENCE-PACK",
+        "source":  "PHASE2_IMPLEMENTATION_PACK.md",
+        "type":  "phase2",
+        "priority":  "high",
+        "title":  "Phase 2 Acceptance Evidence Pack",
+        "status":  "done"
     },
     {
         "id":  "TASK-POLITICS-LAW-AND-INSTITUTIONS",
@@ -461,7 +565,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Politics, Law, and Institutions",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-PRODUCT-VISION",
@@ -501,7 +605,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Required Feedback Schema",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-ROUTE-CLEARABILITY-AND-FUN-HEURISTIC-BOT",
@@ -557,7 +661,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Triage and Prioritization",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-UNIFIED-DATA-AND-RUNTIME-CONTRACTS",
@@ -565,7 +669,7 @@
         "type":  "system",
         "priority":  "high",
         "title":  "Unified Data and Runtime Contracts",
-        "status":  "todo"
+        "status":  "done"
     },
     {
         "id":  "TASK-USER-ADD-A-COMPLEX-QUESTING-SYSTEM-THAT-INTEGRATES-WITH-THE-M",

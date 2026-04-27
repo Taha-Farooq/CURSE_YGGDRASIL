@@ -1,0 +1,18 @@
+﻿{
+    "timestampUtc":  "2026-04-26T18:51:55.3902721Z",
+    "polityId":  "polity-obsidian-court",
+    "service":  "policy_magic_stability_coupler_v1",
+    "audit":  {
+                  "reasonCode":  "POL-STABILITY-001",
+                  "source":  "policy_magic_stability_coupler_v1"
+              },
+    "stabilityScore":  0.915,
+    "maxAllowedCastTier":  11,
+    "drivers":  {
+                    "wartimeEmergencyPowers":  false,
+                    "arcaneLiteracyIndex":  0.95,
+                    "ethicalMaturityIndex":  0.95,
+                    "casteSuppressionIndex":  0.05,
+                    "socialCohesionIndex":  0.9
+                }
+}

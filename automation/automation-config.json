@@ -55,6 +55,15 @@
       "enabled": true,
       "maxSuggestionsPerRun": 8
     },
+    "niceToHaveInvestigatorBot": {
+      "enabled": true,
+      "maxCandidates": 10
+    },
+    "backlogAdmissionReviewBot": {
+      "enabled": true,
+      "minScoreToRecommend": 7,
+      "maxRecommendations": 5
+    },
     "taskPlannerBot": {
       "enabled": true,
       "maxTasksPerRun": 120
@@ -65,7 +74,7 @@
     },
     "implementationBot": {
       "enabled": true,
-      "mode": "scaffold_only",
+      "mode": "guarded_write",
       "maxFileChangesPerRun": 20
     },
     "teamGrowthBot": {
@@ -96,6 +105,12 @@
     "phase1ExecutionBot": {
       "enabled": true,
       "maxRecommendations": 6
+    },
+    "phase1ProductionReadinessBot": {
+      "enabled": true,
+      "minFunctionalCoveragePct": 30.0,
+      "minInteropPassRatePct": 100.0,
+      "minPhase1InProgress": 2
     },
     "testFreshnessPolicy": {
       "maxAgeHours": 24

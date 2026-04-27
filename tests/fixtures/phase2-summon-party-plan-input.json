@@ -1,0 +1,21 @@
+{
+  "target": {
+    "entityId": "creature-void-hydra-001",
+    "level": 240,
+    "powerTier": 7
+  },
+  "availableControllers": [
+    { "entityId": "summoner-a", "level": 238, "controlSkill": 84, "precomputeCapacity": 105 },
+    { "entityId": "summoner-b", "level": 241, "controlSkill": 89, "precomputeCapacity": 110 },
+    { "entityId": "summoner-c", "level": 239, "controlSkill": 80, "precomputeCapacity": 95 },
+    { "entityId": "summoner-d", "level": 230, "controlSkill": 78, "precomputeCapacity": 70 }
+  ],
+  "availableTools": [
+    { "toolId": "item-quicksummon-glyph", "complexityContribution": 40, "automatic": true },
+    { "toolId": "item-ritual-slate", "complexityContribution": 28, "automatic": false },
+    { "toolId": "item-familiar-helper", "complexityContribution": 20, "automatic": true }
+  ],
+  "preferences": {
+    "preferAutomatic": true
+  }
+}

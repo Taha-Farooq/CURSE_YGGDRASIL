@@ -1,0 +1,79 @@
+{
+  "spellId": "spell-enemy-barrage-007",
+  "spellTier": 10,
+  "casterLevel": 820,
+  "isComplexSpell": true,
+  "deterministicStageOrder": true,
+  "components": ["anchor", "focus", "release"],
+  "isMultidimensional": true,
+  "dimensionLegalityPassed": true,
+  "parallelCastsRequested": 3,
+  "parallelBudgetCap": 4,
+  "parallelLegalityPassed": true,
+  "concurrentSpells": [
+    { "spellId": "spell-wave-lance", "spellTier": 8, "element": "water", "complexity": 20 },
+    { "spellId": "spell-flame-wheel", "spellTier": 8, "element": "fire", "complexity": 21 },
+    { "spellId": "spell-stone-bind", "spellTier": 9, "element": "earth", "complexity": 22 }
+  ],
+  "enhancementPairs": [
+    { "a": "water", "b": "fire", "result": "steam" }
+  ],
+  "casterMagicExperience": 2400,
+  "casterMagicClass": "archmage",
+  "casterMagicSubclass": "spellweaver",
+  "actorType": "enemy",
+  "itemlessMulticastRequested": true,
+  "elementMastery": [
+    { "element": "water", "affinity": 35, "experience": 250 },
+    { "element": "fire", "affinity": 36, "experience": 260 },
+    { "element": "earth", "affinity": 32, "experience": 240 }
+  ],
+  "maxMp": 900,
+  "currentMp": 700,
+  "maxHp": 1000,
+  "currentHp": 860,
+  "currentBuild": "build-hostile-spellmesh",
+  "currentSetBonus": 34,
+  "currentItemBonus": 28,
+  "lowResourceMulticastAffinity": false,
+  "compoundMulticastRequested": true,
+  "compoundSimultaneousWindowMs": 100,
+  "compoundSequences": [
+    {
+      "id": "enemy-branch-1",
+      "requiredKeys": ["Q", "E", "R"],
+      "sequence": ["Q", "E", "R"],
+      "totalInputMs": 320,
+      "castWindowMs": 420,
+      "startOffsetMs": 25
+    },
+    {
+      "id": "enemy-branch-2",
+      "requiredKeys": ["F", "G", "H"],
+      "sequence": ["F", "G", "H"],
+      "totalInputMs": 300,
+      "castWindowMs": 410,
+      "startOffsetMs": 80
+    }
+  ],
+  "requiredWorldItemIds": [],
+  "requiredKeys": ["Q", "E", "R"],
+  "sequence": ["Q", "E", "R"],
+  "timings": {
+    "castWindowMs": 760,
+    "totalInputMs": 500,
+    "recoveryMs": 280
+  },
+  "delivery": {
+    "scrollPrepared": true,
+    "itemComboPrepared": false,
+    "autoSpellcastingEnabled": false,
+    "macroApproved": true,
+    "fullTomeEquipped": false,
+    "rawAssemblyRequested": false,
+    "worldItemSpellConstructorIds": []
+  },
+  "profile": {
+    "nonMagicCadenceMs": 780
+  }
+}

@@ -1,0 +1,193 @@
+﻿{
+    "recommendations":  [
+
+                        ],
+    "passed":  true,
+    "deferred":  [
+                     {
+                         "id":  "NTH-012",
+                         "metrics":  {
+                                         "effort":  1,
+                                         "desirabilityScore":  6,
+                                         "risk":  1,
+                                         "impact":  4
+                                     },
+                         "suggestedBacklogTask":  {
+                                                      "id":  "TASK-NTH-NTH-012",
+                                                      "source":  "nice-to-have-review",
+                                                      "type":  "user-feature",
+                                                      "priority":  "medium",
+                                                      "title":  "Authority Reason-Code Explorer",
+                                                      "status":  "todo"
+                                                  },
+                         "rationale":  "Lower current payoff or higher risk/effort; keep as parking-lot candidate.",
+                         "shouldAddToBacklog":  false,
+                         "title":  "Authority Reason-Code Explorer"
+                     },
+                     {
+                         "id":  "NTH-008",
+                         "metrics":  {
+                                         "effort":  1,
+                                         "desirabilityScore":  6,
+                                         "risk":  1,
+                                         "impact":  4
+                                     },
+                         "suggestedBacklogTask":  {
+                                                      "id":  "TASK-NTH-NTH-008",
+                                                      "source":  "nice-to-have-review",
+                                                      "type":  "user-feature",
+                                                      "priority":  "medium",
+                                                      "title":  "High-Tier Cast Readiness Overlay",
+                                                      "status":  "todo"
+                                                  },
+                         "rationale":  "Lower current payoff or higher risk/effort; keep as parking-lot candidate.",
+                         "shouldAddToBacklog":  false,
+                         "title":  "High-Tier Cast Readiness Overlay"
+                     },
+                     {
+                         "id":  "NTH-004",
+                         "metrics":  {
+                                         "effort":  1,
+                                         "desirabilityScore":  6,
+                                         "risk":  1,
+                                         "impact":  4
+                                     },
+                         "suggestedBacklogTask":  {
+                                                      "id":  "TASK-NTH-NTH-004",
+                                                      "source":  "nice-to-have-review",
+                                                      "type":  "user-feature",
+                                                      "priority":  "medium",
+                                                      "title":  "Boss Enhancement Telemetry Dashboard Card",
+                                                      "status":  "todo"
+                                                  },
+                         "rationale":  "Lower current payoff or higher risk/effort; keep as parking-lot candidate.",
+                         "shouldAddToBacklog":  false,
+                         "title":  "Boss Enhancement Telemetry Dashboard Card"
+                     },
+                     {
+                         "id":  "NTH-007",
+                         "metrics":  {
+                                         "effort":  2,
+                                         "desirabilityScore":  6,
+                                         "risk":  1,
+                                         "impact":  4
+                                     },
+                         "suggestedBacklogTask":  {
+                                                      "id":  "TASK-NTH-NTH-007",
+                                                      "source":  "nice-to-have-review",
+                                                      "type":  "user-feature",
+                                                      "priority":  "medium",
+                                                      "title":  "Equipment Lifecycle Audit Trail",
+                                                      "status":  "todo"
+                                                  },
+                         "rationale":  "Lower current payoff or higher risk/effort; keep as parking-lot candidate.",
+                         "shouldAddToBacklog":  false,
+                         "title":  "Equipment Lifecycle Audit Trail"
+                     },
+                     {
+                         "id":  "NTH-005",
+                         "metrics":  {
+                                         "effort":  3,
+                                         "desirabilityScore":  5,
+                                         "risk":  2,
+                                         "impact":  5
+                                     },
+                         "suggestedBacklogTask":  {
+                                                      "id":  "TASK-NTH-NTH-005",
+                                                      "source":  "nice-to-have-review",
+                                                      "type":  "user-feature",
+                                                      "priority":  "medium",
+                                                      "title":  "Legendary FX Budget Guard",
+                                                      "status":  "todo"
+                                                  },
+                         "rationale":  "Lower current payoff or higher risk/effort; keep as parking-lot candidate.",
+                         "shouldAddToBacklog":  false,
+                         "title":  "Legendary FX Budget Guard"
+                     },
+                     {
+                         "id":  "NTH-002",
+                         "metrics":  {
+                                         "effort":  2,
+                                         "desirabilityScore":  5,
+                                         "risk":  2,
+                                         "impact":  4
+                                     },
+                         "suggestedBacklogTask":  {
+                                                      "id":  "TASK-NTH-NTH-002",
+                                                      "source":  "nice-to-have-review",
+                                                      "type":  "user-feature",
+                                                      "priority":  "medium",
+                                                      "title":  "Spell Input Ergonomics Heatmap",
+                                                      "status":  "todo"
+                                                  },
+                         "rationale":  "Lower current payoff or higher risk/effort; keep as parking-lot candidate.",
+                         "shouldAddToBacklog":  false,
+                         "title":  "Spell Input Ergonomics Heatmap"
+                     },
+                     {
+                         "id":  "NTH-003",
+                         "metrics":  {
+                                         "effort":  2,
+                                         "desirabilityScore":  5,
+                                         "risk":  1,
+                                         "impact":  4
+                                     },
+                         "suggestedBacklogTask":  {
+                                                      "id":  "TASK-NTH-NTH-003",
+                                                      "source":  "nice-to-have-review",
+                                                      "type":  "user-feature",
+                                                      "priority":  "medium",
+                                                      "title":  "Summon Control Auto-Advisor",
+                                                      "status":  "todo"
+                                                  },
+                         "rationale":  "Lower current payoff or higher risk/effort; keep as parking-lot candidate.",
+                         "shouldAddToBacklog":  false,
+                         "title":  "Summon Control Auto-Advisor"
+                     },
+                     {
+                         "id":  "NTH-010",
+                         "metrics":  {
+                                         "effort":  3,
+                                         "desirabilityScore":  4,
+                                         "risk":  2,
+                                         "impact":  4
+                                     },
+                         "suggestedBacklogTask":  {
+                                                      "id":  "TASK-NTH-NTH-010",
+                                                      "source":  "nice-to-have-review",
+                                                      "type":  "user-feature",
+                                                      "priority":  "medium",
+                                                      "title":  "Faction Conflict Forecast Snapshot",
+                                                      "status":  "todo"
+                                                  },
+                         "rationale":  "Lower current payoff or higher risk/effort; keep as parking-lot candidate.",
+                         "shouldAddToBacklog":  false,
+                         "title":  "Faction Conflict Forecast Snapshot"
+                     },
+                     {
+                         "id":  "NTH-011",
+                         "metrics":  {
+                                         "effort":  2,
+                                         "desirabilityScore":  3,
+                                         "risk":  1,
+                                         "impact":  3
+                                     },
+                         "suggestedBacklogTask":  {
+                                                      "id":  "TASK-NTH-NTH-011",
+                                                      "source":  "nice-to-have-review",
+                                                      "type":  "user-feature",
+                                                      "priority":  "medium",
+                                                      "title":  "Condition-Driven Crafting Recommendations",
+                                                      "status":  "todo"
+                                                  },
+                         "rationale":  "Lower current payoff or higher risk/effort; keep as parking-lot candidate.",
+                         "shouldAddToBacklog":  false,
+                         "title":  "Condition-Driven Crafting Recommendations"
+                     }
+                 ],
+    "recommendationCount":  0,
+    "sourceReport":  "C:\\Users\\Taha\\Desktop\\CURSE\\reports\\bots\\nice-to-have-investigator-bot-2026-04-26_20-38-35.json",
+    "minScoreToRecommend":  7,
+    "bot":  "backlog-admission-review-bot",
+    "timestampUtc":  "2026-04-27T00:38:35.2359940Z"
+}

@@ -1,0 +1,27 @@
+{
+  "basePrice": 1250,
+  "conditionValueMultiplier": 1.12,
+  "marketPressure": 1.4,
+  "demandScalar": 2,
+  "locationProfile": {
+    "locationId": "market-ashen-vale",
+    "kingdomId": "kingdom-obsidian",
+    "demandDelta": 1.5,
+    "logisticsFriction": 0.8,
+    "tradeRisk": 0.6,
+    "taxRate": 0.07
+  },
+  "kingdomProfile": {
+    "kingdomId": "kingdom-obsidian",
+    "taxModifier": 0.02,
+    "subsidyRate": 0.01,
+    "stabilityDelta": 0.4
+  },
+  "currencyProfile": {
+    "baseCurrencyCode": "SOL",
+    "storeCurrencyCode": "OBS",
+    "quoteCurrencyCode": "SOL",
+    "storeToBaseRate": 0.84,
+    "quoteToBaseRate": 1.0
+  }
+}

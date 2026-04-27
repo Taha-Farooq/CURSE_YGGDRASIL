@@ -1,0 +1,15 @@
+{
+  "target": {
+    "entityId": "creature-void-hydra-001",
+    "level": 240,
+    "powerTier": 7
+  },
+  "controllers": [
+    { "entityId": "summoner-a", "level": 240 }
+  ],
+  "context": {
+    "quicksummonEnabled": true,
+    "quicksummonPrecomputedComplexity": 400,
+    "assistItemComplexity": 40
+  }
+}

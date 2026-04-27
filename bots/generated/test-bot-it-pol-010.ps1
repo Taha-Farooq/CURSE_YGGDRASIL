@@ -13,13 +13,28 @@ $reportDir = Join-Path $RepoRoot "reports\bots"
 if (-not (Test-Path $reportDir)) { New-Item -ItemType Directory -Path $reportDir -Force | Out-Null }
 $output = Join-Path $reportDir "test-bot-it-pol-010-$timestamp.json"
 
+$contractPath = Join-Path $RepoRoot "systems\integration\INTERACTION_MATRIX_CONTRACT.json"
+$matrixPath = Join-Path $RepoRoot "INTERACTION_MATRIX.md"
+$contract = Get-Content $contractPath -Raw | ConvertFrom-Json
+$matrix = Get-Content $matrixPath -Raw
+$interaction = @($contract.interactions | Where-Object { $_.interactionId -eq "INT-0005" } | Select-Object -First 1)
+$scenario = @($contract.scenarios | Where-Object { $_.scenarioId -eq "SCN-001" } | Select-Object -First 1)
+$checks = @()
+$checks += @{ check = "contract_has_int_0005"; passed = ($null -ne $interaction); details = "INT-0005 exists" }
+$checks += @{ check = "int_0005_maps_it_pol_010"; passed = ($null -ne $interaction -and @($interaction.integrationTestIds) -contains "IT-POL-010"); details = "IT-POL-010 mapping on INT-0005" }
+$checks += @{ check = "scenario_001_references_test"; passed = ($null -ne $scenario -and @($scenario.testIds) -contains "IT-POL-010"); details = "SCN-001 references IT-POL-010" }
+$checks += @{ check = "matrix_declares_build_diplomacy_link"; passed = ($matrix -match [regex]::Escape("INT-0005") -and $matrix -match [regex]::Escape("IT-POL-010") -and $matrix -match [regex]::Escape("build_legality_v1")); details = "Matrix build/diplomacy link exists" }
+$passed = $true
+foreach ($c in $checks) { if (-not $c.passed) { $passed = $false } }
 $result = @{
     bot = "test-bot-it-pol-010"
     timestampUtc = (Get-Date).ToUniversalTime().ToString("o")
-    passed = $true
+    passed = $passed
     testId = "IT-POL-010"
-    note = "Generated stub by bot-maker-bot. Replace with real test logic."
+    checks = $checks
+    validator = "interaction_contract_consistency_v1"
 }
 $result | ConvertTo-Json -Depth 6 | Set-Content -Path $output -Encoding UTF8
 Write-Host "[test-bot-it-pol-010] Report: $output"
+if (-not $passed) { exit 1 }
 exit 0

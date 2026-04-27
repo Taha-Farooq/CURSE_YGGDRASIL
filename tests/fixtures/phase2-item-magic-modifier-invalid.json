@@ -1,0 +1,50 @@
+{
+  "itemId": "item-rogue-drone-bomb-02",
+  "nowEpochSeconds": 1735689600,
+  "conditionScore": 62,
+  "baseCondition": {
+    "valueMultiplier": 0.96,
+    "effectivenessMultiplier": 0.91
+  },
+  "temporaryEnchantments": [
+    {
+      "id": "temp-corrupt",
+      "school": "void",
+      "startEpochSeconds": 1735800000,
+      "expiryEpochSeconds": 1735700000,
+      "valueBonusPct": 3,
+      "effectivenessBonusPct": 4
+    }
+  ],
+  "permanentEnchantments": [],
+  "runes": [],
+  "integratedMagicScripts": [
+    {
+      "id": "script-unauthorized-chain",
+      "authorityApproved": false,
+      "automationScore": 30
+    }
+  ],
+  "context": {
+    "environment": "desert",
+    "class": "skirmisher",
+    "race": "beastkin",
+    "subclass": "raider",
+    "magicState": "uncharged",
+    "activeSetTags": []
+  },
+  "contextualModifiers": [
+    {
+      "id": "ctx-bad-target",
+      "target": "mobility",
+      "pct": 10,
+      "environment": "any",
+      "class": "any",
+      "race": "any",
+      "subclass": "any",
+      "setTag": "any",
+      "magicState": "any",
+      "conditionMinScore": 10
+    }
+  ]
+}

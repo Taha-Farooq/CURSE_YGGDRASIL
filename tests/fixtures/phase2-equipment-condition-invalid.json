@@ -1,0 +1,16 @@
+{
+  "itemId": "equip-warden-mail-017",
+  "constructionItemTiers": [6, 6, 7, 6],
+  "durabilityPct": 41,
+  "craftsmanshipQuality": 70,
+  "ageYears": 18,
+  "maintenanceCondition": 39,
+  "repairRequested": true,
+  "targetMint": true,
+  "craftsman": {
+    "id": "craftsman-apprentice-03",
+    "qualified": false,
+    "skillRating": 61,
+    "certificationTier": 2
+  }
+}

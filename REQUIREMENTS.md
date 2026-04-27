@@ -6,8 +6,10 @@ This document defines the mandatory requirements for the project and is the sour
 
 - Build a persistent 3D first-person sandbox RPG/sim with smooth FPS gameplay.
 - Core loop is a synergy of magic, technology, building, automation, politics, and war.
+- All battles and attacks are real-time action simulation; turn-based combat is disallowed.
 - World must be highly reactive: player/NPC/mob actions have durable consequences.
 - Late game supports extreme power expression (non-Euclidean magic, world artifacts, autonomous empires) with strict validation, counterplay, and performance budgets.
+- Endgame fantasy target mixes playful readability with brutal combat intensity (quality bar reference only, no direct content copying).
 
 ## 1.1) Reference Inspirations (Design Targets, Not Copy Targets)
 
@@ -33,6 +35,10 @@ All borrowed inspiration must be transformed into original mechanics and integra
   - Distance-based LOD/HLOD and impostors.
   - Visibility-based non-render of hidden objects.
   - Debug/assist overlays (including marching-squares style visual helpers).
+- Visual presentation requirements:
+  - Environments must ship with rich, high-variance texture sets and material depth that preserve readability in motion and combat.
+  - Combat entities and spells must have diverse animation sets (startup, loop, release, recovery, failure, interruption, combo-branch) to avoid repetitive playback.
+  - Spell and attack VFX must express power tier and elemental identity clearly while remaining performance-budget compliant.
 
 ## 2.1) Temporary Art and Replacement Pipeline (Mandatory)
 
@@ -153,6 +159,47 @@ All borrowed inspiration must be transformed into original mechanics and integra
   - Players up to T11 via costs.
   - T10 can be MP-only at max magic mastery.
   - T11-12 possible via specific world artifacts.
+- Healing is a dedicated magic class with two aligned branches:
+  - Holy Healing (good/holy inclination casters).
+  - Profane Healing (evil inclination casters).
+- Alignment interaction rules are mandatory:
+  - Evil-aligned entities are harmed by Holy Healing.
+  - Good-aligned entities are harmed by Profane Healing.
+  - Neutral-aligned entities can be healed by both branches.
+- Neutral casting restriction:
+  - Neutral casters can learn either healing branch but have increased cast difficulty/cost and reduced reliability compared to aligned casters.
+- Inverse-healing damage model (when harmed by opposite-alignment healing) must include:
+  - Base effect power from spell tier and caster power.
+  - Target inclination delta modifier.
+  - Mitigation from natural resistances.
+  - Mitigation from temporary resistances/buffs.
+  - Mitigation from item/equipment resistances.
+  - Final outcome must be deterministic and authority-validated.
+- Spellcasting input model must support intuitive multi-key execution during active combat:
+  - Casting requires a compact multi-key sequence/chord (not single-key spam) for meaningful expression.
+  - The sequence must be short and ergonomically viable under real-time movement/aim pressure.
+  - Input windows and recovery timings must keep magical users competitive with non-magical users in the same real-time encounter tempo.
+  - Partial or incorrect sequences must fail safely with deterministic authority validation and explicit reason codes.
+  - High-level spells cast mid-fight must use precompiled execution aids (for example: prepared scroll logic, complex item-combo activators, auto-spellcasting pipelines, or approved spell macros).
+  - Raw full-logic assembly for high-level spells during live combat input is disallowed when precompiled aids are required.
+  - Precompiled aids must remain authority-validated and replay-auditable.
+  - Very high-level spells may require full tomes to cast, and tome requirements must be enforced by authority validation.
+  - Some highest-tier spells may only be cast by max-level casters using specific world items that construct/instantiate that spell.
+  - Magic runtime must support complex composed spells with multiple staged logic components resolved in deterministic order.
+  - Magic runtime must support multidimensional spell operations (cross-plane or non-Euclidean context) with explicit legality gates.
+  - Magic runtime must support parallel cast execution when budgets and legality checks pass, while preserving deterministic authoritative outcomes.
+  - Concurrent/parallel casting difficulty must scale with spell complexity, spell level/tier, element interactions, and parallel branch count.
+  - Concurrent/parallel casting validation must include caster state and progression factors: caster level, magic experience, class/subclass affinity, current MP, current HP, active build, set bonuses, and item bonuses.
+  - Element conflict/synergy rules are mandatory for concurrent casting:
+    - Opposing elements (for example water with fire) weaken each other when no enhancement bridge is present.
+    - Compatible enhancement pairs (for example healing plus earth) may synthesize into a larger combined spell type (for example wood) when synthesis legality gates pass.
+  - Certain builds may reduce multicast cost/difficulty under low-resource states (low HP/MP), and these exceptions must remain deterministic and authority-validated.
+  - Compound multicasting must support multiple spell input sequences casting simultaneously, with deterministic authority validation of per-sequence correctness and shared simultaneity windows.
+  - Enemies may specialize in advanced multicasting and use it effectively according to their profile, budgets, and authority validation.
+  - Players attempting efficient itemless multicasting before high-level progression must meet high affinity and experience thresholds in the specific spell types/elements being combined.
+  - Legendary creatures and legendary magics must be able to manipulate fundamental forces including gravity fields, scale/size transformation, and magical density compression/expansion.
+  - Fundamental-force manipulation outcomes must remain deterministic, authority-validated, and replay-auditable with explicit legality/failure reason codes.
+  - Legendary force-manipulation attacks must combine creative, high-signal animation choreography with readable telegraphs and counterplay windows.
 
 ## 10) Construction and Building
 
@@ -185,6 +232,26 @@ All borrowed inspiration must be transformed into original mechanics and integra
   - Tiers.
   - Levels.
   - Legendary and world-level items.
+- Equipment customization and condition are mandatory:
+  - All equipment must carry custom variation from at least: construction item tiers, durability state, craftsmanship quality, age, and maintenance condition.
+  - Equipment effectiveness/value must deterministically reflect those factors (newer, well-kept, well-crafted items perform better than degraded equivalents at same base tier).
+  - Loot generation and crafting outputs must both emit these condition factors at runtime for downstream systems.
+  - Combat effectiveness and market pricing must directly consume condition factors/multipliers during runtime resolution.
+  - Items must support temporary enchantments with explicit duration/expiry and deterministic runtime activation/deactivation.
+  - Items must support permanent enchantments that persist until explicitly removed or replaced by valid authority workflows.
+  - Items must support rune sockets/attachments that contribute deterministic modifier effects and legality constraints.
+  - Items may embed integrated magic scripts for automation or complex magical equipment behavior (for example bombs, drones, chained triggers) through authority-validated script manifests.
+  - Item modifiers must support logical bonuses/decrements gated by context including magical state, set membership, environment, user profile, class, race, subclass, and item condition bands.
+  - Modifier stacking, conflict resolution, and final outputs must remain deterministic, authority-validated, and replay-auditable with explicit reason codes.
+  - Restoring equipment to true mint condition requires repair by a qualified craftsman profile; non-qualified repairs may restore function but cannot certify mint.
+  - Condition updates and mint-restoration outcomes must be authority-validated, replay-auditable, and emitted with explicit reason codes.
+- World object classification is mandatory:
+  - Most interactable world objects (e.g., rocks, sticks, plants, scraps, residues) are represented as itemizable entities with inspectable properties.
+  - Base identification reveals only coarse labels at low knowledge (for example: "rock", "stick", "unknown residue").
+  - Deeper identification requires skill, tools, or context and reveals higher-value traits (purity, latent affinity, structural grade, ritual utility, industrial viability, hazard profile).
+  - Misidentification risk exists at low expertise and can lead to lower yield, unsafe usage, or failed recipes/rituals.
+  - Reliable high-fidelity classification may require reading codices/manuals, NPC instruction, experimentation notes, or research tasks on similar specimens.
+  - Research progress unlocks deterministic recognition tiers so experienced players/NPC specialists can quickly classify and exploit rare materials.
 - World artifacts:
   - Total exactly 99.
   - One-of-a-kind globally (no duplicates active).
@@ -202,6 +269,9 @@ All borrowed inspiration must be transformed into original mechanics and integra
   - Regional/interplanetary logistics networks.
 - Dungeons must provide unique resources and drops unavailable elsewhere.
 - Dungeons must function as regional resource/economic hubs.
+- Market pricing must vary by location and kingdom context (for example regional demand, logistics friction, trade risk, and kingdom tax/subsidy policy).
+- Economy calculations must support kingdom/local currency differences with deterministic conversion into quoted currencies for audits and cross-store comparison.
+- Pricing outputs must stay authority-validated and replay-auditable with explicit reason codes for condition, location/kingdom, and currency conversion factors.
 
 ## 14) Civilization and World Structure
 
@@ -234,10 +304,24 @@ All borrowed inspiration must be transformed into original mechanics and integra
   - Learn from repeated work and improve skills.
   - Follow intrinsic goals (job, hobby, specialization).
   - Have level caps driven by education, skill, class, technical ability, and species factors.
+- Intra-species social bias/prejudice modeling is mandatory:
+  - Individuals of the same species may hold prejudice/bias against each other based on socioeconomic status (for example income tier), hometown/region identity, national alliance alignments, historical or recent political events/war exposure, and personal/family vendettas.
+  - These intra-species social modifiers must be represented as deterministic runtime drivers (not hardcoded species-wide assumptions) and may influence diplomacy, cooperation, trust, command obedience, or conflict likelihood.
+  - Intra-species prejudice/bias resolution must be authority-validated, replay-auditable, and emitted with explicit reason codes.
 - NPCs and mobs must be able to:
   - Innovate (new tech/magic).
   - Trade inventions with NPCs and players.
   - Diffuse useful innovations across routes and societies.
+- Most summonable mobs/NPCs must use a race-and-class-driven rock-paper-scissors affinity triangle during combat resolution.
+  - Affinity triangle effects are deterministic and authority-validated.
+  - Affinity advantage/disadvantage modifies effectiveness as a secondary multiplier only.
+  - Overall level differential remains the dominant factor in summon-vs-creature outcomes.
+  - Large level gaps must outweigh affinity mismatch in final resolution.
+  - Any creature is summon/control-eligible when attempted by controllers at equitable level.
+  - Taking control of a single creature requires multiple controllers of similar level (one-to-many control threshold), not a single equivalent-level controller.
+  - Summon/control complexity must scale directly with summon strength (level/power tier).
+  - Complexity can be precomputed before combat through `quicksummon` spells and/or summon-assist items.
+  - `quicksummon` and summon-assist items must allow simple or automatic execution at runtime only when precomputed complexity prerequisites are satisfied.
 
 ## 17) Dynamic Enemy Evolution
 
@@ -247,6 +331,13 @@ All borrowed inspiration must be transformed into original mechanics and integra
   - Learn counters to prior kill methods.
   - Evolve AI and immunities/resistances with caps.
   - Mutate dungeons and summon followers autonomously.
+- Boss and area-boss archetypes are mandatory:
+  - Boss and area-boss mobs must have substantially higher health pools than standard same-level mobs.
+  - Boss and area-boss loadouts must include specialized legendary/higher-tier gear appropriate to their level band.
+  - Optional boss enhancements (for example electric, poisonous, thorns, trapper) must be composable.
+  - More stacked enhancements must deterministically increase boss/area-boss combat strength.
+  - Reward quality/quantity must scale with enhancement count and boss difficulty tier.
+  - Boss scaling and reward outputs must remain authority-validated and replay-auditable with explicit reason codes.
 
 ## 18) Companion Creatures
 
@@ -359,6 +450,7 @@ All borrowed inspiration must be transformed into original mechanics and integra
 
 - Server remains authoritative and scalable under mixed near/far world load.
 - Distant world jobs continue while local combat occurs.
+- Combat and attack resolution remains real-time at all progression tiers and does not enter turn-based mode.
 - Replay evidence can reconstruct contact outcomes reliably.
 - Core gameplay loop (combat + building + crafting + politics) is fun at low, mid, and high power.
 - World reacts persistently to player/NPC actions and remains coherent over long sessions.

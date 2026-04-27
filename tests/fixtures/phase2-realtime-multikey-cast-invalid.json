@@ -1,0 +1,79 @@
+{
+  "spellId": "spell-arc-burst-001",
+  "spellTier": 12,
+  "casterLevel": 700,
+  "isComplexSpell": true,
+  "deterministicStageOrder": false,
+  "components": ["sigil_lock"],
+  "isMultidimensional": true,
+  "dimensionLegalityPassed": false,
+  "parallelCastsRequested": 4,
+  "parallelBudgetCap": 2,
+  "parallelLegalityPassed": false,
+  "concurrentSpells": [
+    { "spellId": "spell-wave-lance", "spellTier": 12, "element": "water", "complexity": 54 },
+    { "spellId": "spell-inferno-spike", "spellTier": 12, "element": "fire", "complexity": 56 },
+    { "spellId": "spell-void-rend", "spellTier": 12, "element": "void", "complexity": 52 },
+    { "spellId": "spell-storm-bind", "spellTier": 11, "element": "lightning", "complexity": 48 }
+  ],
+  "enhancementPairs": [],
+  "casterMagicExperience": 900,
+  "casterMagicClass": "healer",
+  "casterMagicSubclass": "ritualist",
+  "actorType": "player",
+  "itemlessMulticastRequested": true,
+  "elementMastery": [
+    { "element": "water", "affinity": 42, "experience": 350 },
+    { "element": "fire", "affinity": 38, "experience": 420 },
+    { "element": "void", "affinity": 45, "experience": 500 },
+    { "element": "lightning", "affinity": 40, "experience": 390 }
+  ],
+  "maxMp": 900,
+  "currentMp": 80,
+  "maxHp": 1000,
+  "currentHp": 140,
+  "currentBuild": "build-sacrifice-channeler",
+  "currentSetBonus": 8,
+  "currentItemBonus": 6,
+  "lowResourceMulticastAffinity": false,
+  "compoundMulticastRequested": true,
+  "compoundSimultaneousWindowMs": 70,
+  "compoundSequences": [
+    {
+      "id": "compound-branch-a",
+      "requiredKeys": ["Q", "E", "R"],
+      "sequence": ["Q", "R"],
+      "totalInputMs": 500,
+      "castWindowMs": 380,
+      "startOffsetMs": 10
+    },
+    {
+      "id": "compound-branch-b",
+      "requiredKeys": ["F", "G", "H"],
+      "sequence": ["F", "G", "H"],
+      "totalInputMs": 340,
+      "castWindowMs": 420,
+      "startOffsetMs": 190
+    }
+  ],
+  "requiredWorldItemIds": ["world-item-spellforge-01"],
+  "requiredKeys": ["Q", "E", "R"],
+  "sequence": ["Q", "R"],
+  "timings": {
+    "castWindowMs": 750,
+    "totalInputMs": 860,
+    "recoveryMs": 420
+  },
+  "delivery": {
+    "scrollPrepared": false,
+    "itemComboPrepared": false,
+    "autoSpellcastingEnabled": false,
+    "macroApproved": false,
+    "fullTomeEquipped": false,
+    "rawAssemblyRequested": true,
+    "worldItemSpellConstructorIds": []
+  },
+  "profile": {
+    "nonMagicCadenceMs": 760
+  }
+}

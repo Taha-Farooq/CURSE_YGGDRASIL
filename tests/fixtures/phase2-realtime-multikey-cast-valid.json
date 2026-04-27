@@ -1,0 +1,82 @@
+{
+  "spellId": "spell-arc-burst-001",
+  "spellTier": 12,
+  "casterLevel": 9999,
+  "isComplexSpell": true,
+  "deterministicStageOrder": true,
+  "components": ["sigil_lock", "mana_lattice", "release_vector"],
+  "isMultidimensional": true,
+  "dimensionLegalityPassed": true,
+  "parallelCastsRequested": 2,
+  "parallelBudgetCap": 3,
+  "parallelLegalityPassed": true,
+  "concurrentSpells": [
+    { "spellId": "spell-wave-lance", "spellTier": 9, "element": "water", "complexity": 26 },
+    { "spellId": "spell-flare-thread", "spellTier": 9, "element": "fire", "complexity": 24 },
+    { "spellId": "spell-bloom-core", "spellTier": 10, "element": "healing", "complexity": 28 },
+    { "spellId": "spell-stone-bind", "spellTier": 10, "element": "earth", "complexity": 30 }
+  ],
+  "enhancementPairs": [
+    { "a": "water", "b": "fire", "result": "steam" },
+    { "a": "healing", "b": "earth", "result": "wood" }
+  ],
+  "casterMagicExperience": 4200,
+  "casterMagicClass": "archmage",
+  "casterMagicSubclass": "multicaster",
+  "actorType": "player",
+  "itemlessMulticastRequested": true,
+  "elementMastery": [
+    { "element": "water", "affinity": 88, "experience": 2800 },
+    { "element": "fire", "affinity": 86, "experience": 3000 },
+    { "element": "healing", "affinity": 91, "experience": 3400 },
+    { "element": "earth", "affinity": 89, "experience": 3100 }
+  ],
+  "maxMp": 1200,
+  "currentMp": 680,
+  "maxHp": 1000,
+  "currentHp": 710,
+  "currentBuild": "build-arcane-weaver",
+  "currentSetBonus": 52,
+  "currentItemBonus": 47,
+  "lowResourceMulticastAffinity": false,
+  "compoundMulticastRequested": true,
+  "compoundSimultaneousWindowMs": 90,
+  "compoundSequences": [
+    {
+      "id": "compound-branch-water-fire",
+      "requiredKeys": ["Q", "E", "R"],
+      "sequence": ["Q", "E", "R"],
+      "totalInputMs": 310,
+      "castWindowMs": 420,
+      "startOffsetMs": 40
+    },
+    {
+      "id": "compound-branch-healing-earth",
+      "requiredKeys": ["F", "G", "H"],
+      "sequence": ["F", "G", "H"],
+      "totalInputMs": 330,
+      "castWindowMs": 450,
+      "startOffsetMs": 95
+    }
+  ],
+  "requiredWorldItemIds": ["world-item-spellforge-01"],
+  "requiredKeys": ["Q", "E", "R"],
+  "sequence": ["Q", "E", "R"],
+  "timings": {
+    "castWindowMs": 750,
+    "totalInputMs": 520,
+    "recoveryMs": 300
+  },
+  "delivery": {
+    "scrollPrepared": true,
+    "itemComboPrepared": false,
+    "autoSpellcastingEnabled": false,
+    "macroApproved": false,
+    "fullTomeEquipped": true,
+    "rawAssemblyRequested": false,
+    "worldItemSpellConstructorIds": ["world-item-spellforge-01", "world-item-arc-conduit-07"]
+  },
+  "profile": {
+    "nonMagicCadenceMs": 760
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "npcId": "npc-custom-001",
+  "creatorId": "player-architect-001",
+  "temperament": "pragmatic",
+  "classStack": ["artificer", "warden", "ritualist"],
+  "powerBudget": 72,
+  "packageId": "pkg-npc-creator-001",
+  "version": "v1"
+}

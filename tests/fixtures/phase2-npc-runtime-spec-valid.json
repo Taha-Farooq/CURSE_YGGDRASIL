@@ -1,0 +1,10 @@
+{
+  "npcId": "npc-runtime-001",
+  "creatorId": "creator-archmage-01",
+  "temperament": "pragmatic",
+  "classStack": ["warden", "engineer", "ritualist"],
+  "powerBudget": 72,
+  "packageId": "pkg-npc-runtime-alpha",
+  "version": "v0.2.0",
+  "behaviorComplexity": 2.4
+}

@@ -1,0 +1,17 @@
+[
+  {
+    "entityId": "legendary-phoenix-001",
+    "category": "legendary",
+    "dimensionId": "prime"
+  },
+  {
+    "entityId": "god-killer-001",
+    "category": "god-killer",
+    "dimensionId": "void-frontier"
+  },
+  {
+    "entityId": "interdimensional-demon-001",
+    "category": "interdimensional",
+    "dimensionId": "abyssal-rift"
+  }
+]

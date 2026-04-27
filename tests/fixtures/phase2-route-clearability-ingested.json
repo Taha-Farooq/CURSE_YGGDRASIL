@@ -1,0 +1,43 @@
+﻿{
+    "signals":  [
+                    {
+                        "routeId":  "route-ashen-pass-01",
+                        "frictionScore":  0.78,
+                        "failureRate":  0.61,
+                        "regionId":  "region-ashen-vale",
+                        "trace":  {
+                                      "replayRequired":  true,
+                                      "signalSource":  "route_clearability_signal_ingestor_v1"
+                                  },
+                        "sourceReport":  "route-clearability-bot-2026-04-26_14-20-00.json",
+                        "clearabilityScore":  0.42
+                    },
+                    {
+                        "routeId":  "route-crystal-bridge-02",
+                        "frictionScore":  0.34,
+                        "failureRate":  0.25,
+                        "regionId":  "region-crystal-reach",
+                        "trace":  {
+                                      "replayRequired":  true,
+                                      "signalSource":  "route_clearability_signal_ingestor_v1"
+                                  },
+                        "sourceReport":  "route-clearability-bot-2026-04-26_14-20-00.json",
+                        "clearabilityScore":  0.73
+                    },
+                    {
+                        "routeId":  "route-abyssal-step-03",
+                        "frictionScore":  0.84,
+                        "failureRate":  0.74,
+                        "regionId":  "region-obsidian-throne",
+                        "trace":  {
+                                      "replayRequired":  true,
+                                      "signalSource":  "route_clearability_signal_ingestor_v1"
+                                  },
+                        "sourceReport":  "route-clearability-bot-2026-04-26_14-20-00.json",
+                        "clearabilityScore":  0.29
+                    }
+                ],
+    "timestampUtc":  "2026-04-26T18:51:55.5244185Z",
+    "service":  "route_clearability_signal_ingestor_v1",
+    "signalCount":  3
+}

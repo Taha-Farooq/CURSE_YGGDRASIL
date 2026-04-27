@@ -83,6 +83,64 @@
   </div>
 
   <div class="card">
+    <h2>Phase 2 Acceptance</h2>
+    <p class="muted">Latest Phase 2 acceptance artifact and per-task status.</p>
+    <button class="secondary" id="refreshPhase2AcceptanceBtn">Refresh Phase 2 Acceptance</button>
+    <pre id="phase2AcceptanceBox">Loading phase 2 acceptance...</pre>
+  </div>
+
+  <div class="card">
+    <h2>Canary / Rollback State</h2>
+    <p class="muted">Live entity package canary progression and rollback trigger view.</p>
+    <button class="secondary" id="refreshCanaryRollbackBtn">Refresh Canary/Rollback</button>
+    <pre id="canaryRollbackBox">Loading canary/rollback state...</pre>
+  </div>
+
+  <div class="card">
+    <h2>Summon Party Planner</h2>
+    <p class="muted">Pre-battle planner for controller count and quicksummon precompute budget.</p>
+    <button class="secondary" id="refreshSummonPartyPlanBtn">Refresh Summon Plan</button>
+    <button class="secondary" id="runCustomSummonPartyPlanBtn">Run Custom Plan</button>
+    <button class="secondary" id="loadSummonPlanTemplateBtn">Load Template</button>
+    <textarea id="summonPartyPlanInput" style="min-height:160px; margin-top:10px;" placeholder="Paste summon planner JSON input here..."></textarea>
+    <pre id="summonPartyPlanBox">Loading summon party plan...</pre>
+  </div>
+
+  <div class="card">
+    <h2>Social Bias Runtime</h2>
+    <p class="muted">Inspect command obedience gating and diplomacy route-risk penalties from social bias inputs.</p>
+    <button class="secondary" id="refreshSocialBiasBtn">Refresh Social Runtime</button>
+    <button class="secondary" id="runCustomSocialBiasBtn">Run Custom Social Runtime</button>
+    <button class="secondary" id="loadSocialBiasTemplateBtn">Load Template</button>
+    <button class="secondary" id="resetSocialTuningBtn">Reset Tuning Defaults</button>
+    <div style="margin-top:10px; padding:10px; border:1px solid #2a3342; border-radius:8px;">
+      <div class="muted" style="margin-bottom:8px;">Quick Tuning</div>
+      <div>
+        <label class="muted" style="display:inline-block; min-width:180px;">Max Prejudice Score <span id="socialMaxPrejudiceBadge">35</span></label>
+        <input id="socialMaxPrejudiceRange" type="range" min="0" max="100" step="1" value="35" style="width:220px; vertical-align:middle;" />
+        <input id="socialMaxPrejudiceInput" type="number" min="0" max="100" step="1" value="35" style="margin-left:8px; width:90px; background:#0f1115; color:#e8ecf1; border:1px solid #2a3342; border-radius:6px; padding:4px;" />
+      </div>
+      <div style="margin-top:8px;">
+        <label class="muted" style="display:inline-block; min-width:180px;">Min Obedience Delta <span id="socialMinObedienceBadge">-25</span></label>
+        <input id="socialMinObedienceRange" type="range" min="-100" max="100" step="1" value="-25" style="width:220px; vertical-align:middle;" />
+        <input id="socialMinObedienceInput" type="number" min="-100" max="100" step="1" value="-25" style="margin-left:8px; width:90px; background:#0f1115; color:#e8ecf1; border:1px solid #2a3342; border-radius:6px; padding:4px;" />
+      </div>
+      <div style="margin-top:8px;">
+        <label class="muted" style="display:inline-block; min-width:180px;">Diplomacy Weight <span id="socialDiplomacyWeightBadge">0.10</span></label>
+        <input id="socialDiplomacyWeightRange" type="range" min="0" max="1" step="0.01" value="0.10" style="width:220px; vertical-align:middle;" />
+        <input id="socialDiplomacyWeightInput" type="number" min="0" max="1" step="0.01" value="0.10" style="margin-left:8px; width:90px; background:#0f1115; color:#e8ecf1; border:1px solid #2a3342; border-radius:6px; padding:4px;" />
+      </div>
+      <div style="margin-top:8px;">
+        <label class="muted" style="display:inline-block; min-width:180px;">Max Social Penalty <span id="socialMaxPenaltyBadge">0.20</span></label>
+        <input id="socialMaxPenaltyRange" type="range" min="0" max="1" step="0.01" value="0.20" style="width:220px; vertical-align:middle;" />
+        <input id="socialMaxPenaltyInput" type="number" min="0" max="1" step="0.01" value="0.20" style="margin-left:8px; width:90px; background:#0f1115; color:#e8ecf1; border:1px solid #2a3342; border-radius:6px; padding:4px;" />
+      </div>
+    </div>
+    <textarea id="socialBiasRuntimeInput" style="min-height:180px; margin-top:10px;" placeholder="Paste social runtime JSON input here..."></textarea>
+    <pre id="socialBiasRuntimeBox">Loading social bias runtime...</pre>
+  </div>
+
+  <div class="card">
     <h2>Feature / Tweak Input</h2>
     <p class="muted">Type what you want next. This is saved into project files for automation to use.</p>
     <textarea id="featureText" placeholder="Example: Add a new demon-lord succession mechanic with rival factions..."></textarea>
@@ -363,6 +421,10 @@
       await getTestHealth();
       await getReleaseReadiness();
       await getInteropHealth();
+      await getPhase2Acceptance();
+      await getCanaryRollbackState();
+      await getSummonPartyPlan();
+      await getSocialBiasRuntime();
     }
 
     async function getAuthRejections() {
@@ -520,6 +582,431 @@
       }
     }
 
+    async function getPhase2Acceptance() {
+      const box = document.getElementById('phase2AcceptanceBox');
+      try {
+        const res = await fetch('/api/phase2-acceptance');
+        const data = await res.json();
+        const lines = [];
+        lines.push(`Requested: ${data.generatedAtUtc}`);
+        if (!data.hasSnapshot) {
+          lines.push('No phase2 acceptance snapshot found.');
+          box.textContent = lines.join('\n');
+          return;
+        }
+        lines.push(`Snapshot file: ${data.snapshotFile}`);
+        lines.push('');
+        const snapshot = data.snapshot || {};
+        if (snapshot.error) {
+          lines.push(`[CRITICAL] Snapshot parse error: ${snapshot.error}`);
+          box.textContent = lines.join('\n');
+          return;
+        }
+        lines.push(`Generated: ${snapshot.timestampUtc}`);
+        lines.push(`Overall passed: ${snapshot.passed}`);
+        lines.push(`Phase2 task count: ${snapshot.phase2TaskCount}`);
+        lines.push('');
+        for (const task of (snapshot.tasks || [])) {
+          const tag = task.passed ? '[PASS]' : '[FAIL]';
+          lines.push(`${tag} ${task.taskId}`);
+        }
+        box.textContent = lines.join('\n');
+      } catch (err) {
+        box.textContent = 'Failed to load phase2 acceptance: ' + err;
+      }
+    }
+
+    async function getCanaryRollbackState() {
+      const box = document.getElementById('canaryRollbackBox');
+      try {
+        const res = await fetch('/api/canary-rollback-state');
+        const data = await res.json();
+        const lines = [];
+        lines.push(`Generated: ${data.generatedAtUtc}`);
+        lines.push('');
+        const canary = data.canary || {};
+        if (canary.error) {
+          lines.push(`[CRITICAL] Canary state error: ${canary.error}`);
+        } else if (canary.packageId) {
+          lines.push(`Package: ${canary.packageId}`);
+          lines.push(`Canary phase: ${canary.previousPhase} -> ${canary.nextPhase}`);
+          lines.push(`Promotion allowed: ${canary.promotionAllowed}`);
+        } else {
+          lines.push('No canary state available.');
+        }
+        lines.push('');
+        const rollback = data.rollback || {};
+        if (rollback.error) {
+          lines.push(`[CRITICAL] Rollback state error: ${rollback.error}`);
+        } else if (rollback.packageId) {
+          lines.push(`Rollback triggered: ${rollback.rollbackTriggered}`);
+          lines.push(`Can rollback: ${rollback.canRollback}`);
+          lines.push(`Restored package: ${rollback.restoredPackageId || '(none)'}`);
+        } else {
+          lines.push('No rollback state available.');
+        }
+        box.textContent = lines.join('\n');
+      } catch (err) {
+        box.textContent = 'Failed to load canary/rollback state: ' + err;
+      }
+    }
+
+    async function getSummonPartyPlan() {
+      const box = document.getElementById('summonPartyPlanBox');
+      try {
+        const res = await fetch('/api/summon-party-plan');
+        const data = await res.json();
+        const lines = [];
+        lines.push(`Generated: ${data.generatedAtUtc}`);
+        lines.push('');
+        const plan = data.plan || {};
+        if (plan.error) {
+          lines.push(`[CRITICAL] Summon plan error: ${plan.error}`);
+          box.textContent = lines.join('\n');
+          return;
+        }
+        lines.push(`Planner: ${plan.planner}`);
+        lines.push(`Target: ${plan.target?.entityId || '(unknown)'} (L${plan.target?.level ?? '?'}, T${plan.target?.powerTier ?? '?'})`);
+        lines.push(`Viable: ${plan.plan?.viable}`);
+        lines.push(`Runtime mode: ${plan.plan?.runtimeMode}`);
+        lines.push('');
+        lines.push(`Required controllers: ${plan.requirements?.requiredControllers}`);
+        lines.push(`Selected controllers: ${(plan.plan?.selectedControllers || []).length}`);
+        lines.push(`Required complexity: ${plan.requirements?.requiredPrecomputeComplexity}`);
+        lines.push(`Planned precompute: ${plan.plan?.precomputeComplexity}`);
+        lines.push('');
+        lines.push('Controllers:');
+        for (const c of (plan.plan?.selectedControllers || [])) {
+          lines.push(`- ${c.entityId}: level=${c.level}, controlSkill=${c.controlSkill}, precompute=${c.precomputeCapacity}`);
+        }
+        lines.push('');
+        lines.push(`Tools: ${(plan.plan?.selectedTools || []).join(', ') || '(none)'}`);
+        lines.push(`Reason codes: ${(plan.reasonCodes || []).join(', ') || '(none)'}`);
+        box.textContent = lines.join('\n');
+      } catch (err) {
+        box.textContent = 'Failed to load summon plan: ' + err;
+      }
+    }
+
+    async function runCustomSummonPartyPlan() {
+      const box = document.getElementById('summonPartyPlanBox');
+      const inputEl = document.getElementById('summonPartyPlanInput');
+      const inputJson = (inputEl.value || '').trim();
+      if (!inputJson) {
+        box.textContent = 'Summon planner input is empty. Load template or paste valid JSON first.';
+        return;
+      }
+
+      box.textContent = 'Running custom summon plan...';
+      try {
+        const res = await fetch('/api/summon-party-plan', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ inputJson })
+        });
+        const data = await res.json();
+        const lines = [];
+        lines.push(`Generated: ${data.generatedAtUtc}`);
+        lines.push('');
+        const plan = data.plan || {};
+        if (plan.error) {
+          lines.push(`[CRITICAL] Summon plan error: ${plan.error}`);
+          box.textContent = lines.join('\n');
+          return;
+        }
+        lines.push(`Planner: ${plan.planner}`);
+        lines.push(`Target: ${plan.target?.entityId || '(unknown)'} (L${plan.target?.level ?? '?'}, T${plan.target?.powerTier ?? '?'})`);
+        lines.push(`Viable: ${plan.plan?.viable}`);
+        lines.push(`Runtime mode: ${plan.plan?.runtimeMode}`);
+        lines.push('');
+        lines.push(`Required controllers: ${plan.requirements?.requiredControllers}`);
+        lines.push(`Selected controllers: ${(plan.plan?.selectedControllers || []).length}`);
+        lines.push(`Required complexity: ${plan.requirements?.requiredPrecomputeComplexity}`);
+        lines.push(`Planned precompute: ${plan.plan?.precomputeComplexity}`);
+        lines.push('');
+        lines.push('Controllers:');
+        for (const c of (plan.plan?.selectedControllers || [])) {
+          lines.push(`- ${c.entityId}: level=${c.level}, controlSkill=${c.controlSkill}, precompute=${c.precomputeCapacity}`);
+        }
+        lines.push('');
+        lines.push(`Tools: ${(plan.plan?.selectedTools || []).join(', ') || '(none)'}`);
+        lines.push(`Reason codes: ${(plan.reasonCodes || []).join(', ') || '(none)'}`);
+        box.textContent = lines.join('\n');
+      } catch (err) {
+        box.textContent = 'Failed to run custom summon plan: ' + err;
+      }
+    }
+
+    function loadSummonPlanTemplate() {
+      const inputEl = document.getElementById('summonPartyPlanInput');
+      const template = {
+        target: { entityId: 'creature-void-hydra-001', level: 240, powerTier: 7 },
+        availableControllers: [
+          { entityId: 'summoner-a', level: 238, controlSkill: 84, precomputeCapacity: 105 },
+          { entityId: 'summoner-b', level: 241, controlSkill: 89, precomputeCapacity: 110 },
+          { entityId: 'summoner-c', level: 239, controlSkill: 80, precomputeCapacity: 95 }
+        ],
+        availableTools: [
+          { toolId: 'item-quicksummon-glyph', complexityContribution: 40, automatic: true },
+          { toolId: 'item-ritual-slate', complexityContribution: 28, automatic: false }
+        ],
+        preferences: { preferAutomatic: true }
+      };
+      inputEl.value = JSON.stringify(template, null, 2);
+    }
+
+    async function getSocialBiasRuntime() {
+      const box = document.getElementById('socialBiasRuntimeBox');
+      try {
+        const res = await fetch('/api/social-bias-runtime');
+        const data = await res.json();
+        const lines = [];
+        lines.push(`Generated: ${data.generatedAtUtc}`);
+        lines.push('');
+        const command = data.command || {};
+        if (command.error) {
+          lines.push(`[CRITICAL] Command runtime error: ${command.error}`);
+        } else {
+          lines.push(`Command applied: ${command.applied}`);
+          lines.push(`Prejudice score: ${command.socialBias?.prejudiceScore ?? 'n/a'}`);
+          lines.push(`Obedience delta: ${command.socialBias?.obedienceDelta ?? 'n/a'}`);
+          lines.push(`Reason codes: ${(command.reasonCodes || []).join(', ') || '(none)'}`);
+        }
+        lines.push('');
+        const routeRisk = data.routeRisk || {};
+        if (routeRisk.error) {
+          lines.push(`[CRITICAL] Route risk runtime error: ${routeRisk.error}`);
+        } else {
+          lines.push(`Route count: ${routeRisk.routeCount}`);
+          lines.push(`High risk count: ${routeRisk.highRiskCount}`);
+          lines.push('Top routes:');
+          for (const r of (routeRisk.topRiskRoutes || [])) {
+            lines.push(`- ${r.routeId}: risk=${r.riskScore}, diplomacy=${r.diplomacyFriction}, socialPenalty=${r.socialBiasPenalty}`);
+          }
+        }
+        box.textContent = lines.join('\n');
+      } catch (err) {
+        box.textContent = 'Failed to load social bias runtime: ' + err;
+      }
+    }
+
+    async function runCustomSocialBiasRuntime() {
+      const box = document.getElementById('socialBiasRuntimeBox');
+      const inputEl = document.getElementById('socialBiasRuntimeInput');
+      const inputJson = (inputEl.value || '').trim();
+      if (!inputJson) {
+        box.textContent = 'Social runtime input is empty. Load template or paste valid JSON first.';
+        return;
+      }
+
+      box.textContent = 'Running custom social runtime...';
+      try {
+        const payloadObj = JSON.parse(inputJson);
+        const maxPrejudiceScore = Number(document.getElementById('socialMaxPrejudiceInput').value);
+        const minObedienceDelta = Number(document.getElementById('socialMinObedienceInput').value);
+        const diplomacyWeight = Number(document.getElementById('socialDiplomacyWeightInput').value);
+        const maxSocialPenalty = Number(document.getElementById('socialMaxPenaltyInput').value);
+
+        if (!payloadObj.commandInput) payloadObj.commandInput = {};
+        payloadObj.commandInput.obediencePolicy = {
+          maxPrejudiceScore,
+          minObedienceDelta
+        };
+
+        if (!payloadObj.routeRiskWeights) payloadObj.routeRiskWeights = {};
+        payloadObj.routeRiskWeights.diplomacyFriction = diplomacyWeight;
+        payloadObj.routeRiskWeights.maxSocialBiasPenalty = maxSocialPenalty;
+
+        const res = await fetch('/api/social-bias-runtime', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ inputJson: JSON.stringify(payloadObj) })
+        });
+        const data = await res.json();
+        const lines = [];
+        lines.push(`Generated: ${data.generatedAtUtc}`);
+        lines.push('');
+        const command = data.command || {};
+        if (command.error) {
+          lines.push(`[CRITICAL] Command runtime error: ${command.error}`);
+        } else {
+          lines.push(`Command applied: ${command.applied}`);
+          lines.push(`Prejudice score: ${command.socialBias?.prejudiceScore ?? 'n/a'}`);
+          lines.push(`Obedience delta: ${command.socialBias?.obedienceDelta ?? 'n/a'}`);
+          lines.push(`Policy: maxPrejudice=${command.socialBias?.policy?.maxPrejudiceScore ?? 'n/a'}, minObedience=${command.socialBias?.policy?.minObedienceDelta ?? 'n/a'}`);
+          lines.push(`Reason codes: ${(command.reasonCodes || []).join(', ') || '(none)'}`);
+        }
+        lines.push('');
+        const routeRisk = data.routeRisk || {};
+        if (routeRisk.error) {
+          lines.push(`[CRITICAL] Route risk runtime error: ${routeRisk.error}`);
+        } else {
+          lines.push(`Route count: ${routeRisk.routeCount}`);
+          lines.push(`High risk count: ${routeRisk.highRiskCount}`);
+          lines.push(`Weights: diplomacy=${routeRisk.weights?.diplomacyFriction ?? 'n/a'}, maxSocialPenalty=${routeRisk.weights?.maxSocialBiasPenalty ?? 'n/a'}`);
+          lines.push('Top routes:');
+          for (const r of (routeRisk.topRiskRoutes || [])) {
+            lines.push(`- ${r.routeId}: risk=${r.riskScore}, diplomacy=${r.diplomacyFriction}, socialPenalty=${r.socialBiasPenalty}`);
+          }
+        }
+        box.textContent = lines.join('\n');
+      } catch (err) {
+        box.textContent = 'Failed to run custom social runtime: ' + err;
+      }
+    }
+
+    function clampNumber(value, min, max) {
+      if (!Number.isFinite(value)) return min;
+      return Math.min(max, Math.max(min, value));
+    }
+
+    function formatTuningValue(value, decimals) {
+      return Number(value).toFixed(decimals);
+    }
+
+    function bindSocialTuningControl(config) {
+      const numberInput = document.getElementById(config.numberId);
+      const rangeInput = document.getElementById(config.rangeId);
+      const badge = document.getElementById(config.badgeId);
+      if (!numberInput || !rangeInput || !badge) return;
+
+      const applyValue = (rawValue) => {
+        const clamped = clampNumber(Number(rawValue), config.min, config.max);
+        const normalized = config.decimals > 0 ? Number(clamped.toFixed(config.decimals)) : Math.round(clamped);
+        const display = formatTuningValue(normalized, config.decimals);
+        numberInput.value = display;
+        rangeInput.value = display;
+        badge.textContent = display;
+      };
+
+      numberInput.addEventListener('input', () => applyValue(numberInput.value));
+      rangeInput.addEventListener('input', () => applyValue(rangeInput.value));
+      applyValue(numberInput.value);
+    }
+
+    function setupSocialTuningControls() {
+      bindSocialTuningControl({
+        numberId: 'socialMaxPrejudiceInput',
+        rangeId: 'socialMaxPrejudiceRange',
+        badgeId: 'socialMaxPrejudiceBadge',
+        min: 0,
+        max: 100,
+        decimals: 0
+      });
+      bindSocialTuningControl({
+        numberId: 'socialMinObedienceInput',
+        rangeId: 'socialMinObedienceRange',
+        badgeId: 'socialMinObedienceBadge',
+        min: -100,
+        max: 100,
+        decimals: 0
+      });
+      bindSocialTuningControl({
+        numberId: 'socialDiplomacyWeightInput',
+        rangeId: 'socialDiplomacyWeightRange',
+        badgeId: 'socialDiplomacyWeightBadge',
+        min: 0,
+        max: 1,
+        decimals: 2
+      });
+      bindSocialTuningControl({
+        numberId: 'socialMaxPenaltyInput',
+        rangeId: 'socialMaxPenaltyRange',
+        badgeId: 'socialMaxPenaltyBadge',
+        min: 0,
+        max: 1,
+        decimals: 2
+      });
+    }
+
+    function applySocialTuningValues(values) {
+      const mappings = [
+        { key: 'maxPrejudiceScore', id: 'socialMaxPrejudiceInput' },
+        { key: 'minObedienceDelta', id: 'socialMinObedienceInput' },
+        { key: 'diplomacyFriction', id: 'socialDiplomacyWeightInput' },
+        { key: 'maxSocialBiasPenalty', id: 'socialMaxPenaltyInput' }
+      ];
+      for (const map of mappings) {
+        if (values[map.key] === undefined) continue;
+        const input = document.getElementById(map.id);
+        if (input) {
+          input.value = String(values[map.key]);
+          input.dispatchEvent(new Event('input'));
+        }
+      }
+    }
+
+    function resetSocialTuningDefaults() {
+      applySocialTuningValues({
+        maxPrejudiceScore: 35,
+        minObedienceDelta: -25,
+        diplomacyFriction: 0.10,
+        maxSocialBiasPenalty: 0.20
+      });
+    }
+
+    function loadSocialBiasTemplate() {
+      const inputEl = document.getElementById('socialBiasRuntimeInput');
+      const template = {
+        temperamentInput: {
+          demonLordId: 'demon-lord-abyss-01',
+          temperament: 'pragmatic',
+          actorSpecies: 'demonkin',
+          targetSpecies: 'demonkin',
+          targetId: 'demonkin-rival-44',
+          actorProfile: {
+            incomeTier: 'high',
+            hometown: 'Abyss-Capital',
+            nationalAlliances: ['Abyss Pact'],
+            personalVendettas: [{ targetId: 'demonkin-rival-44', severity: 7 }],
+            familyVendettas: [{ targetId: 'demonkin-rival-44', severity: 6 }]
+          },
+          targetProfile: {
+            incomeTier: 'low',
+            hometown: 'Obsidian Frontier',
+            nationalAlliances: ['Crimson Bloc']
+          },
+          socialEvents: [
+            { type: 'political', impact: 6 },
+            { type: 'war', impact: 8 }
+          ]
+        },
+        commandInput: {
+          demonLordId: 'demon-lord-abyss-01',
+          minionGroupId: 'minions-ashen-vanguard',
+          commandType: 'expand_domain',
+          domainEffect: 'fear_aura',
+          obediencePolicy: {
+            maxPrejudiceScore: 35,
+            minObedienceDelta: -25
+          }
+        },
+        routeRiskWeights: {
+          diplomacyFriction: 0.10,
+          maxSocialBiasPenalty: 0.20
+        },
+        routeSignalsInput: [
+          {
+            routeId: 'route-ashen-pass-01',
+            regionId: 'region-ashen-vale',
+            clearabilityScore: 0.42,
+            frictionScore: 0.78,
+            failureRate: 0.61,
+            diplomacyFriction: 0.66,
+            socialBiasTrustDelta: -24,
+            sourceReport: 'template-social-runtime'
+          }
+        ]
+      };
+      inputEl.value = JSON.stringify(template, null, 2);
+      applySocialTuningValues({
+        maxPrejudiceScore: template.commandInput.obediencePolicy.maxPrejudiceScore,
+        minObedienceDelta: template.commandInput.obediencePolicy.minObedienceDelta,
+        diplomacyFriction: template.routeRiskWeights.diplomacyFriction,
+        maxSocialBiasPenalty: template.routeRiskWeights.maxSocialBiasPenalty
+      });
+    }
+
     async function importPhase1() {
       const out = document.getElementById('runResult');
       out.textContent = 'Importing Phase 1 tasks...';
@@ -631,6 +1118,15 @@
     document.getElementById('refreshTestHealthBtn').addEventListener('click', getTestHealth);
     document.getElementById('refreshReleaseReadinessBtn').addEventListener('click', getReleaseReadiness);
     document.getElementById('refreshInteropBtn').addEventListener('click', getInteropHealth);
+    document.getElementById('refreshPhase2AcceptanceBtn').addEventListener('click', getPhase2Acceptance);
+    document.getElementById('refreshCanaryRollbackBtn').addEventListener('click', getCanaryRollbackState);
+    document.getElementById('refreshSummonPartyPlanBtn').addEventListener('click', getSummonPartyPlan);
+    document.getElementById('runCustomSummonPartyPlanBtn').addEventListener('click', runCustomSummonPartyPlan);
+    document.getElementById('loadSummonPlanTemplateBtn').addEventListener('click', loadSummonPlanTemplate);
+    document.getElementById('refreshSocialBiasBtn').addEventListener('click', getSocialBiasRuntime);
+    document.getElementById('runCustomSocialBiasBtn').addEventListener('click', runCustomSocialBiasRuntime);
+    document.getElementById('loadSocialBiasTemplateBtn').addEventListener('click', loadSocialBiasTemplate);
+    document.getElementById('resetSocialTuningBtn').addEventListener('click', resetSocialTuningDefaults);
     document.getElementById('copyReleaseSummaryBtn').addEventListener('click', copyReleaseSummary);
     document.getElementById('authFilterAllBtn').addEventListener('click', () => { authSeverityFilter = 'all'; renderAuthRejections(); });
     document.getElementById('authFilterWarningsBtn').addEventListener('click', () => { authSeverityFilter = 'warnings'; renderAuthRejections(); });
@@ -651,12 +1147,19 @@
     document.getElementById('commitBtn').addEventListener('click', commitChanges);
     document.getElementById('commitPushBtn').addEventListener('click', commitAndPush);
 
+    setupSocialTuningControls();
     getStatus();
     getAuthRejections();
     getFailingChecks();
     getTestHealth();
     getReleaseReadiness();
     getInteropHealth();
+    getPhase2Acceptance();
+    getCanaryRollbackState();
+    loadSummonPlanTemplate();
+    getSummonPartyPlan();
+    loadSocialBiasTemplate();
+    getSocialBiasRuntime();
   </script>
 </body>
 </html>

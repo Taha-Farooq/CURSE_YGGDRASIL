@@ -1,0 +1,16 @@
+{
+  "itemId": "equip-legendary-blade-044",
+  "constructionItemTiers": [8, 9, 9, 10],
+  "durabilityPct": 73,
+  "craftsmanshipQuality": 92,
+  "ageYears": 6,
+  "maintenanceCondition": 76,
+  "repairRequested": true,
+  "targetMint": true,
+  "craftsman": {
+    "id": "craftsman-arch-01",
+    "qualified": true,
+    "skillRating": 96,
+    "certificationTier": 5
+  }
+}

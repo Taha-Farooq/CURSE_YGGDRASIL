@@ -1,0 +1,7 @@
+{
+  "packageId": "pkg-entity-001",
+  "entityType": "npc_creator",
+  "estimatedBudget": 68,
+  "maxBudget": 100,
+  "legalityPassed": true
+}

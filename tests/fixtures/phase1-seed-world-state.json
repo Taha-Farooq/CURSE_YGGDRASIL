@@ -1,0 +1,15 @@
+{
+  "worldId": "phase1-seed-world",
+  "actors": [
+    { "actorId": "player-001" },
+    { "actorId": "npc-merchant-001" }
+  ],
+  "jobs": [
+    { "jobId": "shipment-001" },
+    { "jobId": "forge-cycle-001" }
+  ],
+  "regions": [
+    { "regionId": "region-alpha" },
+    { "regionId": "region-beta" }
+  ]
+}

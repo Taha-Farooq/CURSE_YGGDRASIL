@@ -1,0 +1,28 @@
+{
+  "demonLordId": "demon-lord-abyss-01",
+  "temperament": "pragmatic",
+  "actorSpecies": "demonkin",
+  "targetSpecies": "demonkin",
+  "targetId": "demonkin-rival-44",
+  "actorProfile": {
+    "incomeTier": "high",
+    "hometown": "Abyss-Capital",
+    "nationalAlliances": ["Abyss Pact"],
+    "personalVendettas": [
+      { "targetId": "demonkin-rival-44", "severity": 7 }
+    ],
+    "familyVendettas": [
+      { "targetId": "demonkin-rival-44", "severity": 6 }
+    ]
+  },
+  "targetProfile": {
+    "incomeTier": "low",
+    "hometown": "Obsidian Frontier",
+    "nationalAlliances": ["Crimson Bloc"]
+  },
+  "socialEvents": [
+    { "type": "political", "impact": 6 },
+    { "type": "war", "impact": 8 },
+    { "type": "historical_grievance", "impact": 4 }
+  ]
+}

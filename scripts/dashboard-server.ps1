@@ -335,6 +335,260 @@ function Get-InteropHealthSummary {
     return $result
 }
 
+function Get-LatestPhase2Acceptance {
+    $result = [ordered]@{
+        generatedAtUtc = (Get-Date).ToUniversalTime().ToString("o")
+        hasSnapshot = $false
+        snapshotFile = $null
+        snapshot = $null
+    }
+
+    $reportsDir = Join-Path $repoRoot "reports"
+    if (-not (Test-Path $reportsDir)) {
+        return $result
+    }
+
+    $file = Get-ChildItem -Path $reportsDir -Filter "phase2-acceptance-report-*.json" | Sort-Object LastWriteTimeUtc -Descending | Select-Object -First 1
+    if ($null -eq $file) {
+        return $result
+    }
+
+    try {
+        $snapshot = Get-Content $file.FullName -Raw | ConvertFrom-Json
+        $result.hasSnapshot = $true
+        $result.snapshotFile = $file.Name
+        $result.snapshot = $snapshot
+    }
+    catch {
+        $result.hasSnapshot = $false
+        $result.snapshotFile = $file.Name
+        $result.snapshot = @{
+            error = $_.Exception.Message
+        }
+    }
+
+    return $result
+}
+
+function Get-LatestCanaryRollbackState {
+    $result = [ordered]@{
+        generatedAtUtc = (Get-Date).ToUniversalTime().ToString("o")
+        canary = $null
+        rollback = $null
+    }
+
+    $canaryPath = Join-Path $repoRoot "tests\fixtures\phase2-entity-canary-state.json"
+    $rollbackPath = Join-Path $repoRoot "tests\fixtures\phase2-entity-rollback.json"
+    $canaryScript = Join-Path $repoRoot "engine\live-content\entity-package-canary-controller.ps1"
+    $rollbackScript = Join-Path $repoRoot "engine\live-content\entity-package-rollback-trigger-policy.ps1"
+
+    try {
+        if (Test-Path $canaryScript -and Test-Path $canaryPath) {
+            $result.canary = & $canaryScript -RepoRoot $repoRoot -CanaryJsonPath $canaryPath | ConvertFrom-Json
+        }
+    }
+    catch {
+        $result.canary = @{
+            error = $_.Exception.Message
+        }
+    }
+
+    try {
+        if (Test-Path $rollbackScript -and Test-Path $canaryPath -and Test-Path $rollbackPath) {
+            $result.rollback = & $rollbackScript -RepoRoot $repoRoot -CanaryJsonPath $canaryPath -RollbackJsonPath $rollbackPath | ConvertFrom-Json
+        }
+    }
+    catch {
+        $result.rollback = @{
+            error = $_.Exception.Message
+        }
+    }
+
+    return $result
+}
+
+function Get-SummonPartyPlan {
+    $result = [ordered]@{
+        generatedAtUtc = (Get-Date).ToUniversalTime().ToString("o")
+        plan = $null
+    }
+
+    $plannerScript = Join-Path $repoRoot "engine\combat\summons\summon-party-planner.ps1"
+    $inputPath = Join-Path $repoRoot "tests\fixtures\phase2-summon-party-plan-input.json"
+
+    try {
+        if (Test-Path $plannerScript -and Test-Path $inputPath) {
+            $result.plan = & $plannerScript -RepoRoot $repoRoot -InputJsonPath $inputPath | ConvertFrom-Json
+        } else {
+            $result.plan = @{
+                error = "Summon planner script or input fixture missing."
+            }
+        }
+    }
+    catch {
+        $result.plan = @{
+            error = $_.Exception.Message
+        }
+    }
+
+    return $result
+}
+
+function Invoke-SummonPartyPlanFromJson([string]$JsonText) {
+    $result = [ordered]@{
+        generatedAtUtc = (Get-Date).ToUniversalTime().ToString("o")
+        plan = $null
+    }
+
+    $plannerScript = Join-Path $repoRoot "engine\combat\summons\summon-party-planner.ps1"
+    if (-not (Test-Path $plannerScript)) {
+        $result.plan = @{ error = "Summon planner script missing." }
+        return $result
+    }
+
+    if ([string]::IsNullOrWhiteSpace($JsonText)) {
+        $result.plan = @{ error = "Planner input JSON is empty." }
+        return $result
+    }
+
+    try {
+        $null = $JsonText | ConvertFrom-Json
+    }
+    catch {
+        $result.plan = @{ error = "Invalid planner input JSON: $($_.Exception.Message)" }
+        return $result
+    }
+
+    $tempDir = Join-Path $repoRoot "reports\temp"
+    if (-not (Test-Path $tempDir)) { New-Item -ItemType Directory -Path $tempDir -Force | Out-Null }
+    $tempInputPath = Join-Path $tempDir ("dashboard-summon-party-input-" + (Get-Date -Format "yyyyMMddHHmmssfff") + "-" + $PID + ".json")
+    Set-Content -Path $tempInputPath -Value $JsonText -Encoding UTF8
+
+    try {
+        $result.plan = & $plannerScript -RepoRoot $repoRoot -InputJsonPath $tempInputPath | ConvertFrom-Json
+    }
+    catch {
+        $result.plan = @{ error = $_.Exception.Message }
+    }
+    finally {
+        if (Test-Path $tempInputPath) { Remove-Item -Path $tempInputPath -Force -ErrorAction SilentlyContinue }
+    }
+
+    return $result
+}
+
+function Get-SocialBiasRuntimeDiagnostics {
+    $result = [ordered]@{
+        generatedAtUtc = (Get-Date).ToUniversalTime().ToString("o")
+        command = $null
+        routeRisk = $null
+    }
+
+    $temperamentPath = Join-Path $repoRoot "tests\fixtures\phase2-demon-lord-temperament-intraspecies.json"
+    $commandPath = Join-Path $repoRoot "tests\fixtures\phase2-demon-lord-command.json"
+    $commandScript = Join-Path $repoRoot "engine\entities\demon-lord\minion-command-interface.ps1"
+    $routeSignalsPath = Join-Path $repoRoot "tests\fixtures\phase2-route-clearability-signals.json"
+    $ingestorScript = Join-Path $repoRoot "engine\routing\clearability\route-clearability-signal-ingestor.ps1"
+    $riskScript = Join-Path $repoRoot "engine\routing\clearability\weighted-route-risk-scorer.ps1"
+
+    try {
+        if (Test-Path $commandScript -and Test-Path $commandPath -and Test-Path $temperamentPath) {
+            $result.command = & $commandScript -CommandJsonPath $commandPath -TemperamentJsonPath $temperamentPath | ConvertFrom-Json
+        } else {
+            $result.command = @{ error = "Command/temperament runtime assets missing." }
+        }
+    } catch {
+        $result.command = @{ error = $_.Exception.Message }
+    }
+
+    try {
+        if (Test-Path $ingestorScript -and Test-Path $riskScript -and Test-Path $routeSignalsPath) {
+            $tempDir = Join-Path $repoRoot "reports\temp"
+            if (-not (Test-Path $tempDir)) { New-Item -ItemType Directory -Path $tempDir -Force | Out-Null }
+            $tempSignalsPath = Join-Path $tempDir ("dashboard-social-route-signals-" + (Get-Date -Format "yyyyMMddHHmmssfff") + "-" + $PID + ".json")
+            $ingested = & $ingestorScript -RepoRoot $repoRoot -InputJsonPath $routeSignalsPath | ConvertFrom-Json
+            $ingested | ConvertTo-Json -Depth 12 | Set-Content -Path $tempSignalsPath -Encoding UTF8
+            $result.routeRisk = & $riskScript -RepoRoot $repoRoot -SignalsJsonPath $tempSignalsPath | ConvertFrom-Json
+            if (Test-Path $tempSignalsPath) { Remove-Item -Path $tempSignalsPath -Force -ErrorAction SilentlyContinue }
+        } else {
+            $result.routeRisk = @{ error = "Route risk runtime assets missing." }
+        }
+    } catch {
+        $result.routeRisk = @{ error = $_.Exception.Message }
+    }
+
+    return $result
+}
+
+function Invoke-SocialBiasRuntimeFromJson([string]$JsonText) {
+    $result = [ordered]@{
+        generatedAtUtc = (Get-Date).ToUniversalTime().ToString("o")
+        command = $null
+        routeRisk = $null
+    }
+
+    if ([string]::IsNullOrWhiteSpace($JsonText)) {
+        $result.command = @{ error = "Input JSON is empty." }
+        $result.routeRisk = @{ error = "Input JSON is empty." }
+        return $result
+    }
+
+    try {
+        $json = $JsonText | ConvertFrom-Json
+    } catch {
+        $result.command = @{ error = "Invalid input JSON: $($_.Exception.Message)" }
+        $result.routeRisk = @{ error = "Invalid input JSON: $($_.Exception.Message)" }
+        return $result
+    }
+
+    $commandScript = Join-Path $repoRoot "engine\entities\demon-lord\minion-command-interface.ps1"
+    $ingestorScript = Join-Path $repoRoot "engine\routing\clearability\route-clearability-signal-ingestor.ps1"
+    $riskScript = Join-Path $repoRoot "engine\routing\clearability\weighted-route-risk-scorer.ps1"
+    $tempDir = Join-Path $repoRoot "reports\temp"
+    if (-not (Test-Path $tempDir)) { New-Item -ItemType Directory -Path $tempDir -Force | Out-Null }
+    $token = (Get-Date -Format "yyyyMMddHHmmssfff") + "-" + $PID
+    $temperamentPath = Join-Path $tempDir ("dashboard-social-temperament-" + $token + ".json")
+    $commandPath = Join-Path $tempDir ("dashboard-social-command-" + $token + ".json")
+    $signalsPath = Join-Path $tempDir ("dashboard-social-signals-" + $token + ".json")
+    $ingestedPath = Join-Path $tempDir ("dashboard-social-ingested-" + $token + ".json")
+
+    try {
+        if ($null -ne $json.temperamentInput -and $null -ne $json.commandInput) {
+            $json.temperamentInput | ConvertTo-Json -Depth 12 | Set-Content -Path $temperamentPath -Encoding UTF8
+            $json.commandInput | ConvertTo-Json -Depth 12 | Set-Content -Path $commandPath -Encoding UTF8
+            $result.command = & $commandScript -CommandJsonPath $commandPath -TemperamentJsonPath $temperamentPath | ConvertFrom-Json
+        } else {
+            $result.command = @{ error = "Missing temperamentInput or commandInput." }
+        }
+    } catch {
+        $result.command = @{ error = $_.Exception.Message }
+    }
+
+    try {
+        if ($null -ne $json.routeSignalsInput) {
+            $routePayload = @{ signals = @($json.routeSignalsInput) }
+            if ($null -ne $json.routeRiskWeights) {
+                $routePayload["weights"] = $json.routeRiskWeights
+            }
+            $routePayload | ConvertTo-Json -Depth 12 | Set-Content -Path $signalsPath -Encoding UTF8
+            $ingested = & $ingestorScript -RepoRoot $repoRoot -InputJsonPath $signalsPath | ConvertFrom-Json
+            $ingested | ConvertTo-Json -Depth 12 | Set-Content -Path $ingestedPath -Encoding UTF8
+            $result.routeRisk = & $riskScript -RepoRoot $repoRoot -SignalsJsonPath $ingestedPath | ConvertFrom-Json
+        } else {
+            $result.routeRisk = @{ error = "Missing routeSignalsInput." }
+        }
+    } catch {
+        $result.routeRisk = @{ error = $_.Exception.Message }
+    }
+    finally {
+        foreach ($p in @($temperamentPath, $commandPath, $signalsPath, $ingestedPath)) {
+            if (Test-Path $p) { Remove-Item -Path $p -Force -ErrorAction SilentlyContinue }
+        }
+    }
+
+    return $result
+}
+
 while ($listener.IsListening) {
     try {
         $ctx = $listener.GetContext()
@@ -382,6 +636,77 @@ while ($listener.IsListening) {
         if ($method -eq "GET" -and $path -eq "/api/interop-health") {
             $payload = Get-InteropHealthSummary
             Write-JsonResponse $ctx $payload 200
+            continue
+        }
+
+        if ($method -eq "GET" -and $path -eq "/api/phase2-acceptance") {
+            $payload = Get-LatestPhase2Acceptance
+            Write-JsonResponse $ctx $payload 200
+            continue
+        }
+
+        if ($method -eq "GET" -and $path -eq "/api/canary-rollback-state") {
+            $payload = Get-LatestCanaryRollbackState
+            Write-JsonResponse $ctx $payload 200
+            continue
+        }
+
+        if ($method -eq "GET" -and $path -eq "/api/summon-party-plan") {
+            $payload = Get-SummonPartyPlan
+            Write-JsonResponse $ctx $payload 200
+            continue
+        }
+
+        if ($method -eq "POST" -and $path -eq "/api/summon-party-plan") {
+            $reader = New-Object System.IO.StreamReader($req.InputStream, $req.ContentEncoding)
+            $body = $reader.ReadToEnd()
+            $reader.Close()
+
+            $json = $body | ConvertFrom-Json
+            $inputJson = [string]$json.inputJson
+            $payload = Invoke-SummonPartyPlanFromJson -JsonText $inputJson
+            Write-JsonResponse $ctx $payload 200
+            continue
+        }
+
+        if ($method -eq "GET" -and $path -eq "/api/social-bias-runtime") {
+            $payload = Get-SocialBiasRuntimeDiagnostics
+            Write-JsonResponse $ctx $payload 200
+            continue
+        }
+
+        if ($method -eq "POST" -and $path -eq "/api/social-bias-runtime") {
+            $reader = New-Object System.IO.StreamReader($req.InputStream, $req.ContentEncoding)
+            $body = $reader.ReadToEnd()
+            $reader.Close()
+            $json = $body | ConvertFrom-Json
+            $inputJson = [string]$json.inputJson
+            $payload = Invoke-SocialBiasRuntimeFromJson -JsonText $inputJson
+            Write-JsonResponse $ctx $payload 200
+            continue
+        }
+
+        if ($method -eq "GET" -and $path -eq "/api/replay-query") {
+            $eventId = [string]$req.QueryString["eventId"]
+            $playerId = [string]$req.QueryString["playerId"]
+            $queryScript = Join-Path $repoRoot "tools\replay\query\get-replay-by-id.ps1"
+            if (-not (Test-Path $queryScript)) {
+                Write-JsonResponse $ctx @{
+                    found = $false
+                    error = "Replay query tool missing."
+                } 404
+                continue
+            }
+            try {
+                $payload = & $queryScript -RepoRoot $repoRoot -EventId $eventId -PlayerId $playerId | ConvertFrom-Json
+                Write-JsonResponse $ctx $payload 200
+            }
+            catch {
+                Write-JsonResponse $ctx @{
+                    found = $false
+                    error = $_.Exception.Message
+                } 500
+            }
             continue
         }
 
@@ -495,6 +820,13 @@ while ($listener.IsListening) {
 
         if ($method -eq "POST" -and $path -eq "/api/import-phase1") {
             $importScript = Join-Path $repoRoot "scripts\import-phase1-tasks.ps1"
+            $result = & $importScript 2>&1 | Out-String
+            Write-TextResponse $ctx $result
+            continue
+        }
+
+        if ($method -eq "POST" -and $path -eq "/api/import-phase2") {
+            $importScript = Join-Path $repoRoot "scripts\import-phase2-tasks.ps1"
             $result = & $importScript 2>&1 | Out-String
             Write-TextResponse $ctx $result
             continue

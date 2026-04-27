@@ -1,0 +1,14 @@
+{
+  "attacker": {
+    "entityId": "summon-wolf-001",
+    "race": "beast",
+    "class": "ranger",
+    "level": 160
+  },
+  "defender": {
+    "entityId": "enemy-archmage-001",
+    "race": "spirit",
+    "class": "mage",
+    "level": 120
+  }
+}

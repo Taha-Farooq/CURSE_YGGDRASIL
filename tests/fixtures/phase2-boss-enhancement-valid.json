@@ -1,0 +1,10 @@
+{
+  "bossType": "area_boss",
+  "bossLevel": 760,
+  "baseMobHealth": 18000,
+  "bossHealth": 70000,
+  "gearTier": 13,
+  "enhancements": ["electric", "poisonous", "thorns", "trapper"],
+  "baseRewardTier": 8,
+  "baseRewardQuantity": 3
+}

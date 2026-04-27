@@ -1,0 +1,27 @@
+{
+  "basePrice": 980,
+  "conditionValueMultiplier": 1.05,
+  "marketPressure": 0.9,
+  "demandScalar": 1.2,
+  "locationProfile": {
+    "locationId": "market-goldharbor",
+    "kingdomId": "kingdom-suncrest",
+    "demandDelta": 2.3,
+    "logisticsFriction": 0.5,
+    "tradeRisk": 0.2,
+    "taxRate": 0.08
+  },
+  "kingdomProfile": {
+    "kingdomId": "kingdom-suncrest",
+    "taxModifier": 0.01,
+    "subsidyRate": 0.00,
+    "stabilityDelta": 0.6
+  },
+  "currencyProfile": {
+    "baseCurrencyCode": "SOL",
+    "storeCurrencyCode": "AUR",
+    "quoteCurrencyCode": "SOL",
+    "storeToBaseRate": 1.18,
+    "quoteToBaseRate": 1.0
+  }
+}

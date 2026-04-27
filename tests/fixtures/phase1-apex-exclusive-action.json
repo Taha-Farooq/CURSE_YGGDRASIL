@@ -1,0 +1,31 @@
+{
+  "actionId": "act-phase1-apex-grammar-001",
+  "actorId": "interdimensional-demon-001",
+  "actionType": "hybrid",
+  "scope": {
+    "zoneId": "rift-zone-01",
+    "regionId": "region-rift",
+    "authorityScope": "faction"
+  },
+  "worldFactsRead": ["Stability(rift-zone-01)", "Charge(rift-core)"],
+  "worldFactsWrite": ["Signal(rift-core,rift-legion,invoke)", "Integrity(rift-gate)"],
+  "effectProfile": {
+    "basePower": 95
+  },
+  "telemetry": {
+    "tags": ["magic", "tech", "hybrid", "apex"]
+  },
+  "resourceCosts": {
+    "mana": 40,
+    "hpRisk": 5,
+    "energy": 60,
+    "materials": 20
+  },
+  "simBudget": {
+    "estimatedCost": 55,
+    "maxAllowedCost": 80
+  },
+  "replay": {
+    "required": true
+  }
+}

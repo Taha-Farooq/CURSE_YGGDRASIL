@@ -1,0 +1,8 @@
+{
+  "itemId": "loot-blade-0009",
+  "source": "boss_drop",
+  "lootRarity": "rare",
+  "zoneDifficulty": 6,
+  "lootAgeYears": 12,
+  "baseConstructionTiers": [5, 6, 6, 5]
+}

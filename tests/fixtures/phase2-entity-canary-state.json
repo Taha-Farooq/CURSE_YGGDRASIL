@@ -1,0 +1,10 @@
+{
+  "packageId": "pkg-entity-phase2-gamma",
+  "phase": "canary_50",
+  "errorRatePct": 0.2,
+  "p95LatencyMs": 92,
+  "thresholds": {
+    "maxErrorRatePct": 0.5,
+    "maxP95LatencyMs": 120
+  }
+}

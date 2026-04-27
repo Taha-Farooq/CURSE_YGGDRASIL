@@ -1,0 +1,20 @@
+[
+  {
+    "entityId": "apex-legendary-calamity-01",
+    "category": "legendary",
+    "dimensionId": "abyssal-rift",
+    "threatBudget": 65
+  },
+  {
+    "entityId": "apex-godkiller-void-02",
+    "category": "god-killer",
+    "dimensionId": "abyssal-rift",
+    "threatBudget": 90
+  },
+  {
+    "entityId": "apex-interdimensional-fold-03",
+    "category": "interdimensional",
+    "dimensionId": "celestial-gate",
+    "threatBudget": 85
+  }
+]

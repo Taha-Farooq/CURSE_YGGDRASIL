@@ -1,0 +1,91 @@
+{
+  "itemId": "item-arc-drone-bomb-01",
+  "nowEpochSeconds": 1735689600,
+  "conditionScore": 86,
+  "baseCondition": {
+    "valueMultiplier": 1.08,
+    "effectivenessMultiplier": 1.02
+  },
+  "temporaryEnchantments": [
+    {
+      "id": "temp-overcharge",
+      "school": "arcane",
+      "startEpochSeconds": 1735603200,
+      "expiryEpochSeconds": 1735776000,
+      "valueBonusPct": 4,
+      "effectivenessBonusPct": 9
+    }
+  ],
+  "permanentEnchantments": [
+    {
+      "id": "perm-stability-lattice",
+      "valueBonusPct": 6,
+      "effectivenessBonusPct": 3
+    }
+  ],
+  "runes": [
+    {
+      "id": "rune-seeking",
+      "valueBonusPct": 2,
+      "effectivenessBonusPct": 7
+    }
+  ],
+  "integratedMagicScripts": [
+    {
+      "id": "script-auto-target",
+      "authorityApproved": true,
+      "automationScore": 24
+    },
+    {
+      "id": "script-drone-return",
+      "authorityApproved": true,
+      "automationScore": 15
+    }
+  ],
+  "context": {
+    "environment": "storm",
+    "class": "arcanist",
+    "race": "human",
+    "subclass": "artificer",
+    "magicState": "charged",
+    "activeSetTags": ["stormkit", "artificer-core"]
+  },
+  "contextualModifiers": [
+    {
+      "id": "ctx-storm-boost",
+      "target": "effectiveness",
+      "pct": 8,
+      "environment": "storm",
+      "class": "any",
+      "race": "any",
+      "subclass": "any",
+      "setTag": "any",
+      "magicState": "any",
+      "conditionMinScore": 70
+    },
+    {
+      "id": "ctx-set-value",
+      "target": "value",
+      "pct": 5,
+      "environment": "any",
+      "class": "any",
+      "race": "any",
+      "subclass": "any",
+      "setTag": "stormkit",
+      "magicState": "any",
+      "conditionMinScore": 60
+    },
+    {
+      "id": "ctx-low-condition-penalty",
+      "target": "effectiveness",
+      "pct": -6,
+      "environment": "any",
+      "class": "any",
+      "race": "any",
+      "subclass": "any",
+      "setTag": "any",
+      "magicState": "any",
+      "conditionMinScore": 95
+    }
+  ]
+}

@@ -13,13 +13,54 @@ $reportDir = Join-Path $RepoRoot "reports\bots"
 if (-not (Test-Path $reportDir)) { New-Item -ItemType Directory -Path $reportDir -Force | Out-Null }
 $output = Join-Path $reportDir "test-bot-it-dgn-006-$timestamp.json"
 
+$contractPath = Join-Path $RepoRoot "systems\integration\INTERACTION_MATRIX_CONTRACT.json"
+$matrixPath = Join-Path $RepoRoot "INTERACTION_MATRIX.md"
+
+if (-not (Test-Path $contractPath)) { throw "Missing contract file: $contractPath" }
+if (-not (Test-Path $matrixPath)) { throw "Missing matrix file: $matrixPath" }
+
+$contract = Get-Content $contractPath -Raw | ConvertFrom-Json
+$matrix = Get-Content $matrixPath -Raw
+
+$interaction = @($contract.interactions | Where-Object { $_.interactionId -eq "INT-0012" } | Select-Object -First 1)
+$scenario = @($contract.scenarios | Where-Object { $_.scenarioId -eq "SCN-002" } | Select-Object -First 1)
+
+$checks = @()
+$checks += @{
+    check = "contract_has_int_0012"
+    passed = ($null -ne $interaction)
+    details = $(if ($null -ne $interaction) { "INT-0012 found in contract" } else { "INT-0012 missing from contract" })
+}
+$checks += @{
+    check = "int_0012_maps_it_dgn_006"
+    passed = ($null -ne $interaction -and @($interaction.integrationTestIds) -contains "IT-DGN-006")
+    details = $(if ($null -ne $interaction) { "integrationTestIds=" + (@($interaction.integrationTestIds) -join ", ") } else { "interaction missing" })
+}
+$checks += @{
+    check = "scenario_002_references_dungeon_test"
+    passed = ($null -ne $scenario -and @($scenario.testIds) -contains "IT-DGN-006")
+    details = $(if ($null -ne $scenario) { "SCN-002 tests=" + (@($scenario.testIds) -join ", ") } else { "SCN-002 missing" })
+}
+$checks += @{
+    check = "matrix_declares_progression_dungeon_link"
+    passed = ($matrix -match [regex]::Escape("INT-0012") -and $matrix -match [regex]::Escape("IT-DGN-006") -and $matrix -match [regex]::Escape("progression_gate_validator_v1"))
+    details = "INTERACTION_MATRIX.md contains INT-0012 / IT-DGN-006 / progression_gate_validator_v1 linkage"
+}
+
+$passed = $true
+foreach ($c in $checks) {
+    if (-not $c.passed) { $passed = $false }
+}
+
 $result = @{
     bot = "test-bot-it-dgn-006"
     timestampUtc = (Get-Date).ToUniversalTime().ToString("o")
-    passed = $true
+    passed = $passed
     testId = "IT-DGN-006"
-    note = "Generated stub by bot-maker-bot. Replace with real test logic."
+    checks = $checks
+    validator = "interaction_contract_consistency_v1"
 }
 $result | ConvertTo-Json -Depth 6 | Set-Content -Path $output -Encoding UTF8
 Write-Host "[test-bot-it-dgn-006] Report: $output"
+if (-not $passed) { exit 1 }
 exit 0

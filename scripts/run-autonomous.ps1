@@ -16,6 +16,14 @@ function RunCycle {
 
     & (Join-Path $repoRoot "scripts\dev-loop.ps1") -Strict:$Strict
     if (-not $?) { throw "dev-loop failed." }
+
+    try {
+        & (Join-Path $repoRoot "scripts\autonomous-readiness-report.ps1") -RepoRoot $repoRoot -WriteReport | Out-Null
+        Write-Host "[run-autonomous] Updated autonomous readiness report."
+    }
+    catch {
+        Write-Host "[run-autonomous] Readiness report generation warning: $($_.Exception.Message)"
+    }
 }
 
 if ($Once) {
@@ -31,6 +39,13 @@ while ($true) {
     }
     catch {
         Write-Host "[run-autonomous] ERROR: $($_.Exception.Message)"
+        try {
+            Write-Host "[run-autonomous] Running auto-heal sequence..."
+            & (Join-Path $repoRoot "scripts\auto-heal-on-failure.ps1") -RepoRoot $repoRoot -Strict:$Strict
+        }
+        catch {
+            Write-Host "[run-autonomous] Auto-heal failed: $($_.Exception.Message)"
+        }
     }
     Start-Sleep -Seconds ($interval * 60)
 }

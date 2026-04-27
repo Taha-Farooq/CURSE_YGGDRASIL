@@ -1,0 +1,8 @@
+{
+  "polityId": "polity-fractured-marches",
+  "ethicalMaturityIndex": 0.3,
+  "socialCohesionIndex": 0.28,
+  "casteSuppressionIndex": 0.9,
+  "arcaneLiteracyIndex": 0.34,
+  "wartimeEmergencyPowers": true
+}

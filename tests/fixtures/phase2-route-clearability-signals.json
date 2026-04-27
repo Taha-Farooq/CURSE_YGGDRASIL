@@ -1,0 +1,34 @@
+{
+  "signals": [
+    {
+      "routeId": "route-ashen-pass-01",
+      "regionId": "region-ashen-vale",
+      "clearabilityScore": 0.42,
+      "frictionScore": 0.78,
+      "failureRate": 0.61,
+      "diplomacyFriction": 0.66,
+      "socialBiasTrustDelta": -24,
+      "sourceReport": "route-clearability-bot-2026-04-26_14-20-00.json"
+    },
+    {
+      "routeId": "route-crystal-bridge-02",
+      "regionId": "region-crystal-reach",
+      "clearabilityScore": 0.73,
+      "frictionScore": 0.34,
+      "failureRate": 0.25,
+      "diplomacyFriction": 0.21,
+      "socialBiasTrustDelta": -4,
+      "sourceReport": "route-clearability-bot-2026-04-26_14-20-00.json"
+    },
+    {
+      "routeId": "route-abyssal-step-03",
+      "regionId": "region-obsidian-throne",
+      "clearabilityScore": 0.29,
+      "frictionScore": 0.84,
+      "failureRate": 0.74,
+      "diplomacyFriction": 0.72,
+      "socialBiasTrustDelta": -32,
+      "sourceReport": "route-clearability-bot-2026-04-26_14-20-00.json"
+    }
+  ]
+}

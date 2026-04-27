@@ -16,8 +16,10 @@ $contractPath = Join-Path $RepoRoot "systems\integration\INTERACTION_MATRIX_CONT
 $tasksPath = Join-Path $RepoRoot "backlog\tasks.json"
 $timestamp = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
 $reportPath = Join-Path $reportsDir "autonomous-drift-report-bot-$timestamp.json"
+$coverageScriptPath = Join-Path $RepoRoot "scripts\check-test-contract-coverage.ps1"
 
 $findings = @()
+$coverageBackedIds = @()
 
 try {
     $req = Get-Content $requirementsPath -Raw
@@ -63,6 +65,30 @@ catch {
     }
 }
 
+try {
+    if (Test-Path $coverageScriptPath) {
+        $coverage = & $coverageScriptPath -RepoRoot $RepoRoot | ConvertFrom-Json
+        foreach ($entry in @($coverage.functional)) {
+            if ($null -ne $entry -and -not [string]::IsNullOrWhiteSpace([string]$entry.id)) {
+                $coverageBackedIds += [string]$entry.id
+            }
+        }
+        foreach ($entry in @($coverage.stub)) {
+            if ($null -ne $entry -and -not [string]::IsNullOrWhiteSpace([string]$entry.id)) {
+                $coverageBackedIds += [string]$entry.id
+            }
+        }
+        $coverageBackedIds = @($coverageBackedIds | Sort-Object -Unique)
+    }
+}
+catch {
+    $findings += @{
+        type = "contract_coverage_probe_failed"
+        severity = "warning"
+        details = "Unable to load check-test-contract-coverage output."
+    }
+}
+
 $taskIds = @()
 try {
     $tasks = Get-Content $tasksPath -Raw | ConvertFrom-Json
@@ -78,6 +104,9 @@ catch {
 
 if (@($contractIds).Count -gt 0 -and @($taskIds).Count -gt 0) {
     foreach ($id in $contractIds) {
+        if (@($coverageBackedIds | Where-Object { $_ -eq $id }).Count -gt 0) {
+            continue
+        }
         $idPrefix = ("TASK-" + $id.ToUpperInvariant())
         $matching = @($taskIds | Where-Object { $_ -eq $idPrefix -or $_ -like ("*" + $id.ToUpperInvariant() + "*") })
         if (@($matching).Count -eq 0) {

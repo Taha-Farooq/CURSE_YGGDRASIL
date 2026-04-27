@@ -1,0 +1,18 @@
+﻿{
+    "timestampUtc":  "2026-04-26T18:51:55.3953493Z",
+    "polityId":  "polity-fractured-marches",
+    "service":  "policy_magic_stability_coupler_v1",
+    "audit":  {
+                  "reasonCode":  "POL-STABILITY-001",
+                  "source":  "policy_magic_stability_coupler_v1"
+              },
+    "stabilityScore":  0,
+    "maxAllowedCastTier":  8,
+    "drivers":  {
+                    "wartimeEmergencyPowers":  true,
+                    "arcaneLiteracyIndex":  0.34,
+                    "ethicalMaturityIndex":  0.3,
+                    "casteSuppressionIndex":  0.9,
+                    "socialCohesionIndex":  0.28
+                }
+}

@@ -1,0 +1,10 @@
+{
+  "itemId": "crafted-blade-2001",
+  "crafterId": "craftmaster-adele",
+  "crafterQualified": true,
+  "crafterCertificationTier": 5,
+  "artisanSkill": 94,
+  "workshopTier": 5,
+  "recipeComplexity": 3,
+  "materialTiers": [8, 9, 9, 8]
+}

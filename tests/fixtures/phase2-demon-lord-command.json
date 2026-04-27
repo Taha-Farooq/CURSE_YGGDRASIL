@@ -1,0 +1,6 @@
+{
+  "demonLordId": "demon-lord-abyss-01",
+  "minionGroupId": "minions-ashen-vanguard",
+  "commandType": "expand_domain",
+  "domainEffect": "fear_aura"
+}

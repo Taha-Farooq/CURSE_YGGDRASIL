@@ -190,6 +190,234 @@ catch {
     Fail ("Failed to validate critical regression guard. Details: " + $_.Exception.Message)
 }
 
+# Real-time combat policy guard: battles/attacks must remain real-time, not turn-based.
+try {
+    $realtimePolicyScript = Join-Path $repoRoot "scripts\check-real-time-combat-policy.ps1"
+    $realtimePolicy = & $realtimePolicyScript -RepoRoot $repoRoot -Strict | ConvertFrom-Json
+    if (-not [bool]$realtimePolicy.passed) {
+        Fail "Real-time combat policy check failed."
+    }
+}
+catch {
+    Fail ("Failed to validate real-time combat policy. Details: " + $_.Exception.Message)
+}
+
+# Healing alignment policy guard: holy/profane healing interaction contract must remain intact.
+try {
+    $healingPolicyScript = Join-Path $repoRoot "scripts\check-healing-alignment-policy.ps1"
+    $healingPolicy = & $healingPolicyScript -RepoRoot $repoRoot -Strict | ConvertFrom-Json
+    if (-not [bool]$healingPolicy.passed) {
+        Fail "Healing alignment policy check failed."
+    }
+}
+catch {
+    Fail ("Failed to validate healing alignment policy. Details: " + $_.Exception.Message)
+}
+
+# Summon affinity policy guard: race/class triangle with level-dominant outcomes.
+try {
+    $summonAffinityPolicyScript = Join-Path $repoRoot "scripts\check-summon-affinity-policy.ps1"
+    $summonAffinityPolicy = & $summonAffinityPolicyScript -RepoRoot $repoRoot -Strict | ConvertFrom-Json
+    if (-not [bool]$summonAffinityPolicy.passed) {
+        Fail "Summon affinity policy check failed."
+    }
+}
+catch {
+    Fail ("Failed to validate summon affinity policy. Details: " + $_.Exception.Message)
+}
+
+# Spellcasting flow policy guard: intuitive multi-key real-time casting parity.
+try {
+    $spellcastingFlowPolicyScript = Join-Path $repoRoot "scripts\check-spellcasting-flow-policy.ps1"
+    $spellcastingFlowPolicy = & $spellcastingFlowPolicyScript -RepoRoot $repoRoot -Strict | ConvertFrom-Json
+    if (-not [bool]$spellcastingFlowPolicy.passed) {
+        Fail "Spellcasting flow policy check failed."
+    }
+}
+catch {
+    Fail ("Failed to validate spellcasting flow policy. Details: " + $_.Exception.Message)
+}
+
+# Legendary force/presentation policy guard: gravity-size-density manipulation and visual quality rules.
+try {
+    $legendaryPolicyScript = Join-Path $repoRoot "scripts\check-legendary-forces-and-presentation-policy.ps1"
+    $legendaryPolicy = & $legendaryPolicyScript -RepoRoot $repoRoot -Strict | ConvertFrom-Json
+    if (-not [bool]$legendaryPolicy.passed) {
+        Fail "Legendary forces and presentation policy check failed."
+    }
+}
+catch {
+    Fail ("Failed to validate legendary forces/presentation policy. Details: " + $_.Exception.Message)
+}
+
+# Boss enhancement policy guard: high health, higher-tier gear, enhancement/reward scaling.
+try {
+    $bossPolicyScript = Join-Path $repoRoot "scripts\check-boss-enhancement-policy.ps1"
+    $bossPolicy = & $bossPolicyScript -RepoRoot $repoRoot -Strict | ConvertFrom-Json
+    if (-not [bool]$bossPolicy.passed) {
+        Fail "Boss enhancement policy check failed."
+    }
+}
+catch {
+    Fail ("Failed to validate boss enhancement policy. Details: " + $_.Exception.Message)
+}
+
+# Equipment condition policy guard: customization dimensions and qualified-craftsman mint restoration.
+try {
+    $equipmentPolicyScript = Join-Path $repoRoot "scripts\check-equipment-condition-policy.ps1"
+    $equipmentPolicy = & $equipmentPolicyScript -RepoRoot $repoRoot -Strict | ConvertFrom-Json
+    if (-not [bool]$equipmentPolicy.passed) {
+        Fail "Equipment condition policy check failed."
+    }
+}
+catch {
+    Fail ("Failed to validate equipment condition policy. Details: " + $_.Exception.Message)
+}
+
+# Intra-species social bias policy guard: same-species prejudice drivers by social and political context.
+try {
+    $intraSpeciesBiasPolicyScript = Join-Path $repoRoot "scripts\check-intraspecies-social-bias-policy.ps1"
+    $intraSpeciesBiasPolicy = & $intraSpeciesBiasPolicyScript -RepoRoot $repoRoot -Strict | ConvertFrom-Json
+    if (-not [bool]$intraSpeciesBiasPolicy.passed) {
+        Fail "Intra-species social bias policy check failed."
+    }
+}
+catch {
+    Fail ("Failed to validate intra-species social bias policy. Details: " + $_.Exception.Message)
+}
+
+# Feedback loop and acceptance policy guard: project-level, bot-system, and feedback-loop acceptance contracts.
+try {
+    $feedbackLoopPolicyScript = Join-Path $repoRoot "scripts\check-feedback-loop-policy.ps1"
+    $feedbackLoopPolicy = & $feedbackLoopPolicyScript -RepoRoot $repoRoot -Strict | ConvertFrom-Json
+    if (-not [bool]$feedbackLoopPolicy.passed) {
+        Fail "Feedback loop and acceptance policy check failed."
+    }
+}
+catch {
+    Fail ("Failed to validate feedback loop/acceptance policy. Details: " + $_.Exception.Message)
+}
+
+# Feedback operations policy guard: collection channels, schema, triage, and critique-to-change workflow.
+try {
+    $feedbackOpsPolicyScript = Join-Path $repoRoot "scripts\check-feedback-operations-policy.ps1"
+    $feedbackOpsPolicy = & $feedbackOpsPolicyScript -RepoRoot $repoRoot -Strict | ConvertFrom-Json
+    if (-not [bool]$feedbackOpsPolicy.passed) {
+        Fail "Feedback operations policy check failed."
+    }
+}
+catch {
+    Fail ("Failed to validate feedback operations policy. Details: " + $_.Exception.Message)
+}
+
+# Economy location/currency policy guard: market variation by location/kingdom and deterministic currency conversion.
+try {
+    $economyLocationCurrencyPolicyScript = Join-Path $repoRoot "scripts\check-economy-location-currency-policy.ps1"
+    $economyLocationCurrencyPolicy = & $economyLocationCurrencyPolicyScript -RepoRoot $repoRoot -Strict | ConvertFrom-Json
+    if (-not [bool]$economyLocationCurrencyPolicy.passed) {
+        Fail "Economy location/currency policy check failed."
+    }
+}
+catch {
+    Fail ("Failed to validate economy location/currency policy. Details: " + $_.Exception.Message)
+}
+
+# Cohesion and governance policy guard: unified structure, coupling rules, and governance transparency.
+try {
+    $cohesionGovernancePolicyScript = Join-Path $repoRoot "scripts\check-cohesion-governance-policy.ps1"
+    $cohesionGovernancePolicy = & $cohesionGovernancePolicyScript -RepoRoot $repoRoot -Strict | ConvertFrom-Json
+    if (-not [bool]$cohesionGovernancePolicy.passed) {
+        Fail "Cohesion and governance policy check failed."
+    }
+}
+catch {
+    Fail ("Failed to validate cohesion/governance policy. Details: " + $_.Exception.Message)
+}
+
+# Live content, automation, and goal-alignment policy guard.
+try {
+    $liveContentAutomationGoalPolicyScript = Join-Path $repoRoot "scripts\check-live-content-automation-goal-policy.ps1"
+    $liveContentAutomationGoalPolicy = & $liveContentAutomationGoalPolicyScript -RepoRoot $repoRoot -Strict | ConvertFrom-Json
+    if (-not [bool]$liveContentAutomationGoalPolicy.passed) {
+        Fail "Live content/automation/goal policy check failed."
+    }
+}
+catch {
+    Fail ("Failed to validate live content/automation/goal policy. Details: " + $_.Exception.Message)
+}
+
+# Apex/NPC/unified/integration policy guard.
+try {
+    $apexNpcUnifiedIntegrationPolicyScript = Join-Path $repoRoot "scripts\check-apex-npc-unified-integration-policy.ps1"
+    $apexNpcUnifiedIntegrationPolicy = & $apexNpcUnifiedIntegrationPolicyScript -RepoRoot $repoRoot -Strict | ConvertFrom-Json
+    if (-not [bool]$apexNpcUnifiedIntegrationPolicy.passed) {
+        Fail "Apex/NPC/unified/integration policy check failed."
+    }
+}
+catch {
+    Fail ("Failed to validate apex/NPC/unified/integration policy. Details: " + $_.Exception.Message)
+}
+
+# Foundational world systems policy guard.
+try {
+    $foundationalWorldSystemsPolicyScript = Join-Path $repoRoot "scripts\check-foundational-world-systems-policy.ps1"
+    $foundationalWorldSystemsPolicy = & $foundationalWorldSystemsPolicyScript -RepoRoot $repoRoot -Strict | ConvertFrom-Json
+    if (-not [bool]$foundationalWorldSystemsPolicy.passed) {
+        Fail "Foundational world systems policy check failed."
+    }
+}
+catch {
+    Fail ("Failed to validate foundational world systems policy. Details: " + $_.Exception.Message)
+}
+
+# Construction/items/economy/consequences policy guard.
+try {
+    $constructionItemsEconomyConsequencesPolicyScript = Join-Path $repoRoot "scripts\check-construction-items-economy-consequences-policy.ps1"
+    $constructionItemsEconomyConsequencesPolicy = & $constructionItemsEconomyConsequencesPolicyScript -RepoRoot $repoRoot -Strict | ConvertFrom-Json
+    if (-not [bool]$constructionItemsEconomyConsequencesPolicy.passed) {
+        Fail "Construction/items/economy/consequences policy check failed."
+    }
+}
+catch {
+    Fail ("Failed to validate construction/items/economy/consequences policy. Details: " + $_.Exception.Message)
+}
+
+# Governance/AI/conflict/empire policy guard.
+try {
+    $governanceAiConflictEmpirePolicyScript = Join-Path $repoRoot "scripts\check-governance-ai-conflict-empire-policy.ps1"
+    $governanceAiConflictEmpirePolicy = & $governanceAiConflictEmpirePolicyScript -RepoRoot $repoRoot -Strict | ConvertFrom-Json
+    if (-not [bool]$governanceAiConflictEmpirePolicy.passed) {
+        Fail "Governance/AI/conflict/empire policy check failed."
+    }
+}
+catch {
+    Fail ("Failed to validate governance/AI/conflict/empire policy. Details: " + $_.Exception.Message)
+}
+
+# Engine/evolution/milestones/demonlord policy guard.
+try {
+    $engineEvolutionMilestonesDemonlordPolicyScript = Join-Path $repoRoot "scripts\check-engine-evolution-milestones-demonlord-policy.ps1"
+    $engineEvolutionMilestonesDemonlordPolicy = & $engineEvolutionMilestonesDemonlordPolicyScript -RepoRoot $repoRoot -Strict | ConvertFrom-Json
+    if (-not [bool]$engineEvolutionMilestonesDemonlordPolicy.passed) {
+        Fail "Engine/evolution/milestones/demonlord policy check failed."
+    }
+}
+catch {
+    Fail ("Failed to validate engine/evolution/milestones/demonlord policy. Details: " + $_.Exception.Message)
+}
+
+# Phase 2 acceptance evidence pack guard.
+try {
+    $phase2EvidenceScript = Join-Path $repoRoot "scripts\check-phase2-acceptance-evidence-pack.ps1"
+    $phase2Evidence = & $phase2EvidenceScript -RepoRoot $repoRoot -Strict | ConvertFrom-Json
+    if (-not [bool]$phase2Evidence.passed) {
+        Fail "Phase 2 acceptance evidence pack validation failed."
+    }
+}
+catch {
+    Fail ("Failed to validate phase2 acceptance evidence pack. Details: " + $_.Exception.Message)
+}
+
 # Test freshness policy: key bot reports must be recent after automated runs.
 try {
     $configPath = Join-Path $repoRoot "automation\automation-config.json"

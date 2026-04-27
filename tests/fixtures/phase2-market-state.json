@@ -1,0 +1,16 @@
+{
+  "regions": [
+    {
+      "regionId": "region-ash-rift",
+      "basePressure": 1.2
+    },
+    {
+      "regionId": "region-ice-basin",
+      "basePressure": 1.1
+    },
+    {
+      "regionId": "region-green-delta",
+      "basePressure": 0.9
+    }
+  ]
+}

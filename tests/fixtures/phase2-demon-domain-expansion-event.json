@@ -1,0 +1,18 @@
+﻿{
+    "timestampUtc":  "2026-04-26T18:51:55.4706071Z",
+    "previousControl":  42.5,
+    "regionId":  "region-ashen-vale",
+    "replayEvidence":  {
+                           "tags":  [
+                                        "phase2",
+                                        "demon_domain_expansion"
+                                    ],
+                           "required":  true
+                       },
+    "commandApplied":  true,
+    "newControl":  47.53,
+    "service":  "demon_lord_domain_expansion_scheduler_v1",
+    "demonLordId":  "demon-lord-abyss-01",
+    "deltaControl":  5.03,
+    "commandStyle":  "strategic"
+}

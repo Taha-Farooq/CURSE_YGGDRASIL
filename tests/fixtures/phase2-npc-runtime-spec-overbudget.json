@@ -1,0 +1,10 @@
+{
+  "npcId": "npc-runtime-002",
+  "creatorId": "creator-archmage-02",
+  "temperament": "chaotic",
+  "classStack": ["warden", "engineer", "ritualist", "sorcerer", "assassin", "tactician"],
+  "powerBudget": 98,
+  "packageId": "pkg-npc-runtime-beta",
+  "version": "v0.2.0",
+  "behaviorComplexity": 4.8
+}

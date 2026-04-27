@@ -1,0 +1,22 @@
+{
+  "demonLordId": "demon-lord-abyss-01",
+  "temperament": "pragmatic",
+  "actorSpecies": "demonkin",
+  "targetSpecies": "human",
+  "targetId": "human-envoy-22",
+  "actorProfile": {
+    "incomeTier": "high",
+    "hometown": "Abyss-Capital",
+    "nationalAlliances": ["Abyss Pact"],
+    "personalVendettas": [],
+    "familyVendettas": []
+  },
+  "targetProfile": {
+    "incomeTier": "high",
+    "hometown": "Abyss-Capital",
+    "nationalAlliances": ["Abyss Pact"]
+  },
+  "socialEvents": [
+    { "type": "political", "impact": 5 }
+  ]
+}

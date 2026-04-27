@@ -1,0 +1,14 @@
+{
+  "attacker": {
+    "entityId": "summon-knight-002",
+    "race": "human",
+    "class": "knight",
+    "level": 100
+  },
+  "defender": {
+    "entityId": "enemy-scout-002",
+    "race": "beast",
+    "class": "rogue",
+    "level": 100
+  }
+}

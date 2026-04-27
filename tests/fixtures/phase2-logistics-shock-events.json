@@ -1,0 +1,47 @@
+﻿{
+    "eventCount":  2,
+    "events":  [
+                   {
+                       "routeId":  "route-ash-rift-01",
+                       "replayEvidence":  {
+                                              "tags":  [
+                                                           "phase2",
+                                                           "logistics_shock",
+                                                           "economy"
+                                                       ],
+                                              "correlationId":  "shock-route-ash-rift-01",
+                                              "required":  true
+                                          },
+                       "audit":  {
+                                     "reasonCode":  "ECO-LOG-SHOCK-001",
+                                     "source":  "logistics_shock_propagation_v1"
+                                 },
+                       "regionId":  "region-ash-rift",
+                       "severity":  "critical",
+                       "shockPct":  65,
+                       "supplyDelta":  -273
+                   },
+                   {
+                       "routeId":  "route-ice-basin-02",
+                       "replayEvidence":  {
+                                              "tags":  [
+                                                           "phase2",
+                                                           "logistics_shock",
+                                                           "economy"
+                                                       ],
+                                              "correlationId":  "shock-route-ice-basin-02",
+                                              "required":  true
+                                          },
+                       "audit":  {
+                                     "reasonCode":  "ECO-LOG-SHOCK-001",
+                                     "source":  "logistics_shock_propagation_v1"
+                                 },
+                       "regionId":  "region-ice-basin",
+                       "severity":  "medium",
+                       "shockPct":  24.2,
+                       "supplyDelta":  -62.92
+                   }
+               ],
+    "timestampUtc":  "2026-04-26T18:51:55.3731067Z",
+    "service":  "logistics_shock_propagation_v1"
+}

@@ -1,0 +1,37 @@
+{
+  "actionId": "act-phase1-build-001",
+  "actorId": "player-builder-001",
+  "actionType": "hybrid",
+  "scope": {
+    "zoneId": "zone-alpha",
+    "regionId": "region-alpha",
+    "authorityScope": "faction"
+  },
+  "worldFactsRead": ["Stability(zone-alpha)", "Integrity(site-001)"],
+  "worldFactsWrite": ["Integrity(site-001)", "Signal(site-001,builder-net,construct)"],
+  "constructionMagicLevel": 6,
+  "blueprint": {
+    "id": "bp-fortress-001",
+    "complexity": 48
+  },
+  "effectProfile": {
+    "basePower": 85
+  },
+  "executionTags": ["magic", "tech", "hybrid", "construction"],
+  "telemetry": {
+    "tags": ["magic", "tech", "construction"]
+  },
+  "resourceCosts": {
+    "mana": 30,
+    "hpRisk": 0,
+    "energy": 40,
+    "materials": 15
+  },
+  "simBudget": {
+    "estimatedCost": 45,
+    "maxAllowedCost": 60
+  },
+  "replay": {
+    "required": true
+  }
+}

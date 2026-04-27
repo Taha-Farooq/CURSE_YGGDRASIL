@@ -1,0 +1,8 @@
+{
+  "polityId": "polity-obsidian-court",
+  "ethicalMaturityIndex": 0.95,
+  "socialCohesionIndex": 0.9,
+  "casteSuppressionIndex": 0.05,
+  "arcaneLiteracyIndex": 0.95,
+  "wartimeEmergencyPowers": false
+}
